@@ -41,8 +41,7 @@ A aplicação será disponibilizada em formato de aplicativo (APK), permitindo a
 Adicione informações sobre o público-alvo por meio de uma descrição textual, diagramas de personas e mapa de stakeholders.
 
 ### Personas
-
-Persona 1 – Carlos (Auxiliar administrativo)
+#### Persona 1 – Carlos (Auxiliar administrativo)
 
 Idade: 29 anos;
 Profissão: Auxiliar administrativo;
