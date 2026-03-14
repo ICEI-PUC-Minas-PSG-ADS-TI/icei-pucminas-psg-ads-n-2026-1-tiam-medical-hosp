@@ -42,6 +42,20 @@ Adicione informações sobre o público-alvo por meio de uma descrição textual
 
 ### Personas
 
+Persona 1 – Carlos (Auxiliar administrativo)
+
+Idade: 29 anos;
+Profissão: Auxiliar administrativo;
+
+Tecnologia: nível básico;
+
+Objetivo:
+-Registrar rapidamente quando um equipamento entra ou sai do estoque.
+
+Frustrações:
+- Processos manuais demorados
+- Falta de organização no controle de equipamentos
+
 > **Links Úteis**:
 > - [Público-alvo](https://blog.hotmart.com/pt-br/publico-alvo/)
 > - [Como definir o público alvo](https://exame.com/pme/5-dicas-essenciais-para-definir-o-publico-alvo-do-seu-negocio/)
