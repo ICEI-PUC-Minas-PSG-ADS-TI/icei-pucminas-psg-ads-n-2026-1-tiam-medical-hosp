@@ -53,15 +53,25 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 
 |ID    | Descrição do Requisito  | Prioridade | Responsável |
 |------|-----------------------------------------|----| ----|
-|RF-001| Permitir que o usuário cadastre tarefas | ALTA | Aluno X |
-|RF-002| Emitir um relatório de tarefas no mês   | MÉDIA | Aluno Y |
+|RF-001| Permitir que o usuário cadastre equipamentos com nome, categoria, quantidade disponível, estado ( em uso, disponível, em manutenção, descartado, esgotado ), código  | ALTA | Helena Edim |
+|RF-002| Permitir que o usuário registre a enttrada de equipamentos no estoque | ALTA | Aluno X |
+|RF-003| Alertar o usuário quando um equipamento atingir um valor mínimo | ALTA | Lucas Gabriel |
+|RF-004| Permitir o usuário acessar o histório de movimentação de cada equipamento informando a data, tipo de saída e quem realizou a baixa| ALTA | Aluno Y |
+|RF-005| Permitir que o usuário busque equipamentos específicos por nome, categoria ou quantidade no estoque | MÉDIA | Lucas Gabriel |
+|RF-006| Permitir que o usuário visuzalize um dashboard indicando a quantidade total de equipamentos, quantidade de equipamentos em manutenção, quantidade equipamentos disponíveis e equipamentos em estoque baixo| MÉDIA | Helena Edim |
+|RF-007| Permitir que o usuário registre a saída/baixa de um equipamento no estoque | ALTA | Aluno Y |
+|RF-008| Permitir consultar o estoque de cada equipamento | MÉDIA | Aluno Y |
 
 ### Requisitos não Funcionais
 
 |ID     | Descrição do Requisito  |Prioridade |
 |-------|-------------------------|----|
-|RNF-001| O sistema deve ser responsivo para rodar em um dispositivos móvel | MÉDIA | 
-|RNF-002| Deve processar requisições do usuário em no máximo 3s |  BAIXA | 
+|RNF-001| O sistema deve ser responsivo para rodar em um dispositivos móveis | ALTA | 
+|RNF-002| O tempo de resposta do sistema não deve exceder 3s para exibir páginas em consultas em uso normal |  BAIXA |
+|RNF-003| O sistema deve garantir o isolamento e atomicidade das movimentações de saída e entrada |  ALTA |
+|RNF-004| O sistema deve usar um esquema de cores padronizados para manter a consistencia visual entre as páginas |  MÉDIA |
+|RNF-005| O sistema deve estar em conformidade com a Lei Geral de Proteção de Dados (LGPD). |  BAIXA |
+
 
 Com base nas Histórias de Usuário, enumere os requisitos da sua solução. Classifique esses requisitos em dois grupos:
 
