@@ -37,39 +37,6 @@ O grupo de trabalho pode fazer uso de questionários, entrevistas e dados estat�
 Os principais usuários do sistema são funcionários responsáveis pela organização, controle e utilização dos equipamentos clínicos. Em geral, esses usuários possuem níveis diferentes de familiaridade com tecnologia, variando desde profissionais que utilizam sistemas administrativos diariamente até usuários com conhecimentos básicos de aplicativos móveis.
 
 A aplicação será disponibilizada em formato de aplicativo (APK), permitindo acesso rápido pelo celular ou tablet dentro da clínica, facilitando o registro de entrada, saída e consulta de equipamentos.
-
-
-### Personas
-#### Persona 1 – Carlos (Auxiliar administrativo)
-
-Idade: 29 anos;
-
-Profissão: Auxiliar administrativo;
-
-Tecnologia: nível básico;
-
-Objetivo:
--Registrar rapidamente quando um equipamento entra ou sai do estoque.
-
-Frustrações:
-- Processos manuais demorados
-- Falta de organização no controle de equipamentos
-
-#### Persona 2 – Mariana (Administradora)
-
-Idade: 42 anos;
-
-Profissão: Administradora;
-
-Tecnologia: nível intermediário;
-
-Objetivo:
-Controlar os equipamentos da clínica e evitar perdas ou falta de materiais.
-
-Frustrações:
-- Falta de controle sobre equipamentos
-- Dificuldade em saber quando cada equipamento foi movimentado.
-
 > **Links Úteis**:
 > - [Público-alvo](https://blog.hotmart.com/pt-br/publico-alvo/)
 > - [Como definir o público alvo](https://exame.com/pme/5-dicas-essenciais-para-definir-o-publico-alvo-do-seu-negocio/)
