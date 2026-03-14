@@ -34,10 +34,13 @@ O grupo de trabalho pode fazer uso de questionários, entrevistas e dados estat�
 
 ## Público-Alvo
 
-Descreva quem serão as pessoas que usarão a sua aplicação indicando os diferentes perfis. O objetivo aqui não é definir quem serão os clientes ou quais serão os papéis dos usuários na aplicação. A ideia é, dentro do possível, conhecer um pouco mais sobre o perfil dos usuários: conhecimentos prévios, relação com a tecnologia, relações
-hierárquicas, etc.
+Os principais usuários do sistema são funcionários responsáveis pela organização, controle e utilização dos equipamentos clínicos. Em geral, esses usuários possuem níveis diferentes de familiaridade com tecnologia, variando desde profissionais que utilizam sistemas administrativos diariamente até usuários com conhecimentos básicos de aplicativos móveis.
+
+A aplicação será disponibilizada em formato de aplicativo (APK), permitindo acesso rápido pelo celular ou tablet dentro da clínica, facilitando o registro de entrada, saída e consulta de equipamentos.
 
 Adicione informações sobre o público-alvo por meio de uma descrição textual, diagramas de personas e mapa de stakeholders.
+
+### Personas
 
 > **Links Úteis**:
 > - [Público-alvo](https://blog.hotmart.com/pt-br/publico-alvo/)
