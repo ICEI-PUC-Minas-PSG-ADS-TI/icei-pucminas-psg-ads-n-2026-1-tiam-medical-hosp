@@ -8,9 +8,21 @@ Apresente uma visão geral do que será abordado nesta parte do documento, enume
 
 ## Personas
 
-Pedro Paulo tem 26 anos, é arquiteto recém-formado e autônomo. Pensa em se desenvolver profissionalmente através de um mestrado fora do país, pois adora viajar, é solteiro e sempre quis fazer um intercâmbio. Está buscando uma agência que o ajude a encontrar universidades na Europa que aceitem alunos estrangeiros.
+### Persona 1 – Carlos Henrique
 
-Enumere e detalhe as personas da sua solução. Para tanto, baseie-se tanto nos documentos disponibilizados na disciplina e/ou nos seguintes links:
+Carlos Henrique tem 29 anos e trabalha como auxiliar administrativo. Parte de suas responsabilidades envolve organizar equipamentos, registrar movimentações no estoque e auxiliar outros funcionários quando precisam localizar algum item ou equipamento específico.
+
+Carlos utiliza tecnologia principalmente no celular e em sistemas simples de computador, e prefere ferramentas rápidas e fáceis de usar. Atualmente, ele enfrenta dificuldades porque muitas informações sobre equipamentos estão espalhadas em planilhas ou registros informais, o que torna o processo de controle mais lento.
+
+Ele gostaria de ter um aplicativo onde pudesse registrar rapidamente quando um equipamento entra ou sai do estoque, além de consultar a quantidade disponível sem precisar procurar em vários lugares diferentes. Para Carlos, um sistema simples e organizado ajudaria muito a reduzir erros e facilitar o trabalho diário.
+
+### Persona 2 – Mariana Oliveira
+
+Mariana Oliveira tem 42 anos e é administradora. Trabalha há mais de 10 anos na área de gestão administrativa e é responsável por organizar processos internos, controlar recursos e garantir que a empresa funcione de forma eficiente. No dia a dia, Mariana precisa acompanhar a disponibilidade de diversos equipamentos clínicos, além de lidar com compras, manutenção e reposição de materiais.
+
+Ela utiliza computadores e sistemas administrativos com frequência, mas nem sempre encontra ferramentas simples para controlar o estoque de equipamentos. Muitas vezes, o controle é feito por planilhas ou anotações manuais, o que pode causar confusão ou perda de informações.
+
+Mariana busca uma solução prática que permita visualizar rapidamente quais equipamentos estão disponíveis, em manutenção ou em uso, além de registrar movimentações de forma organizada. Seu objetivo é melhorar o controle interno e garantir que os profissionais sempre tenham os equipamentos necessários para o atendimento.
 
 > **Links Úteis**:
 > - [Rock Content](https://rockcontent.com/blog/personas/)
