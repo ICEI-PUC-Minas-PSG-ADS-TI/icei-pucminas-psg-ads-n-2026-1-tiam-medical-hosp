@@ -6,7 +6,7 @@
 
 `1/2026`
 
-Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo desenvolvido.
+Aplicativo de gestão de estoques de equipamentos clínicos.
 
 ## Integrantes
 
