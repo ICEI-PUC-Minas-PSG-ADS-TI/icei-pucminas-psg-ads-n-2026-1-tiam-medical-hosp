@@ -38,7 +38,6 @@ Os principais usuários do sistema são funcionários responsáveis pela organiz
 
 A aplicação será disponibilizada em formato de aplicativo (APK), permitindo acesso rápido pelo celular ou tablet dentro da clínica, facilitando o registro de entrada, saída e consulta de equipamentos.
 
-Adicione informações sobre o público-alvo por meio de uma descrição textual, diagramas de personas e mapa de stakeholders.
 
 ### Personas
 #### Persona 1 – Carlos (Auxiliar administrativo)
