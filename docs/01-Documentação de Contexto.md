@@ -56,7 +56,7 @@ Frustrações:
 - Processos manuais demorados
 - Falta de organização no controle de equipamentos
 
-#### Persona 2 – Mariana (Gestora da clínica)
+#### Persona 2 – Mariana (Administradora)
 
 Idade: 42 anos
 Profissão: Administradora;
