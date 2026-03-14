@@ -24,6 +24,7 @@ Apresente também alguns (pelo menos 2) objetivos específicos dependendo de ond
 > - [Objetivo geral e objetivo específico: como fazer e quais verbos utilizar](https://blog.mettzer.com/diferenca-entre-objetivo-geral-e-objetivo-especifico/)
 
 ## Justificativa
+Muitos dos recursos investidos em saúde podem ser desperdiçados por problemas de gestão, incluindo falhas no controle de estoque, compras inadequadas e escassez ou excesso no estoque. Nesse contexto, é imprecindível a falta de equipamentos numa das áreas mais tem impacto nas nossas vidas. O MedicalHosp vem justamente para mitigar essa falta de controle de equipamentos clínicos. Ele permite o controle de entrada e saídas, fornece dados para monitoramento entre outras funcionalidades além de ser uma ferramenta de assistência ao usuários.
 
 Descreva a importância ou a motivação para trabalhar com esta aplicação que você escolheu. Indique as razões pelas quais você escolheu seus objetivos específicos ou as razões para aprofundar em certos aspectos do software.
 
