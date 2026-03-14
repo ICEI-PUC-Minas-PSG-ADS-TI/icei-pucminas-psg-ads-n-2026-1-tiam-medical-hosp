@@ -44,6 +44,7 @@ Adicione informações sobre o público-alvo por meio de uma descrição textual
 #### Persona 1 – Carlos (Auxiliar administrativo)
 
 Idade: 29 anos;
+
 Profissão: Auxiliar administrativo;
 
 Tecnologia: nível básico;
@@ -54,6 +55,19 @@ Objetivo:
 Frustrações:
 - Processos manuais demorados
 - Falta de organização no controle de equipamentos
+
+#### Persona 2 – Mariana (Gestora da clínica)
+
+Idade: 42 anos
+Profissão: Administradora;
+Tecnologia: nível intermediário;
+
+Objetivo:
+Controlar os equipamentos da clínica e evitar perdas ou falta de materiais.
+
+Frustrações:
+- Falta de controle sobre equipamentos
+- Dificuldade em saber quando cada equipamento foi movimentado.
 
 > **Links Úteis**:
 > - [Público-alvo](https://blog.hotmart.com/pt-br/publico-alvo/)
