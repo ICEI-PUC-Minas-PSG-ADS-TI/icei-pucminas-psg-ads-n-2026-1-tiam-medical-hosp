@@ -58,8 +58,10 @@ Frustrações:
 
 #### Persona 2 – Mariana (Administradora)
 
-Idade: 42 anos
+Idade: 42 anos;
+
 Profissão: Administradora;
+
 Tecnologia: nível intermediário;
 
 Objetivo:
