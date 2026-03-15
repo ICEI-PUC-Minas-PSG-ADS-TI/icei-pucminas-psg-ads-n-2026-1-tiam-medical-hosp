@@ -65,13 +65,13 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |ID    | Descrição do Requisito  | Prioridade | Responsável |
 |------|-----------------------------------------|----| ----|
 |RF-001| Permitir que o usuário cadastre equipamentos com nome, categoria, quantidade disponível, estado ( em uso, disponível, em manutenção, descartado, esgotado ), código  | ALTA | Helena Edim |
-|RF-002| Permitir que o usuário registre a enttrada de equipamentos no estoque | ALTA | Aluno X |
+|RF-002| Permitir que o usuário registre a enttrada de equipamentos no estoque | ALTA | Gabriel |
 |RF-003| Alertar o usuário quando um equipamento atingir um valor mínimo | ALTA | Lucas Gabriel |
-|RF-004| Permitir o usuário acessar o histório de movimentação de cada equipamento informando a data, tipo de saída e quem realizou a baixa| ALTA | Aluno Y |
+|RF-004| Permitir o usuário acessar o histório de movimentação de cada equipamento informando a data, tipo de saída e quem realizou a baixa| ALTA | Arthur |
 |RF-005| Permitir que o usuário busque equipamentos específicos por nome, categoria ou quantidade no estoque | MÉDIA | Lucas Gabriel |
 |RF-006| Permitir que o usuário visuzalize um dashboard indicando a quantidade total de equipamentos, quantidade de equipamentos em manutenção, quantidade equipamentos disponíveis e equipamentos em estoque baixo| MÉDIA | Helena Edim |
-|RF-007| Permitir que o usuário registre a saída/baixa de um equipamento no estoque | ALTA | Aluno Y |
-|RF-008| Permitir consultar o estoque de cada equipamento | MÉDIA | Aluno Y |
+|RF-007| Permitir que o usuário registre a saída/baixa de um equipamento no estoque | ALTA | Gabriel |
+|RF-008| Permitir consultar o estoque de cada equipamento | MÉDIA | Arthur |
 
 ### Requisitos não Funcionais
 
@@ -117,6 +117,8 @@ Enumere as restrições à sua solução. Lembre-se de que as restrições geral
 ## Diagrama de Casos de Uso
 
 O diagrama de casos de uso é o próximo passo após a elicitação de requisitos, que utiliza um modelo gráfico e uma tabela com as descrições sucintas dos casos de uso e dos atores. Ele contempla a fronteira do sistema e o detalhamento dos requisitos funcionais com a indicação dos atores, casos de uso e seus relacionamentos. 
+
+![Diagrama de Casos de Uso](img/DiagramaCasoDeUso.png)
 
 As referências abaixo irão auxiliá-lo na geração do artefato “Diagrama de Casos de Uso”.
 
