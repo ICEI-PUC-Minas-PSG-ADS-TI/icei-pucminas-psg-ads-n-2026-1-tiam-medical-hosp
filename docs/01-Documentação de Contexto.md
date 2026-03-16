@@ -9,11 +9,12 @@ Diante disso, este projeto propõe o desenvolvimento de um aplicativo que auxili
 O objetivo do sistema é facilitar o controle das atividades internas da empresa, melhorar a organização dos dados e apoiar o trabalho dos profissionais responsáveis pela manutenção e gestão dos equipamentos hospitalares.
 
 ## Problema
-Nesse momento você deve apresentar o problema que a sua aplicação deve  resolver. No entanto, não é a hora de comentar sobre a aplicação.
 
-Descreva também o contexto em que essa aplicação será usada, se  houver: empresa, tecnologias, etc. Novamente, descreva apenas o que de  fato existir, pois ainda não é a hora de apresentar requisitos  detalhados ou projetos.
+Na gestão de equipamentos hospitalares por empresas de engenharia clínica, o controle das informações ainda é feito de forma manual ou com planilhas e sistemas desconectados. Isso gera vários problemas no dia a dia, como dificuldade de saber exatamente o que tem em estoque, perda de histórico de manutenções, atrasos na reposição de peças e dificuldade de gerar relatórios rápidos para os clientes ou para a própria empresa.
 
-Nesse momento, o grupo pode optar por fazer uso  de ferramentas como Design Thinking, que permite um olhar de ponta a ponta para o problema.
+O contexto é de uma empresa chamada Medical Hosp, que atua com manutenção, calibração e comercialização de equipamentos médicos para hospitais e clínicas da região. Atualmente, os técnicos e o pessoal de estoque precisam anotar entradas, saídas, estados dos equipamentos e serviços realizados em documentos separados ou em ferramentas simples, o que consome tempo, aumenta o risco de erros e dificulta o acompanhamento geral das atividades.
+
+Para entender melhor esse problema, o grupo utilizou a abordagem do Design Thinking, mapeando o fluxo atual da empresa desde o recebimento do equipamento até a baixa final, tentando identificar as dores relatadas pelos próprios funcionarios.
 
 > **Links Úteis**:
 > - [Objetivos, Problema de pesquisa e Justificativa](https://medium.com/@versioparole/objetivos-problema-de-pesquisa-e-justificativa-c98c8233b9c3)
