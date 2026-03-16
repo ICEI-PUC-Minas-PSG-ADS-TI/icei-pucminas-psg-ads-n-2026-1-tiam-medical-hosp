@@ -23,9 +23,13 @@ Para entender melhor esse problema, o grupo utilizou a abordagem do Design Think
 
 ## Objetivos
 
-Aqui você deve descrever os objetivos do trabalho indicando que o objetivo geral é desenvolver um software para solucionar o problema apresentado acima. 
+Desenvolver um aplicativo para gestão de equipamentos de saúde para a empresa Medical Hosp, com o intuito de organizar o controle de estoque, registrar movimentações e serviços de manutenção, e melhorar a eficiência para acompanhar as atividades da equipe de engenharia clínica.
 
-Apresente também alguns (pelo menos 2) objetivos específicos dependendo de onde você vai querer concentrar a sua prática investigativa, ou como você vai aprofundar no seu trabalho.
+- Implementar o cadastro e a atualização de equipamentos, com campos como nome, categoria, quantidade disponível, estado (em uso, disponível, em manutenção, descartado etc) e código único. Isso ajuda a manter o estoque sempre atualizado e organizado sem erros de digitação ou falta de informação.
+
+- Permitir registrar entradas e saídas de equipamentos, guardando o histórico completo de cada movimentação (data, tipo de movimento e quem fez). Assim fica fácil de consultar o que aconteceu com cada item e evitar perdas ou confusões no controle manual.
+
+- Criar alertas quando o estoque de algum equipamento chegar perto do mínimo e mostrar um dashboard simples com os números principais: total de equipamentos, quantos estão disponíveis, em manutenção e em nível baixo. Isso facilita pros gestores verem rápido onde precisam agir, como repor peça ou priorizar manutenção.
  
 > **Links Úteis**:
 > - [Objetivo geral e objetivo específico: como fazer e quais verbos utilizar](https://blog.mettzer.com/diferenca-entre-objetivo-geral-e-objetivo-especifico/)
