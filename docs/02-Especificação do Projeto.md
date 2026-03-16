@@ -2,9 +2,16 @@
 
 <span style="color:red">Pré-requisitos: <a href="1-Documentação de Contexto.md"> Documentação de Contexto</a></span>
 
-Definição do problema e ideia de solução a partir da perspectiva do usuário. É composta pela definição do  diagrama de personas, histórias de usuários, requisitos funcionais e não funcionais além das restrições do projeto.
+Nesta parte mostramos o que o app precisa ter, pensando nos usuários da Medical Hosp.
 
-Apresente uma visão geral do que será abordado nesta parte do documento, enumerando as técnicas e/ou ferramentas utilizadas para realizar a especificações do projeto
+Técnicas usadas:
+
+- **Design Thinking** — pra mapear o problema e as dores do dia a dia.
+- **Personas** — perfis dos usuários reais (técnico, estoque, gestor).
+- **Histórias de Usuário** — frases simples do que cada um quer fazer.
+- **Requisitos Funcionais** — lista das funções principais (cadastro, entradas/saídas, alertas, dashboard).
+- **Requisitos Não Funcionais** — fácil de usar, rápido, seguro e dentro das limitações do projeto.
+
 
 ## Personas
 
