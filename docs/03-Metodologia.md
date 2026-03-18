@@ -44,13 +44,6 @@ etiquetas:
 
 Discuta como a configuração do projeto foi feita na ferramenta de versionamento escolhida. Exponha como a gerência de tags, merges, commits e branchs é realizada. Discuta como a gerência de issues foi realizada.
 
-> **Links Úteis**:
-> - [Microfundamento: Gerência de Configuração](https://pucminas.instructure.com/courses/87878/)
-> - [Tutorial GitHub](https://guides.github.com/activities/hello-world/)
-> - [Git e Github](https://www.youtube.com/playlist?list=PLHz_AreHm4dm7ZULPAmadvNhH6vk9oNZA)
->  - [Comparando fluxos de trabalho](https://www.atlassian.com/br/git/tutorials/comparing-workflows)
-> - [Understanding the GitHub flow](https://guides.github.com/introduction/flow/)
-> - [The gitflow workflow - in less than 5 mins](https://www.youtube.com/watch?v=1SXpE08hvGs)
 
 ## Gerenciamento de Projeto
 
@@ -59,40 +52,49 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 Apresente a divisão de papéis entre os membros do grupo.
 
 Exemplificação: A equipe utiliza metodologias ágeis, tendo escolhido o Scrum como base para definição do processo de desenvolvimento. A equipe está organizada da seguinte maneira:
-- Scrum Master: Helena Edim;
-- Product Owner: Gabriel Rodrigues;
-- Equipe de Desenvolvimento: Arthur Carvalho, Lucas Gabriel, Gabriel Rodrigues, Helena Edim;
-- Equipe de Design: Arthur Carvalho, Lucas Gabriel, Gabriel Rodrigues, Helena Edim;
-
-> **Links Úteis**:
-> - [11 Passos Essenciais para Implantar Scrum no seu Projeto](https://mindmaster.com.br/scrum-11-passos/)
-> - [Scrum em 9 minutos](https://www.youtube.com/watch?v=XfvQWnRgxG0)
-> - [Os papéis do Scrum e a verdade sobre cargos nessa técnica](https://www.atlassian.com/br/agile/scrum/roles)
+- Scrum Master: Helena Edim – Responsável por remover impedimentos e garantir os ritos ágeis.
+- Product Owner: Gabriel Rodrigues – Responsável pela priorização do backlog conforme as necessidades da Medical Hosp.
+- Equipe de Desenvolvimento: Arthur Carvalho e Lucas Gabriel – Focados na implementação do frontend (React Native) e backend (C# .NET), aplicando princípios SOLID.
+- Equipe de Design: Todo o grupo colabora na prototipação no Figma, focando na usabilidade técnica para o ambiente hospitalar.
 
 ### Processo
 
-Coloque  informações sobre detalhes da implementação do Scrum seguido pelo grupo. O grupo deverá fazer uso do recurso de gerenciamento de projeto oferecido pelo GitHub, que permite acompanhar o andamento do projeto, a execução das tarefas e o status de desenvolvimento da solução.
- 
-> **Links Úteis**:
-> - [Planejamento e Gestáo Ágil de Projetos](https://pucminas.instructure.com/courses/87878/pages/unidade-2-tema-2-utilizacao-de-ferramentas-para-controle-de-versoes-de-software)
-> - [Sobre quadros de projeto](https://docs.github.com/pt/issues/organizing-your-work-with-project-boards/managing-project-boards/about-project-boards)
-> - [Project management, made simple](https://github.com/features/project-management/)
-> - [Sobre quadros de projeto](https://docs.github.com/pt/github/managing-your-work-on-github/about-project-boards)
-> - [Como criar Backlogs no Github](https://www.youtube.com/watch?v=RXEy6CFu9Hk)
-> - [Tutorial Slack](https://slack.com/intl/en-br/)
+#### Controle de Versão e Fluxo de Trabalho (Gitflow)
+ O controle de versão é feito via Git, hospedado no GitHub. Adotamos um fluxo de trabalho baseado em ramificações (branches) para evitar conflitos na versão estável:
+
+ ##### main: 
+ Versão de produção, estável e testada.
+##### dev: 
+Versão de integração, onde as funcionalidades completas são mescladas para testes de sistema.
+##### feature/nome-da-funcionalidade: 
+Branches temporárias para o desenvolvimento de itens específicos (ex: feature/calculadora-forca-g).
+
+#### Gestão de Issues: 
+Utilizamos etiquetas (labels) para organizar o fluxo de trabalho:
+
+##### feature: 
+Nova funcionalidade em desenvolvimento.
+##### bug: 
+Correção de falhas identificadas.
+##### documentation: 
+Melhorias na especificação técnica.
+##### solid-refactor: 
+Tarefas específicas para melhoria da arquitetura de código.
+
 
 ### Ferramentas
 
-As ferramentas empregadas no projeto são:
+#### React Native + Expo: 
+Escolhido para o frontend mobile por permitir o desenvolvimento híbrido (Android/iOS) com alta performance e agilidade nos testes de interface.
 
-- Editor de código.
-- Ferramentas de comunicação
-- Ferramentas de desenho de tela (_wireframing_)
+#### C# .NET (ASP.NET Core): 
+Utilizado para a construção da API de backend. A escolha justifica-se pela robustez da linguagem e pela facilidade em implementar padrões de projeto e princípios SOLID, essenciais para a manutenção de um sistema de engenharia clínica.
 
-O editor de código foi escolhido porque ele possui uma integração com o sistema de versão. As ferramentas de comunicação utilizadas possuem integração semelhante e por isso foram selecionadas. Por fim, para criar diagramas utilizamos essa ferramenta por melhor captar as necessidades da nossa solução.
+#### SQL Server: 
+Banco de dados relacional para garantir a atomicidade das movimentações de calibração e a segurança dos dados.
 
-Liste quais ferramentas foram empregadas no desenvolvimento do projeto, justificando a escolha delas, sempre que possível.
- 
-> **Possíveis Ferramentas que auxiliarão no gerenciamento**: 
-> - [Slack](https://slack.com/)
-> - [Github](https://github.com/)
+#### Visual Studio / VS Code: 
+IDEs escolhidas pela integração nativa com Git e suporte avançado ao ecossistema .NET.
+
+#### Figma: 
+Utilizado para criar o protótipo de alta fidelidade, permitindo validar o fluxo de telas (como o Dashboard de Padrões e a Calculadora) antes da codificação.
