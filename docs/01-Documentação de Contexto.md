@@ -1,25 +1,22 @@
 # Introdução
 
-A área da saúde depende diretamente do bom funcionamento de equipamentos hospitalares para garantir segurança e qualidade no atendimento aos pacientes. Nesse contexto, empresas de engenharia clínica são responsáveis por realizar atividades como manutenção, calibração e comercialização de equipamentos médicos.
-
-A Medical Hosp atua nesse setor oferecendo serviços técnicos especializados para hospitais e clínicas. Entretanto, a organização de informações relacionadas aos equipamentos, como controle de estoque, registros de manutenção e geração de relatórios técnicos, pode se tornar complexa quando realizada de forma manual ou utilizando ferramentas pouco integradas.
-
-Diante disso, este projeto propõe o desenvolvimento de um aplicativo que auxilie os funcionários da empresa na gestão dessas informações. A aplicação permitirá registrar serviços realizados, acompanhar equipamentos e organizar relatórios, contribuindo para uma gestão mais eficiente e organizada.
-
-O objetivo do sistema é facilitar o controle das atividades internas da empresa, melhorar a organização dos dados e apoiar o trabalho dos profissionais responsáveis pela manutenção e gestão dos equipamentos hospitalares.
+A confiabilidade de equipamentos médico-hospitalares é crítica para a segurança do paciente. A Medical Hosp, empresa especializada em engenharia clínica, atua na manutenção e calibração desses dispositivos. Este projeto propõe uma aplicação móvel para modernizar a gestão de Padrões de Calibração, substituindo processos manuais e sistemas fragmentados por uma solução integrada que garanta a rastreabilidade metrológica e a eficiência operacional em campo.
 
 ## Problema
 
-Na gestão de equipamentos hospitalares por empresas de engenharia clínica, o controle das informações ainda é feito de forma manual ou com planilhas e sistemas desconectados. Isso gera vários problemas no dia a dia, como dificuldade de saber exatamente o que tem em estoque, perda de histórico de manutenções, atrasos na reposição de peças e dificuldade de gerar relatórios rápidos para os clientes ou para a própria empresa.
+Atualmente, a gestão de padrões e fornecedores na Medical Hosp apresenta gargalos operacionais:
 
-O contexto é de uma empresa chamada Medical Hosp, que atua com manutenção, calibração e comercialização de equipamentos médicos para hospitais e clínicas da região. Atualmente, os técnicos e o pessoal de estoque precisam anotar entradas, saídas, estados dos equipamentos e serviços realizados em documentos separados ou em ferramentas simples, o que consome tempo, aumenta o risco de erros e dificulta o acompanhamento geral das atividades.
+#### Fragmentação de Dados: 
+Informações de calibração e certificados (PDFs) não estão prontamente acessíveis aos técnicos em campo.
 
-Para entender melhor esse problema, o grupo utilizou a abordagem do Design Thinking, mapeando o fluxo atual da empresa desde o recebimento do equipamento até a baixa final, tentando identificar as dores relatadas pelos próprios funcionarios.
+#### Risco de Conformidade: 
+A dificuldade em monitorar datas de validade de padrões pode levar ao uso de instrumentos desatualizados.
 
-> **Links Úteis**:
-> - [Objetivos, Problema de pesquisa e Justificativa](https://medium.com/@versioparole/objetivos-problema-de-pesquisa-e-justificativa-c98c8233b9c3)
-> - [Matriz Certezas, Suposições e Dúvidas](https://medium.com/educa%C3%A7%C3%A3o-fora-da-caixa/matriz-certezas-suposi%C3%A7%C3%B5es-e-d%C3%BAvidas-fa2263633655)
-> - [Brainstorming](https://www.euax.com.br/2018/09/brainstorming/)
+#### Cálculos Manuais: 
+Cálculos técnicos, como a Força G, são realizados de forma externa, aumentando a margem de erro humano.
+
+#### Histórico Ineficiente: 
+O registro de desativação de padrões carece de centralização e justificativas estruturadas para auditoria.
 
 ## Objetivos
 
@@ -30,30 +27,28 @@ Desenvolver um aplicativo para gestão de equipamentos de saúde para a empresa 
 - Permitir registrar entradas e saídas de equipamentos, guardando o histórico completo de cada movimentação (data, tipo de movimento e quem fez). Assim fica fácil de consultar o que aconteceu com cada item e evitar perdas ou confusões no controle manual.
 
 - Criar alertas quando o estoque de algum equipamento chegar perto do mínimo e mostrar um dashboard simples com os números principais: total de equipamentos, quantos estão disponíveis, em manutenção e em nível baixo. Isso facilita pros gestores verem rápido onde precisam agir, como repor peça ou priorizar manutenção.
- 
-> **Links Úteis**:
-> - [Objetivo geral e objetivo específico: como fazer e quais verbos utilizar](https://blog.mettzer.com/diferenca-entre-objetivo-geral-e-objetivo-especifico/)
+
 
 ## Justificativa
-Muitos dos recursos investidos em saúde podem ser desperdiçados por problemas de gestão, incluindo falhas no controle de estoque, compras inadequadas e escassez ou excesso no estoque. Nesse contexto, é imprecindível a falta de equipamentos numa das áreas mais tem impacto nas nossas vidas. O MedicalHosp vem justamente para mitigar essa falta de controle de equipamentos clínicos. Ele permite o controle de entrada e saídas, fornece dados para monitoramento entre outras funcionalidades além de ser uma ferramenta de assistência ao usuários.
+A gestão de ativos em saúde não se resume apenas à posse do equipamento, mas à garantia de sua rastreabilidade e confiabilidade metrológica. No contexto da Medical Hosp, os "Padrões" são o alicerce de todo o serviço prestado; se um padrão estiver com a calibração vencida ou apresentar erro, todos os laudos emitidos por ele tornam-se inválidos, gerando riscos legais e de segurança aos pacientes dos hospitais atendidos.
+A motivação para este projeto baseia-se em três pilares fundamentais:
 
-Descreva a importância ou a motivação para trabalhar com esta aplicação que você escolheu. Indique as razões pelas quais você escolheu seus objetivos específicos ou as razões para aprofundar em certos aspectos do software.
+#### Conformidade e Segurança: 
+A substituição de registros manuais por uma aplicação digital reduz drasticamente o risco de utilização de instrumentos fora do prazo de validade. O acesso imediato aos certificados em PDF garante que a empresa esteja sempre pronta para auditorias e fiscalizações sanitárias (ANVISA).
 
-O grupo de trabalho pode fazer uso de questionários, entrevistas e dados estatísticos, que podem ser apresentados, com o objetivo de esclarecer detalhes do problema que será abordado pelo grupo.
+#### Eficiência Operacional: 
+Técnicos de campo frequentemente perdem tempo valioso realizando cálculos complexos, como a Força G, de forma manual ou consultando tabelas externas. A automação desses cálculos e a centralização dos dados de fornecedores agilizam o atendimento e reduzem a carga cognitiva da equipe.
 
-> **Links Úteis**:
-> - [Como montar a justificativa](https://guiadamonografia.com.br/como-montar-justificativa-do-tcc/)
+#### Gestão de Ativos e Sustentabilidade: 
+O registro estruturado do histórico de desativação permite que a gestão identifique falhas recorrentes em marcas ou modelos específicos, apoiando decisões de compra mais inteligentes e justificando o descarte técnico de equipamentos que não possuem mais viabilidade de conserto.
 
 ## Público-Alvo
 
-O público-alvo da aplicação é composto principalmente pelos colaboradores da Medical Hosp que atuam diretamente na gestão e manutenção de equipamentos hospitalares.
+#### Técnicos de Engenharia Clínica: 
+Usuários de campo que precisam consultar padrões, anexar certificados e realizar cálculos.
 
-Entre os principais usuários do sistema estão:
+#### Coordenadores de Calibração: 
+Responsáveis pela gestão da frota de instrumentos e homologação de fornecedores.
 
-Técnicos de engenharia clínica, responsáveis por realizar manutenção, calibração e inspeção de equipamentos, que poderão registrar serviços realizados e gerar relatórios técnicos através do aplicativo.
-
-Funcionários responsáveis pelo controle de estoque, que poderão acompanhar a entrada, saída e disponibilidade de equipamentos e peças.
-
-Gestores ou supervisores da empresa, que poderão consultar relatórios e acompanhar o status dos equipamentos e das atividades realizadas pela equipe.
-
-Esses usuários podem possuir diferentes níveis de familiaridade com tecnologia, variando desde profissionais que utilizam sistemas administrativos com frequência até usuários com conhecimentos mais básicos em aplicativos móveis.
+### Gestores Administrativos: 
+Visualizam indicadores de prontidão e custos de manutenção/descarte.
