@@ -22,7 +22,7 @@ O registro de desativação de padrões carece de centralização e justificativ
 
 Desenvolver um aplicativo para gestão de equipamentos de saúde para a empresa Medical Hosp, com o intuito de organizar o controle de estoque, registrar movimentações e serviços de manutenção, e melhorar a eficiência para acompanhar as atividades da equipe de engenharia clínica.
 
-- Implementar o cadastro e a atualização de equipamentos, com campos como nome, categoria, quantidade disponível, estado (disponível, atenção, descartado, inderteminado) e código único. Isso ajuda a manter o estoque sempre atualizado e organizado sem erros de digitação ou falta de informação.
+- Implementar o cadastro e a atualização de equipamentos, com campos como Nome, Marca, Modelo, TAG, Série e Estado (disponível, atenção, descartado, inderteminado). Isso ajuda a manter o estoque sempre atualizado e organizado sem erros de digitação ou falta de informação.
 
 - Permitir registrar entradas e saídas de equipamentos, guardando o histórico completo de cada movimentação (data, tipo de movimento e quem fez). Assim fica fácil de consultar o que aconteceu com cada item e evitar perdas ou confusões no controle manual.
 
