@@ -58,7 +58,7 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 
 |ID    | Descrição do Requisito  | Prioridade | Responsável |
 |------|-----------------------------------------|----| ----|
-|RF-001| Cadastrar padrões (Nome, Marca, Modelo, TAG, Série, Patrimônio)  | ALTA | Helena Edim |
+|RF-001| Cadastrar padrões (Nome, Marca, Modelo, TAG, Série, Estado)  | ALTA | Helena Edim |
 |RF-002| Listar fornecedores com informações de contato e link de portal. | MÉDIA | Gabriel |
 |RF-003| Visualizar dados da última calibração e histórico completo em PDF. | ALTA | Lucas Gabriel |
 |RF-004| Calculadora de Força G (Entradas: RPM e Raio; Saída: RCF).| ALTA | Arthur |
