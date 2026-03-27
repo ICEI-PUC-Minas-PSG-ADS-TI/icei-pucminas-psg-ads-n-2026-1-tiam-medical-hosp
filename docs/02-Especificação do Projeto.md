@@ -66,14 +66,15 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |RF-006| Módulo de Desativados: Registro de baixa com justificativa técnica.| MÉDIA | Helena Edim |
 |RF-007| Busca de padrões por TAG, Patrimônio ou Número de Série. | ALTA | Gabriel |
 |RF-008| Filtro de padrões por status de calibração. | MÉDIA | Arthur |
+|RF-009| Notificar o usuário quando a calibração estiver a 1 mês de vencer. | MÉDIA | Lucas |
 
 ### Requisitos não Funcionais
 
 |ID     | Descrição do Requisito  |Prioridade |
 |-------|-------------------------|----|
 |RNF-001| O sistema deve ser responsivo para rodar em um dispositivos móveis | ALTA | 
-|RNF-002| O tempo de resposta do sistema não deve exceder 3s para exibir páginas em consultas em uso normal |  MÉDIA |
-|RNF-003| O cálculo de Força G deve ser processado em tempo real (< 1s). |  ALTA |
+|RNF-002| O tempo de resposta do sistema não deve exceder 5s para exibir páginas em consultas em uso normal |  MÉDIA |
+|RNF-003| O cálculo de Força G deve ser processado em tempo real (< 3s). |  ALTA |
 |RNF-004| Visualização de certificados PDF integrada ao app (sem download externo). |  BAIXA |
 |RNF-005| O sistema deve estar em conformidade com a Lei Geral de Proteção de Dados (LGPD). |  BAIXA |
 |RNF-006| Conformidade visual com a paleta de cores institucional da Medical Hosp. |  BAIXA |
@@ -101,7 +102,8 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 |ID| Restrição                                             |
 |--|-------------------------------------------------------|
 |01| O projeto deverá ser entregue até o final do semestre |
-|02| Não pode ser desenvolvido um módulo de backend        |
+|02|  O serviço de API desenvolvido em ASP.NET Core  deve seguir rigorosamente o padrão MVC (Model
+View-Controller). |
 |03| O sistema de visualização de PDF depende da conectividade para carregar arquivos da nuvem ou armazenamento local.       |
 
 
