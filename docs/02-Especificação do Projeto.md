@@ -47,6 +47,7 @@ Com base na análise das personas forma identificadas as seguintes histórias de
 |Gestor       | Cadastrar fornecedores          | Centralizar o contato com os laboratórios parceiros. |
 |Técnico e gestor      | Visualizar um dashboard de status (Válido/Vencido)          | Antecipar o envio de padrões para calibração externa. |
 |Gestor       | Desativar um padrão registrando o motivo         | Manter o histórico de descarte para auditorias futuras. |
+|Gestor       | Registrar nova calibração de um padrão         | Manter o histórico de calibrações de cada padrão. |
 
 
 ## Requisitos
