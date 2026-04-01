@@ -6,7 +6,7 @@
 
 `1/2026`
 
-Aplicativo de gestão de estoques de equipamentos clínicos.
+Aplicativo para gestão de padrões de calibração da Medical Hosp.
 
 ## Integrantes
 
