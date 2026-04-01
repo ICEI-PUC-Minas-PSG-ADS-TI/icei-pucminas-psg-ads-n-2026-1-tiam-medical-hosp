@@ -76,9 +76,9 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |-------|-------------------------|----|
 |RNF-001| O sistema deve ser responsivo para rodar em um dispositivos móveis | ALTA | 
 |RNF-002| O tempo de resposta do sistema não deve exceder 5s para exibir páginas em consultas em uso normal |  MÉDIA |
-|RNF-004| Visualização de certificados PDF integrada ao app (sem download externo). |  BAIXA |
-|RNF-005| O sistema deve estar em conformidade com a Lei Geral de Proteção de Dados (LGPD). |  BAIXA |
-|RNF-006| Conformidade visual com a paleta de cores institucional da Medical Hosp. |  BAIXA |
+|RNF-003| Visualização de certificados PDF integrada ao app (sem download externo). |  BAIXA |
+|RNF-004| O sistema deve estar em conformidade com a Lei Geral de Proteção de Dados (LGPD). |  BAIXA |
+|RNF-005| Conformidade visual com a paleta de cores institucional da Medical Hosp. |  BAIXA |
 
 
 Com base nas Histórias de Usuário, enumere os requisitos da sua solução. Classifique esses requisitos em dois grupos:
