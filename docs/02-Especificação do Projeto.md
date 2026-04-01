@@ -60,15 +60,15 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |ID    | Descrição do Requisito  | Prioridade | Responsável |
 |------|-----------------------------------------|----| ----|
 |RF-001| Gestor deve cadastrar padrões (Nome, Fabricante, Modelo, TAG, N° Série, Patrimônio, Setor)  | ALTA | Helena Edim |
-|RF-001| Gestor deve registrar calibrações de padrões informando a Data de realização, Número do certificado, Órgão calibrador (fornecedor), Periodicidade e o certificado em PDF. | ALTA | Helena Edim |
-|RF-002| Gestor deve cadastrar fornecedores (Nome, Razão Social, CNPJ, Responsável, Telefone, Email, Link do portal, Usuário, Senha)  | ALTA | Helena Edim |
-|RF-003| Gestor e técnicos devem visualizar lista de fornecedores com informações de Nome, Responsável, Telefone e Email. Caso determinado fornecedor possua um portal online, a lista também deve conter um botão de acesso ao mesmo. | MÉDIA | Gabriel |
-|RF-004| Gestor deve ter a opção de deletar e editar os fornecedores. | MÉDIA | Gabriel |
-|RF-005| Gestor e técnico devem visualizar dados da última calibração e histórico completo de calibrações. | ALTA | Lucas Gabriel |
-|RF-006| Gestor e técnicos devem visualizar dashboard de padrões com as informações dos padrões e filtragem por: setor, válido, atenção, vencido e indeterminado. | MÉDIA | Lucas Gabriel |
-|RF-007| Gestor deve ter a opção de desativar padrão informando o motivo da desativação.| MÉDIA | Helena Edim |
-|RF-008| Gestor e técnicos devem visualizar o Módulo de Desativados: Registro de baixa com justificativa técnica.| MÉDIA | Helena Edim |
-|RF-009| O sistema deverá notificar os usuários quando a calibração estiver a 1 mês de vencer. | MÉDIA | Lucas |
+|RF-002| Gestor deve registrar calibrações de padrões informando a Data de realização, Número do certificado, Órgão calibrador (fornecedor), Periodicidade e o certificado em PDF. | ALTA | Helena Edim |
+|RF-003| Gestor deve cadastrar fornecedores (Nome, Razão Social, CNPJ, Responsável, Telefone, Email, Link do portal, Usuário, Senha)  | ALTA | Helena Edim |
+|RF-004| Gestor e técnicos devem visualizar lista de fornecedores com informações de Nome, Responsável, Telefone e Email. Caso determinado fornecedor possua um portal online, a lista também deve conter um botão de acesso ao mesmo. | MÉDIA | Gabriel |
+|RF-005| Gestor deve ter a opção de deletar e editar os fornecedores. | MÉDIA | Gabriel |
+|RF-006| Gestor e técnico devem visualizar dados da última calibração e histórico completo de calibrações. | ALTA | Lucas Gabriel |
+|RF-007| Gestor e técnicos devem visualizar dashboard de padrões com as informações dos padrões e filtragem por: setor, válido, atenção, vencido e indeterminado. | MÉDIA | Lucas Gabriel |
+|RF-008| Gestor deve ter a opção de desativar padrão informando o motivo da desativação.| MÉDIA | Helena Edim |
+|RF-009| Gestor e técnicos devem visualizar o Módulo de Desativados: Registro de baixa com justificativa técnica.| MÉDIA | Helena Edim |
+|RF-010| O sistema deverá notificar os usuários quando a calibração estiver a 1 mês de vencer. | MÉDIA | Lucas |
 
 ### Requisitos não Funcionais
 
