@@ -61,19 +61,19 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |------|-----------------------------------------|----| ----|
 |RF-001| O sistema deve permitir o cadastro de usuários com definição de perfil (Gestor ou Técnico), contendo no mínimo: nome, email e senha.  | ALTA |  |
 |RF-002| O sistema deve permitir que usuários cadastrados realizem login utilizando email e senha para acesso à plataforma.  | ALTA |  |
-|RF-003| Gestor deve cadastrar padrões (Nome, Fabricante, Modelo, TAG, N° Série, Patrimônio, Setor)  | ALTA | Helena Edim |
-|RF-004| Gestor deve ter a opção de editar padrões (Nome, Fabricante, Modelo, TAG, N° Série, Patrimônio, Setor)  | ALTA | |
-|RF-005| Gestor deve registrar calibrações de padrões informando a Data de realização, Número do certificado, Órgão calibrador (fornecedor), Periodicidade e o certificado em PDF. | ALTA |  |
-|RF-006| Gestor deve cadastrar fornecedores (Nome, Razão Social, CNPJ, Responsável, Telefone, Email, Link do portal, Usuário, Senha)  | ALTA | Helena Edim |
-|RF-007| Gestor e técnicos devem visualizar lista de fornecedores com informações de Nome, Responsável, Telefone e Email. Caso determinado fornecedor possua um portal online, a lista também deve conter um botão de acesso ao mesmo. | MÉDIA | Helena Edim |
-|RF-008| Gestor deve ter a opção de deletar e editar os fornecedores. | MÉDIA | Helena Edim |
-|RF-009| Gestor e técnico devem visualizar dados da última calibração e histórico completo de calibrações. | ALTA | |
-|RF-010| Gestor e técnicos devem visualizar dashboard de padrões com as informações dos padrões e filtragem por: setor, válido, atenção, vencido e indeterminado. | ALTA | |
-|RF-011| Gestor e técnicos devem ter a opção de buscar padrões por Nome, Tag ou Patrimônio no dashboard de padrões. | MÉDIA | |
-|RF-012| Gestor deve ter a opção de desativar padrão informando o motivo da desativação.| MÉDIA |  |
-|RF-013| Gestor e técnicos devem visualizar o Módulo de Desativados: Registro de baixa com justificativa técnica.| MÉDIA | |
+|RF-003| O sistema deve permitir que o Gestor cadastre padrões, informando: nome, fabricante, modelo, TAG, número de série, patrimônio e setor.  | ALTA | Helena Edim |
+|RF-004| O sistema deve permitir que o Gestor edite as informações dos padrões cadastrados.  | ALTA | |
+|RF-005| O sistema deve permitir que o Gestor registre calibrações de padrões, informando: data de realização, número do certificado, órgão calibrador (fornecedor), periodicidade e o certificado em formato PDF. | ALTA |  |
+|RF-006| O sistema deve permitir que o Gestor cadastre fornecedores, informando: nome, razão social, CNPJ, responsável, telefone, e-mail, link do portal, usuário e senha.  | ALTA | Helena Edim |
+|RF-007| O sistema deve permitir que Gestores e Técnicos visualizem a lista de fornecedores, contendo: nome, responsável, telefone e e-mail. Caso o fornecedor possua portal online, deve ser disponibilizado um acesso direto ao mesmo. | MÉDIA | Helena Edim |
+|RF-008| O sistema deve permitir que o Gestor edite e exclua fornecedores cadastrados. | MÉDIA | Helena Edim |
+|RF-009| O sistema deve permitir que Gestores e Técnicos visualizem os dados da última calibração e o histórico completo de calibrações dos padrões. | ALTA | |
+|RF-010| O sistema deve disponibilizar um dashboard de padrões para Gestores e Técnicos, contendo informações dos padrões e permitindo filtragem por: setor, válido, atenção, vencido e indeterminado. | ALTA | |
+|RF-011| O sistema deve permitir que Gestores e Técnicos realizem buscas de padrões no dashboard por nome, TAG ou patrimônio. | MÉDIA | |
+|RF-012| O sistema deve permitir que o Gestor desative padrões, registrando o motivo da desativação.| MÉDIA |  |
+|RF-013| O sistema deve permitir que Gestores e Técnicos visualizem o módulo de padrões desativados, contendo o registro de baixa com justificativa técnica.| MÉDIA | |
 |RF-014| O sistema deverá notificar os usuários quando a calibração estiver a 1 mês de vencer. | MÉDIA | |
-|RF-015| O sistema deve manter um histórico de alterações (post, put, delete) de padrões, calibrações e fornecedores feitas por usuários | BAIXA | |
+|RF-015| O sistema deve manter um histórico de alterações (inclusão, edição e exclusão) realizadas por usuários sobre padrões, calibrações e fornecedores. | BAIXA | |
 
 ### Requisitos não Funcionais
 
