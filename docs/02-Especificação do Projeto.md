@@ -59,15 +59,15 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 
 |ID    | Descrição do Requisito  | Prioridade | Responsável |
 |------|-----------------------------------------|----| ----|
-|RF-001| Cadastrar padrões (Nome, Marca, Modelo, TAG, Série, Estado)  | ALTA | Helena Edim |
-|RF-002| Listar fornecedores com informações de contato e link de portal. | MÉDIA | Gabriel |
-|RF-003| Visualizar dados da última calibração e histórico completo em PDF. | ALTA | Lucas Gabriel |
-|RF-004| Calculadora de Força G (Entradas: RPM e Raio; Saída: RCF).| ALTA | Arthur |
-|RF-005| Dashboard de status: Válido, Atenção (próximo ao vencimento) e Vencido. | MÉDIA | Lucas Gabriel |
-|RF-006| Módulo de Desativados: Registro de baixa com justificativa técnica.| MÉDIA | Helena Edim |
-|RF-007| Busca de padrões por TAG, Patrimônio ou Número de Série. | ALTA | Gabriel |
-|RF-008| Filtro de padrões por status de calibração. | MÉDIA | Arthur |
-|RF-009| Notificar o usuário quando a calibração estiver a 1 mês de vencer. | MÉDIA | Lucas |
+|RF-001| Gestor deve cadastrar padrões (Nome, Fabricante, Modelo, TAG, N° Série, Patrimônio, Setor)  | ALTA | Helena Edim |
+|RF-002| Gestor deve cadastrar fornecedores (Nome, Razão Social, CNPJ, Responsável, Telefone, Email, Link do portal, Usuário, Senha)  | ALTA | Helena Edim |
+|RF-003| Gestor e técnicos devem visualizar lista de fornecedores com nome, responsável, telefone, emnail e botão de acessso ao portal (caso ele tenha). | MÉDIA | Gabriel |
+|RF-004| Gestor deve ter a opção de e deletar fornecedores com o mesmos campos de cadastro. | MÉDIA | Gabriel |
+|RF-005| Gestor e técnico devem visualizar dados da última calibração e histórico completo de calibrações. | ALTA | Lucas Gabriel |
+|RF-006| Gestor e técnicos devem visualizar dashboard de padrões com as informações dos padrões e filtragem por: setor, válido, atenção, vencido e indeterminado. | MÉDIA | Lucas Gabriel |
+|RF-007| Gestor deve ter a opção de desativar padrão informando o motivo.| MÉDIA | Helena Edim |
+|RF-008| Gestor e técnicos devem visualizar o Módulo de Desativados: Registro de baixa com justificativa técnica.| MÉDIA | Helena Edim |
+|RF-009| O sistema deverá notificar os usuários quando a calibração estiver a 1 mês de vencer. | MÉDIA | Lucas |
 
 ### Requisitos não Funcionais
 
