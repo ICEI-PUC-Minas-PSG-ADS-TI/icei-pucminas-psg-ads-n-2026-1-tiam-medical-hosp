@@ -1,54 +1,53 @@
 # Introdução
 
-A confiabilidade de equipamentos médico-hospitalares é crítica para a segurança do paciente. A Medical Hosp, empresa especializada em engenharia clínica, atua na manutenção e calibração desses dispositivos. Este projeto propõe uma aplicação móvel para modernizar a gestão de Padrões de Calibração, substituindo processos manuais e sistemas fragmentados por uma solução integrada que garanta a rastreabilidade metrológica e a eficiência operacional em campo.
+A confiabilidade de equipamentos médico-hospitalares é essencial para garantir a segurança dos pacientes e a qualidade dos serviços prestados. A Medical Hosp, empresa especializada em engenharia clínica, atua na calibração e manutenção desses equipamentos.
+
+Este projeto propõe o desenvolvimento de uma aplicação móvel para modernizar a gestão dos padrões de calibração, substituindo processos manuais e descentralizados por uma solução integrada. A aplicação visa garantir a rastreabilidade metrológica, facilitar o acesso às informações e melhorar a eficiência operacional das equipes.
 
 ## Problema
 
 Atualmente, a gestão de padrões e fornecedores na Medical Hosp apresenta gargalos operacionais:
 
 #### Fragmentação de Dados: 
-Informações de calibração e certificados (PDFs) não estão prontamente acessíveis aos técnicos em campo.
+Informações sobre calibrações e certificados em PDF encontram-se dispersas, dificultando o acesso rápido pelos técnicos e gestores.
 
-#### Risco de Conformidade: 
-A dificuldade em monitorar datas de validade de padrões pode levar ao uso de instrumentos desatualizados.
+#### Risco de não conformidade:
+A ausência de um controle eficiente sobre os prazos de calibração pode levar ao uso de padrões vencidos.
 
-#### Cálculos Manuais: 
-Cálculos técnicos, como a Força G, são realizados de forma externa, aumentando a margem de erro humano.
-
-#### Histórico Ineficiente: 
-O registro de desativação de padrões carece de centralização e justificativas estruturadas para auditoria.
+#### Dificuldade de rastreabilidade:
+O histórico de calibrações e de desativação de padrões não é centralizado, dificultando auditorias e análises.
 
 ## Objetivos
 
-Desenvolver um aplicativo para gestão de equipamentos de saúde para a empresa Medical Hosp, com o intuito de organizar o controle de estoque, registrar movimentações e serviços de manutenção, e melhorar a eficiência para acompanhar as atividades da equipe de engenharia clínica.
+Desenvolver uma aplicação para gestão de padrões de calibração da Medical Hosp, com o objetivo de centralizar informações, melhorar o controle dos instrumentos e apoiar a tomada de decisão.
 
-- Implementar o cadastro e a atualização de equipamentos, com campos como Nome, Marca, Modelo, TAG, Série e Estado (disponível, atenção, descartado, inderteminado). Isso ajuda a manter o estoque sempre atualizado e organizado sem erros de digitação ou falta de informação.
-
-- Permitir registrar entradas e saídas de equipamentos, guardando o histórico completo de cada movimentação (data, tipo de movimento e quem fez). Assim fica fácil de consultar o que aconteceu com cada item e evitar perdas ou confusões no controle manual.
-
-- Criar alertas quando o estoque de algum equipamento chegar perto do mínimo e mostrar um dashboard simples com os números principais: total de equipamentos, quantos estão disponíveis, em manutenção e em nível baixo. Isso facilita pros gestores verem rápido onde precisam agir, como repor peça ou priorizar manutenção.
+- Implementar o cadastro e a atualização de padrões, contendo informações como nome, fabricante, modelo, TAG, número de série, patrimônio e setor.
+- Permitir o registro de calibrações, incluindo data, número do certificado, fornecedor responsável, periodicidade e o certificado em PDF.
+- Disponibilizar a visualização do histórico completo de calibrações, garantindo a rastreabilidade metrológica.
+- Implementar o cadastro e a consulta de fornecedores, centralizando informações de contato e acesso a portais.
+- Criar um dashboard para visualização do status dos padrões (válido, atenção, vencido e indeterminado), com opções de filtro e busca.
+- Permitir a desativação de padrões com registro de justificativa técnica e consulta ao histórico de itens desativados.
+- Implementar notificações para alertar quando um padrão estiver próximo do vencimento da calibração.
 
 
 ## Justificativa
-A gestão de ativos em saúde não se resume apenas à posse do equipamento, mas à garantia de sua rastreabilidade e confiabilidade metrológica. No contexto da Medical Hosp, os "Padrões" são o alicerce de todo o serviço prestado; se um padrão estiver com a calibração vencida ou apresentar erro, todos os laudos emitidos por ele tornam-se inválidos, gerando riscos legais e de segurança aos pacientes dos hospitais atendidos.
-A motivação para este projeto baseia-se em três pilares fundamentais:
+A gestão eficiente de padrões de calibração é fundamental para garantir a confiabilidade dos serviços prestados pela Medical Hosp. Um padrão com calibração vencida compromete a validade dos resultados obtidos, podendo gerar riscos operacionais, legais e de segurança.
 
-#### Conformidade e Segurança: 
-A substituição de registros manuais por uma aplicação digital reduz drasticamente o risco de utilização de instrumentos fora do prazo de validade. O acesso imediato aos certificados em PDF garante que a empresa esteja sempre pronta para auditorias e fiscalizações sanitárias (ANVISA).
+A proposta deste projeto se baseia em três pilares:
 
-#### Eficiência Operacional: 
-Técnicos de campo frequentemente perdem tempo valioso realizando cálculos complexos, como a Força G, de forma manual ou consultando tabelas externas. A automação desses cálculos e a centralização dos dados de fornecedores agilizam o atendimento e reduzem a carga cognitiva da equipe.
+#### Conformidade e segurança
+A digitalização das informações reduz o risco de utilização de padrões vencidos e facilita o acesso a certificados, garantindo maior segurança e suporte a auditorias.
 
-#### Gestão de Ativos e Sustentabilidade: 
-O registro estruturado do histórico de desativação permite que a gestão identifique falhas recorrentes em marcas ou modelos específicos, apoiando decisões de compra mais inteligentes e justificando o descarte técnico de equipamentos que não possuem mais viabilidade de conserto.
+#### Eficiência operacional
+A centralização das informações permite que técnicos e gestores acessem rapidamente dados de calibração e fornecedores, otimizando o tempo de trabalho.
+
+#### Rastreabilidade e gestão
+O registro estruturado do histórico de calibrações e desativações possibilita melhor controle dos padrões e apoio à tomada de decisão.
 
 ## Público-Alvo
 
-#### Técnicos de Engenharia Clínica: 
-Usuários de campo que precisam consultar padrões, anexar certificados e realizar cálculos.
+### Técnicos de Engenharia Clínica
+Responsáveis por consultar padrões, verificar calibrações e acessar certificados durante as atividades em campo.
 
-#### Coordenadores de Calibração: 
-Responsáveis pela gestão da frota de instrumentos e homologação de fornecedores.
-
-### Gestores Administrativos: 
-Visualizam indicadores de prontidão e custos de manutenção/descarte.
+### Gestores / Engenheiros Clínicos
+Responsáveis pelo cadastro, controle e monitoramento dos padrões e fornecedores, além da gestão das calibrações.
