@@ -42,12 +42,11 @@ Com base na análise das personas forma identificadas as seguintes histórias de
 
 |EU COMO... `PERSONA`| QUERO/PRECISO ... `FUNCIONALIDADE` |PARA ... `MOTIVO/VALOR`                 |
 |--------------------|------------------------------------|----------------------------------------|
-|Técnico  | Cadastrar novos padrões com TAG e Série           | Manter o inventário de instrumentos atualizado.             |
-|Técnico       | Visualizar o histórico de calibração e o PDF do certificado               | Comprovar a rastreabilidade metrológica ao cliente final. |
-|Técnico      | Calcular a Força G automaticamente informando RPM e Raio           | Eliminar erros matemáticos e agilizar o teste de centrífugas. |
-|Coordenador       | Cadastrar fornecedores (nome, telefone, portal)           | Centralizar o contato com os laboratórios parceiros. |
-|Gestor       | Visualizar um dashboard de status (Válido/Vencido)          | Antecipar o envio de padrões para calibração externa. |
-|Coordenador       | Desativar um padrão registrando o motivo         | Manter o histórico de descarte para auditorias futuras. |
+|Gestor  | Cadastrar novos padrões com TAG e Série           | Manter o inventário de instrumentos atualizado.             |
+|Técnico e gestor      | Visualizar o histórico de calibração e o PDF do certificado               | Comprovar a rastreabilidade metrológica ao cliente final. |
+|Gestor       | Cadastrar fornecedores          | Centralizar o contato com os laboratórios parceiros. |
+|Técnico e gestor      | Visualizar um dashboard de status (Válido/Vencido)          | Antecipar o envio de padrões para calibração externa. |
+|Gestor       | Desativar um padrão registrando o motivo         | Manter o histórico de descarte para auditorias futuras. |
 
 
 ## Requisitos
