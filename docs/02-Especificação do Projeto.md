@@ -48,6 +48,7 @@ Com base na análise das personas forma identificadas as seguintes histórias de
 |Técnico e gestor      | Visualizar um dashboard de status (Válido/Vencido)          | Antecipar o envio de padrões para calibração externa. |
 |Gestor       | Desativar um padrão registrando o motivo         | Manter o histórico de descarte para auditorias futuras. |
 |Gestor       | Registrar nova calibração de um padrão         | Manter o histórico de calibrações de cada padrão. |
+|Gestor       | Ser notificado quando um padrão está próximo do vencimento ou já está vencido        | Manter atenção aos padrões que precisam de calibração. |
 
 
 ## Requisitos
