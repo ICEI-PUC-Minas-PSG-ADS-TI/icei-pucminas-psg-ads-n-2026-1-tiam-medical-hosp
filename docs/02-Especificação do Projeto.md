@@ -23,7 +23,7 @@ Papel: Técnico de Engenharia Clínica.
 
 Contexto: Realiza calibrações em hospitais. Precisa conferir se os seus próprios instrumentos (padrões) estão válidos antes de iniciar um serviço.
 
-Dor: Perde tempo procurando certificados em papel ou pastas digitais bagunçadas e precisa fazer cálculos de força G manualmente, o que gera insegurança nos resultados.
+Dor: Perde tempo procurando certificados em papel ou pastas digitais bagunçadas, o que gera insegurança nos resultados.
 
 ### Persona 2 – Alberto Martins
 
