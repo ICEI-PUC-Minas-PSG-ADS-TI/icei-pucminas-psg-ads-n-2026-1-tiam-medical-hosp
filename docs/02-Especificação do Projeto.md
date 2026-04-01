@@ -60,6 +60,7 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |ID    | Descrição do Requisito  | Prioridade | Responsável |
 |------|-----------------------------------------|----| ----|
 |RF-001| Gestor deve cadastrar padrões (Nome, Fabricante, Modelo, TAG, N° Série, Patrimônio, Setor)  | ALTA | Helena Edim |
+|RF-001| Gestor deve registrar calibrações de padrões informando a Data de realização, Número do certificado, Órgão calibrador (fornecedor), Periodicidade e o certificado em PDF. | ALTA | Helena Edim |
 |RF-002| Gestor deve cadastrar fornecedores (Nome, Razão Social, CNPJ, Responsável, Telefone, Email, Link do portal, Usuário, Senha)  | ALTA | Helena Edim |
 |RF-003| Gestor e técnicos devem visualizar lista de fornecedores com informações de Nome, Responsável, Telefone e Email. Caso determinado fornecedor possua um portal online, a lista também deve conter um botão de acesso ao mesmo. | MÉDIA | Gabriel |
 |RF-004| Gestor deve ter a opção de deletar e editar os fornecedores. | MÉDIA | Gabriel |
