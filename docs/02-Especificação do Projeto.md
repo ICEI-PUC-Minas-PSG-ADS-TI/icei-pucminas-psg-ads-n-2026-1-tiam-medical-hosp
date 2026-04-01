@@ -66,9 +66,10 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |RF-005| Gestor deve ter a opção de deletar e editar os fornecedores. | MÉDIA | Gabriel |
 |RF-006| Gestor e técnico devem visualizar dados da última calibração e histórico completo de calibrações. | ALTA | Lucas Gabriel |
 |RF-007| Gestor e técnicos devem visualizar dashboard de padrões com as informações dos padrões e filtragem por: setor, válido, atenção, vencido e indeterminado. | MÉDIA | Lucas Gabriel |
-|RF-008| Gestor deve ter a opção de desativar padrão informando o motivo da desativação.| MÉDIA | Helena Edim |
-|RF-009| Gestor e técnicos devem visualizar o Módulo de Desativados: Registro de baixa com justificativa técnica.| MÉDIA | Helena Edim |
-|RF-010| O sistema deverá notificar os usuários quando a calibração estiver a 1 mês de vencer. | MÉDIA | Lucas |
+|RF-008| Gestor e técnicos devem ter a opção de buscar padrões por Nome, Tag e Patrimônio no dashboard de padrões. | MÉDIA | Lucas Gabriel |
+|RF-009| Gestor deve ter a opção de desativar padrão informando o motivo da desativação.| MÉDIA | Helena Edim |
+|RF-010| Gestor e técnicos devem visualizar o Módulo de Desativados: Registro de baixa com justificativa técnica.| MÉDIA | Helena Edim |
+|RF-011| O sistema deverá notificar os usuários quando a calibração estiver a 1 mês de vencer. | MÉDIA | Lucas |
 
 ### Requisitos não Funcionais
 
