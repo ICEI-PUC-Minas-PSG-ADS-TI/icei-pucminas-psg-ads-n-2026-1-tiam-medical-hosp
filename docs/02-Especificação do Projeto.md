@@ -63,7 +63,7 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |RF-002| O sistema deve permitir que usuários cadastrados realizem login utilizando email e senha para acesso à plataforma.  | ALTA |  |
 |RF-003| O sistema deve permitir que o Gestor cadastre padrões, informando: nome, fabricante, modelo, TAG, número de série, patrimônio e setor.  | ALTA | Helena Edim |
 |RF-004| O sistema deve permitir que o Gestor edite as informações dos padrões cadastrados.  | ALTA | |
-|RF-005| O sistema deve permitir que o Gestor registre calibrações de padrões, informando: data de realização, número do certificado, órgão calibrador (fornecedor), periodicidade e o certificado em formato PDF. | ALTA |  |
+|RF-005| O sistema deve permitir que o Gestor registre calibrações de padrões, informando: data de realização, número do certificado, órgão calibrador (fornecedor), periodicidade, custo e o certificado em formato PDF. | ALTA |  |
 |RF-006| O sistema deve permitir que o Gestor cadastre fornecedores, informando: nome, razão social, CNPJ, responsável, telefone, e-mail, link do portal, usuário e senha.  | ALTA | Helena Edim |
 |RF-007| O sistema deve permitir que Gestores e Técnicos visualizem a lista de fornecedores, contendo: nome, responsável, telefone e e-mail. Caso o fornecedor possua portal online, deve ser disponibilizado um acesso direto ao mesmo. | MÉDIA | Helena Edim |
 |RF-008| O sistema deve permitir que o Gestor edite e exclua fornecedores cadastrados. | MÉDIA | Helena Edim |
@@ -74,6 +74,7 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |RF-013| O sistema deve permitir que Gestores e Técnicos visualizem o módulo de padrões desativados, contendo o registro de baixa com justificativa técnica.| MÉDIA | |
 |RF-014| O sistema deverá notificar os usuários quando a calibração estiver a 1 mês de vencer. | MÉDIA | |
 |RF-015| O sistema deve manter um histórico de alterações (inclusão, edição e exclusão) realizadas por usuários sobre padrões, calibrações e fornecedores. | BAIXA | |
+|RF-016| O sistema deve manter um histórico de notificações de calibrações próximas ao vencimento. | MÉDIA | |
 
 ### Requisitos não Funcionais
 
@@ -84,6 +85,9 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |RNF-003| Visualização de certificados PDF integrada ao app (sem download externo). |  BAIXA |
 |RNF-004| O sistema deve estar em conformidade com a Lei Geral de Proteção de Dados (LGPD). |  BAIXA |
 |RNF-005| Conformidade visual com a paleta de cores institucional da Medical Hosp. |  BAIXA |
+|RNF-006| O sistema deverá possuir tema claro e tema escuro. |  BAIXA |
+|RNF-007| O sistema deslogar sozinho após 10 minutos de inatividade. |  BAIXA |
+
 
 
 Com base nas Histórias de Usuário, enumere os requisitos da sua solução. Classifique esses requisitos em dois grupos:
