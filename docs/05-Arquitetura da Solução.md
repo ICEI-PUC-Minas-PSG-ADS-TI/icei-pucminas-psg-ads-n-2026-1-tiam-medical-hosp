@@ -19,7 +19,7 @@ As referências abaixo irão auxiliá-lo na geração do artefato “Diagrama de
 
 O Modelo ER representa através de um diagrama como as entidades (coisas, objetos) se relacionam entre si na aplicação interativa.]
 
-![modelo er](img/medicalHospER.jpg)
+![modelo er](img/medicalHospER1.jpg)
 
 ## Esquema Relacional
 
