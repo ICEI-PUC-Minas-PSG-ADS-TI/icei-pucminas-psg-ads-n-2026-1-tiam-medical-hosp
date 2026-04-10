@@ -50,6 +50,11 @@ Explique como a hospedagem e o lançamento da plataforma foi feita.
 
 ## Qualidade de Software
 
+- Learnability: A MedicalHosp é uma ferramenta muito prática e muito útil, mas apesar de parecer, ela é uma ferramente extremamente simples e intuitiva, permitindo os usuários o domínio rápido da mesma.
+- Operability: O sistema é uma ferramenta também de fácil operação e de muita utilidade para os técnicos e gestores que interagem com o sistema, sendo uma ferramente de gestão e controle que permite o uso de funcionalidades que agregam diretamente para a operabilidade dos funcionários.
+- 
+
+
 Conceituar qualidade de fato é uma tarefa complexa, mas ela pode ser vista como um método gerencial que através de procedimentos disseminados por toda a organização, busca garantir um produto final que satisfaça às expectativas dos stakeholders.
 
 No contexto de desenvolvimento de software, qualidade pode ser entendida como um conjunto de características a serem satisfeitas, de modo que o produto de software atenda às necessidades de seus usuários. Entretanto, tal nível de satisfação nem sempre é alcançado de forma espontânea, devendo ser continuamente construído. Assim, a qualidade do produto depende fortemente do seu respectivo processo de desenvolvimento.
