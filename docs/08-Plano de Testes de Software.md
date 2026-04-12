@@ -18,7 +18,7 @@ Garantir que a aplicação atenda aos requisitos funcionais e não funcionais es
 
 | ID | Descrição do Teste Unitário | Requisito(s) Relacionado(s) | Resultado Esperado |
 | :--- | :---: | :---: | ---: |
-| TU-001 | Validação de campos obrigatórios nos endpoints POST de todas entidades | RF-001, RF-003, RF-005, RF-006 | Retornar erro se campos obrigatórios estiverem vazios ou incorretos |
+| TU-001 | Validação de campos obrigatórios nos endpoints POST de todas entidades | RF-001, RF-003, RF-005, RF-006 | Retornar erro se campos obrigatórios estiverem vazios ou incorretos | |
 TU-002 | Dado 5 | Dado 6 | | Dado 6 |
 
 | ID | Descrição do Teste de Integração | Requisito(s) Relacionado(s) | Resultado Esperado |
