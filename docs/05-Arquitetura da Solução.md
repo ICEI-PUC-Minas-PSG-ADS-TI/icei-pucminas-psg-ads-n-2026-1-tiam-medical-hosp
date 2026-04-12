@@ -61,17 +61,16 @@ Explique como a hospedagem e o lançamento da plataforma foi feita.
 
 ## Qualidade de Software
 
-- Learnability: A MedicalHosp é uma ferramenta muito prática e muito útil, mas apesar de parecer, ela é uma ferramente extremamente simples e intuitiva, permitindo os usuários o domínio rápido da mesma.
-- Operability: O sistema é uma ferramenta também de fácil operação e de muita utilidade para os técnicos e gestores que interagem com o sistema, sendo uma ferramente de gestão e controle que permite o uso de funcionalidades que agregam diretamente para a operabilidade dos funcionários.
-- 
-
-
-Conceituar qualidade de fato é uma tarefa complexa, mas ela pode ser vista como um método gerencial que através de procedimentos disseminados por toda a organização, busca garantir um produto final que satisfaça às expectativas dos stakeholders.
-
-No contexto de desenvolvimento de software, qualidade pode ser entendida como um conjunto de características a serem satisfeitas, de modo que o produto de software atenda às necessidades de seus usuários. Entretanto, tal nível de satisfação nem sempre é alcançado de forma espontânea, devendo ser continuamente construído. Assim, a qualidade do produto depende fortemente do seu respectivo processo de desenvolvimento.
-
 A norma internacional ISO/IEC 25010, que é uma atualização da ISO/IEC 9126, define oito características e 30 subcaracterísticas de qualidade para produtos de software.
-Com base nessas características e nas respectivas sub-características, identifique as sub-características que sua equipe utilizará como base para nortear o desenvolvimento do projeto de software considerando-se alguns aspectos simples de qualidade. Justifique as subcaracterísticas escolhidas pelo time e elenque as métricas que permitirão a equipe avaliar os objetos de interesse.
+Com base nessas características e nas respectivas sub-características, foram identificadas as sub-características que se adequam ao sistema MedicalHosp.
+
+#### Subcaracterísticas de qualidade selecionadas:
+
+- Functional completeness: A equipe levantou juntou aos stakeholders todos os fluxos, requisitos e funcionalidades a serem implementadas no MedicalHosp, garantido alta adequação funcional e conformidade com as necessidades do cliente.
+- Learnability: O MedicalHosp foi desenvolvido com foco na simplicidade e intuitividade da interface, permitindo que técnicos e gestores hospitalares dominem rapidamente o uso da ferramenta, reduzindo a necessidade de treinamentos extensos e acelerando a adoção do sistema.
+- Operability: O sistema é uma ferramenta também de fácil operação e de muita utilidade para os técnicos e gestores que interagem com o sistema, sendo uma ferramente de gestão e controle que permite o uso de funcionalidades que agregam diretamente para a operabilidade dos funcionários.
+- Resource utilization: O sistema sistema gerencia os recursos médicos de forma eficiente e segura, evitando a ausência de padrões calibrados e promovendo a conformidade dos equipamentos com os requisitos estabelecidos, contribuindo para a segurança e disponibilidade dos padrões.
+- User assistance: O sistema conta com uma funcionalidade de notficação de padrões próximos ao vencimento e de uma lista dessas notificações para auxiliar o usuário a agir de forma preventiva e evitar o vencimento de calibrações.
 
 > **Links Úteis**:
 >
