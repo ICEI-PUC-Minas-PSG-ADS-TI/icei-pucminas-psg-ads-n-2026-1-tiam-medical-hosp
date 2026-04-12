@@ -10,18 +10,21 @@ Enumere quais cenários de testes foram selecionados para teste. Neste tópico o
 
 Garantir que a aplicação atenda aos requisitos funcionais e não funcionais especificados, entregando uma solução confiável, segura e usável para os usuários (Técnicos de Engenharia Clínica e Gestores/Engenheiros Clínicos). Os testes buscarão validar a correção das funcionalidades, o desempenho e a conformidade com as restrições do projeto.
 
+- Calculo automatico do status do padrão
+- 
+
+
 ## Cenários de Testes Funcionais:
 
 | ID | Descrição do Teste Unitário | Requisito(s) Relacionado(s) | Resultado Esperado |
 | :--- | :---: | :---: | ---: |
-| TU-001 | Dado 2 | Dado 3 | | Dado 3 |
-| TU-002 | Dado 5 | Dado 6 | | Dado 6 |
+| TU-001 | Validação de campos obrigatórios nos endpoints POST de todas entidades | RF-001, RF-003, RF-005, RF-006 | Retornar erro se campos obrigatórios estiverem vazios ou incorretos |
+TU-002 | Dado 5 | Dado 6 | | Dado 6 |
 
 | ID | Descrição do Teste de Integração | Requisito(s) Relacionado(s) | Resultado Esperado |
 | :--- | :---: | :---: | ---: |
 | TI-001 | Dado 2 | Dado 3 | | Dado 3 |
 | TI-002 | Dado 5 | Dado 6 | | Dado 6 |
-
 
 
 ## Ferramentas de Testes (Opcional)
