@@ -1,12 +1,19 @@
 # Template Padrão da Aplicação
 
-<span style="color:red">Pré-requisitos: <a href="2-Especificação do Projeto.md"> Especificação do Projeto</a></span>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>, <a href="4-Metodologia.md"> Metodologia</a>
+## Logo da Empresa
 
-Layout padrão da aplicação que será utilizado em todas as páginas com a definição de identidade visual, aspectos de responsividade e iconografia.
+![Fluxo de Usuario](img/logomedical.png)
 
-> **Links Úteis**:
->
-> - [CSS Website Layout (W3Schools)](https://www.w3schools.com/css/css_website_layout.asp)
-> - [Website Page Layouts](http://www.cellbiol.com/bioinformatics_web_development/chapter-3-your-first-web-page-learning-html-and-css/website-page-layouts/)
-> - [Perfect Liquid Layout](https://matthewjamestaylor.com/perfect-liquid-layouts)
-> - [How and Why Icons Improve Your Web Design](https://usabilla.com/blog/how-and-why-icons-improve-you-web-design/)
+## Identidade Visual
+
+- Vermelho Institucional (#D74B4B): Cor primária, utilizada na barra de navegação inferior (Bottom Navbar) e no botão principal de login (Figura 2), transmitindo a identidade da Medical Hosp.
+
+- Preto/Preto Fosco (#000000 / #333333): Utilizado para títulos de página e textos principais, garantindo alta legibilidade.
+
+- Cores de Status (Semáforo nos Dashboards e Badges): * Verde (#69D78B): Indica status "Válido".
+
+Amarelo (#E5BA35): Indica status "Atenção" ou ícone de alerta de vencimento .
+
+Vermelho (#E16D6D): Indica status "Vencido" ou ícone de erro/vencimento .
+
+- Azul Accent (#4974F8): Utilizado para o botão flutuante de adição (+) e o ícone de filtro, destacando ações de criação e organização.
