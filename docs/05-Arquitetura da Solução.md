@@ -46,7 +46,7 @@ As tecnologias utilizadas são:
 - Gerenciamento de Projeto: GitHub Projects (Kanban)
 - Design de Telas (UI/UX): Figma
 
-![Arquitetura da Solução](img/tecnologiasUtilizadas.jpg)
+![Arquitetura da Solução](img/tecnologiasUtilizadas1.jpeg)
 
 ## Hospedagem
 
