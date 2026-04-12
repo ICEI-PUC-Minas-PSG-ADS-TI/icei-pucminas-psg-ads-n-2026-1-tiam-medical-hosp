@@ -10,6 +10,13 @@ Enumere quais cenários de testes foram selecionados para teste. Neste tópico o
 
 Garantir que a aplicação atenda aos requisitos funcionais e não funcionais especificados, entregando uma solução confiável, segura e usável para os usuários (Técnicos de Engenharia Clínica e Gestores/Engenheiros Clínicos). Os testes buscarão validar a correção das funcionalidades, o desempenho e a conformidade com as restrições do projeto.
 
+## Cenários de Testes Funcionais:
+1.
+
+2.
+
+3.
+
 ## Ferramentas de Testes (Opcional)
 
 Comente sobre as ferramentas de testes utilizadas.
