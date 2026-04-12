@@ -14,6 +14,8 @@ Garantir que a aplicação atenda aos requisitos funcionais e não funcionais es
 
 ## Cenários de Testes Funcionais:
 
+#### Cenários de Testes Unitários:
+
 | ID | Descrição do Teste Unitário | Requisito(s) Relacionado(s) | Resultado Esperado |
 | :--- | :---: | :---: | :---: |
 | TU-001 | Validação de campos obrigatórios nos endpoints POST de todas entidades | RF-001, RF-003, RF-005, RF-006 | Retornar erro se campos obrigatórios estiverem vazios ou incorretos |
@@ -22,7 +24,9 @@ Garantir que a aplicação atenda aos requisitos funcionais e não funcionais es
 | TU-004 | Validar permissão por perfil de usuário (Gestor e Técnico) | RF-001, RF-002 | Gestor possui permissão total e Técnico readonly |
 | TU-005 | Ao clicar no link do portal do fornecedor o usuário é direcionado ao portal | RF-006, RF-007 | Link do portal é aberto corretamente |
 
+---
 
+#### Cenários de Testes Unitários:
 
 | ID | Descrição do Teste de Integração | Requisito(s) Relacionado(s) | Resultado Esperado |
 | :--- | :---: | :---: | :---: |
