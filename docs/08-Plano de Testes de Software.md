@@ -22,8 +22,10 @@ Garantir que a aplicação atenda aos requisitos funcionais e não funcionais es
 | TU-004 | Validar permissão por perfil de usuário (Gestor e Técnico) | RF-001, RF-002 | Gestor possui permissão total e Técnico readonly |
 | TU-005 | Ao clicar no link do portal do fornecedor o usuário é direcionado ao portal | RF-006, RF-007 | Link do portal é aberto corretamente |
 
+
+
 | ID | Descrição do Teste de Integração | Requisito(s) Relacionado(s) | Resultado Esperado |
-| :--- | :---: | :---: | ---: |
+| :--- | :---: | :---: | :---: |
 | TI-001 | Cadastro de padrão com atualização imediata no dashboard de padrões  | RF-003, RF-010, RF-011 | O padrão é apresentado no dashboard com status corretos e filtros funcionam |
 | TI-002 | Registro de calibração atualiza o status do padrão e histórico de calibrações | RF-005, RF-009 | O status do padrão é atualizado, PDF é vinculado e calibração é visível no histórico |
 | TI-003 | Ao desativar um padrão o mesmo é removido no dashboard e é incluído no módulo de desativados | RF-012, RF-013 | O padrão é removido do dashboard e visível no histórico de desativados |
