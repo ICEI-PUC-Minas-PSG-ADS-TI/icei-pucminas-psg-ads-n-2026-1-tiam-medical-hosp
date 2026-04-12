@@ -25,13 +25,13 @@ Garantir que a aplicação atenda aos requisitos funcionais e não funcionais es
 | ID | Descrição do Teste de Integração | Requisito(s) Relacionado(s) | Resultado Esperado |
 | :--- | :---: | :---: | ---: |
 | TI-001 | Cadastro de padrão com atualização imediata no dashboard de padrões  | RF-003, RF-010, RF-011 | | O padrão é apresentado no dashboard com status corretos e filtros funcionam |
-| TI-002 | Registro de calibração atualiza o status do padrão e histórico de calibrações | RF-0 O status do padrão é atualizado, PDF é vinculado e calibração é visível no histórico |
+| TI-002 | Registro de calibração atualiza o status do padrão e histórico de calibrações | RF-005, RF-009 | | O status do padrão é atualizado, PDF é vinculado e calibração é visível no histórico |
 | TI-003 | Ao desativar um padrão o mesmo é removido no dashboard e é incluído no módulo de desativados | RF-012, RF-013 | | O padrão é removido do dashboard e visível no histórico de desativados |
 | TI-004 | Ao realizar alguma operação de CRUD, o sistema deve armazenar essa operação no histórico de alterações | RF-015 | | A operação realizada é visível no histórico de alterações |
 | TI-005 | Garantir que todas as operações CRUD estão sendo salvas corretamente no banco de dados  | Todos | | A operação CRUD é salva no banco de dados |
 | TU-006 | Ao buscar peço nome, TAG ou patrimônio deve retornar os padrões relacionados | RF-0011 | | Padrões que atendem à busca são apresentados no dashboard |
 
-05, RF-009 | |
+
 ## Ferramentas de Testes (Opcional)
 - xUnit
 - NUnit
