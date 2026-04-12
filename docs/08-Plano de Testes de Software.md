@@ -14,8 +14,13 @@ Garantir que a aplicação atenda aos requisitos funcionais e não funcionais es
 
 | ID | Descrição do Teste Unitário | Requisito(s) Relacionado(s) | Resultado Esperado |
 | :--- | :---: | :---: | ---: |
-| Dado 1 | Dado 2 | Dado 3 | | Dado 3 |
-| Dado 4 | Dado 5 | Dado 6 | | Dado 6 |
+| TU-001 | Dado 2 | Dado 3 | | Dado 3 |
+| TU-002 | Dado 5 | Dado 6 | | Dado 6 |
+
+| ID | Descrição do Teste de Integração | Requisito(s) Relacionado(s) | Resultado Esperado |
+| :--- | :---: | :---: | ---: |
+| TI-001 | Dado 2 | Dado 3 | | Dado 3 |
+| TI-002 | Dado 5 | Dado 6 | | Dado 6 |
 
 
 
