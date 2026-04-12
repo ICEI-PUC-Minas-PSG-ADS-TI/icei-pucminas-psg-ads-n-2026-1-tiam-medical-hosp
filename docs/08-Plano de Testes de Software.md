@@ -12,10 +12,10 @@ Garantir que a aplicação atenda aos requisitos funcionais e não funcionais es
 
 ## Cenários de Testes Funcionais:
 
-| ID | Descrição do Teste Unitário | Requisito(s) Relacionado  | Resultado Esperado
+| ID | Descrição do Teste Unitário | Requisito(s) Relacionado  | Resultado Esperado |
 |--------------------|------------------------------------|----------------------------------------|
-| TU-001             |                                    |                                        |
-| TU-002             |                                    |                                        |
+| TU-001             |          xxxxx                   |                       xxxx        |
+| TU-002             |              xxxx               |                    xxxxx                    |
 
 
 ## Ferramentas de Testes (Opcional)
