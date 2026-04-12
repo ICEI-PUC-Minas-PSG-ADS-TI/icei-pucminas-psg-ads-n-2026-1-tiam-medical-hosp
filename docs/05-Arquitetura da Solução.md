@@ -66,11 +66,11 @@ Com base nessas características e nas respectivas sub-características, foram i
 
 #### Subcaracterísticas de qualidade selecionadas:
 
-- Functional completeness: A equipe levantou juntou aos stakeholders todos os fluxos, requisitos e funcionalidades a serem implementadas no MedicalHosp, garantido alta adequação funcional e conformidade com as necessidades do cliente.
-- Learnability: O MedicalHosp foi desenvolvido com foco na simplicidade e intuitividade da interface, permitindo que técnicos e gestores hospitalares dominem rapidamente o uso da ferramenta, reduzindo a necessidade de treinamentos extensos e acelerando a adoção do sistema.
-- Operability: O sistema é uma ferramenta também de fácil operação e de muita utilidade para os técnicos e gestores que interagem com o sistema, sendo uma ferramente de gestão e controle que permite o uso de funcionalidades que agregam diretamente para a operabilidade dos funcionários.
-- Resource utilization: O sistema sistema gerencia os recursos médicos de forma eficiente e segura, evitando a ausência de padrões calibrados e promovendo a conformidade dos equipamentos com os requisitos estabelecidos, contribuindo para a segurança e disponibilidade dos padrões.
-- User assistance: O sistema conta com uma funcionalidade de notficação de padrões próximos ao vencimento e de uma lista dessas notificações para auxiliar o usuário a agir de forma preventiva e evitar o vencimento de calibrações.
+- **Functional completeness**: A equipe levantou juntou aos stakeholders todos os fluxos, requisitos e funcionalidades a serem implementadas no MedicalHosp, garantido alta adequação funcional e conformidade com as necessidades do cliente.
+- **Learnability**: O MedicalHosp foi desenvolvido com foco na simplicidade e intuitividade da interface, permitindo que técnicos e gestores hospitalares dominem rapidamente o uso da ferramenta, reduzindo a necessidade de treinamentos extensos e acelerando a adoção do sistema.
+- **Operability**: O sistema é uma ferramenta também de fácil operação e de muita utilidade para os técnicos e gestores que interagem com o sistema, sendo uma ferramente de gestão e controle que permite o uso de funcionalidades que agregam diretamente para a operabilidade dos funcionários.
+- **Resource utilization**: O sistema sistema gerencia os recursos médicos de forma eficiente e segura, evitando a ausência de padrões calibrados e promovendo a conformidade dos equipamentos com os requisitos estabelecidos, contribuindo para a segurança e disponibilidade dos padrões.
+- **User assistance**: O sistema conta com uma funcionalidade de notficação de padrões próximos ao vencimento e de uma lista dessas notificações para auxiliar o usuário a agir de forma preventiva e evitar o vencimento de calibrações.
 
 > **Links Úteis**:
 >
