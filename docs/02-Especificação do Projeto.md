@@ -62,8 +62,8 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |RF-001| O sistema deve permitir o cadastro de usuários com definição de perfil (Gestor ou Técnico), contendo no mínimo: nome, email e senha.  | ALTA |  |
 |RF-002| O sistema deve permitir que usuários cadastrados realizem login utilizando email e senha para acesso à plataforma.  | ALTA |  |
 |RF-003| O sistema deve permitir que o Gestor cadastre padrões, informando: nome, fabricante, modelo, TAG, número de série, patrimônio e setor.  | ALTA | Helena Edim |
-|RF-004| O sistema deve permitir que o Gestor edite as informações dos padrões cadastrados.  | ALTA | |
-|RF-005| O sistema deve permitir que o Gestor registre calibrações de padrões, informando: data de realização, número do certificado, órgão calibrador (fornecedor), periodicidade, custo e o certificado em formato PDF. | ALTA |  |
+|RF-004| O sistema deve permitir que o Gestor edite as informações dos padrões cadastrados.  | ALTA | Lucas Oliveira |
+|RF-005| O sistema deve permitir que o Gestor registre calibrações de padrões, informando: data de realização, número do certificado, órgão calibrador (fornecedor), periodicidade, custo e o certificado em formato PDF. | ALTA | Lucas Oliveira |
 |RF-006| O sistema deve permitir que o Gestor cadastre fornecedores, informando: nome, razão social, CNPJ, responsável, telefone, e-mail, link do portal, usuário e senha.  | ALTA | Helena Edim |
 |RF-007| O sistema deve permitir que Gestores e Técnicos visualizem a lista de fornecedores, contendo: nome, responsável, telefone e e-mail. Caso o fornecedor possua portal online, deve ser disponibilizado um acesso direto ao mesmo. | MÉDIA | Helena Edim |
 |RF-008| O sistema deve permitir que o Gestor edite e exclua fornecedores cadastrados. | MÉDIA | Helena Edim |
