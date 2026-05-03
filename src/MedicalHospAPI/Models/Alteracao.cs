@@ -30,7 +30,7 @@ namespace MedicalHospAPI.Models
 
         public int? padraoId { get; set; }
         [ForeignKey("padraoId")]
-        public Padroes padrao { get; set; }
+        public Padrao padrao { get; set; }
 
         public int? calibracaoId { get; set; }
         [ForeignKey("calibracaoId")]
