@@ -1,4 +1,5 @@
 .env
+.specs/
 
 # dependencies
 node_modules/
@@ -41,3 +42,9 @@ app-example
 # generated native folders
 /ios
 /android
+
+#spec-driven-development-markdowns
+.agents
+.claude
+.cursor
+.windsurf

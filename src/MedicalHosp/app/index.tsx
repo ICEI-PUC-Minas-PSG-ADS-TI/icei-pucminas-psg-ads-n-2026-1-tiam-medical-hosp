@@ -10,7 +10,7 @@ export default function HomeScreen() {
   }
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", padding: 24 }}>
+    <View style={{ flex: 1, justifyContent: "center", padding: 24, backgroundColor: "white" }}>
       <Text style={{ fontSize: 28 }}>Home</Text>
       <Button title="Sair" onPress={handleLogout} />
     </View>
