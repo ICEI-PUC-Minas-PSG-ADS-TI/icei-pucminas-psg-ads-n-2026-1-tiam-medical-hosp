@@ -1,17 +1,28 @@
 import { useState } from "react";
-import { View, Text, TextInput, Pressable, Alert, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Pressable,
+  Alert,
+  StyleSheet,
+} from "react-native";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { router } from "expo-router";
-import { auth } from "../config/firebase";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-export default function LoginScreen() {
+import { auth } from "@/config/firebase";
+import { RootStackParamList } from "@/routes/AppRoutes";
+
+type Props = NativeStackScreenProps<RootStackParamList, "Login">;
+
+export default function LoginScreen({ navigation }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   async function handleLogin() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.replace("/");
+      navigation.replace("Home");
     } catch {
       Alert.alert("Erro", "E-mail ou senha inválidos.");
     }
@@ -45,7 +56,10 @@ export default function LoginScreen() {
       </Pressable>
 
       <View style={styles.secondaryButtonWrapper}>
-        <Pressable style={styles.button} onPress={() => router.push("/register")}>
+        <Pressable
+          style={styles.button}
+          onPress={() => navigation.navigate("Register")}
+        >
           <Text style={styles.buttonText}>Criar conta</Text>
         </Pressable>
       </View>

@@ -2,10 +2,14 @@ import { useState } from "react";
 import { View, Text, TextInput, Pressable, Alert, StyleSheet } from "react-native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { router } from "expo-router";
-import { auth, db } from "../config/firebase";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-export default function RegisterScreen() {
+import { auth, db } from "../config/firebase";
+import { RootStackParamList } from "@/routes/AppRoutes";
+
+type Props = NativeStackScreenProps<RootStackParamList, "Register">;
+
+export default function RegisterScreen({ navigation }: Props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +30,7 @@ export default function RegisterScreen() {
         createdAt: new Date(),
       });
 
-      router.replace("/");
+      navigation.replace("Home");
     } catch {
       Alert.alert("Erro", "Nao foi possivel criar a conta.");
     }
@@ -68,7 +72,7 @@ export default function RegisterScreen() {
       </Pressable>
 
       <View style={styles.secondaryButtonWrapper}>
-        <Pressable style={styles.button} onPress={() => router.push("/login")}>
+        <Pressable style={styles.button} onPress={() => navigation.navigate("Login")}>
           <Text style={styles.buttonText}>Ja tenho conta</Text>
         </Pressable>
       </View>
