@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import {
+  ImageSourcePropType,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -16,6 +17,9 @@ interface AuthLayoutProps {
   subtitle: string;
   assetTitle: string;
   assetPath: string;
+  assetSource?: ImageSourcePropType;
+  assetHeight?: number;
+  assetWidth?: number | string;
   children: ReactNode;
 }
 
@@ -24,6 +28,9 @@ export function AuthLayout({
   subtitle,
   assetTitle,
   assetPath,
+  assetSource,
+  assetHeight,
+  assetWidth,
   children,
 }: AuthLayoutProps) {
   return (
@@ -40,7 +47,13 @@ export function AuthLayout({
           <Text style={styles.brandCaption}>Gestao de padroes de calibracao</Text>
         </View>
 
-        <AssetPlaceholder title={assetTitle} assetPath={assetPath} />
+        <AssetPlaceholder
+          title={assetTitle}
+          assetPath={assetPath}
+          assetSource={assetSource}
+          height={assetHeight}
+          width={assetWidth}
+        />
 
         <View style={styles.formSurface}>
           <Text style={styles.title}>{title}</Text>

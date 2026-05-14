@@ -35,6 +35,9 @@ export default function LoginScreen({ navigation }: Props) {
       subtitle="Entre para acompanhar os padroes de calibracao e manter o inventario em dia."
       assetTitle="Imagem futura da tela de login"
       assetPath={MedicalAssets.login}
+      assetSource={require("../assets/images/interface-login.png")}
+      assetHeight={108}
+      assetWidth={190}
     >
       <View style={styles.fields}>
         <TextInput
