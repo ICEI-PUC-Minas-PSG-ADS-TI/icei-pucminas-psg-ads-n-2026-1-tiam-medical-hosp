@@ -83,7 +83,7 @@ export default function HomeScreen({ navigation }: Props) {
               <View style={styles.titleGroup}>
                 <Text style={styles.titulo}>Painel</Text>
                 <Text style={styles.subtitulo}>
-                  Status de calibracao dos equipamentos
+                  Status de calibração dos equipamentos
                 </Text>
               </View>
 
@@ -103,14 +103,14 @@ export default function HomeScreen({ navigation }: Props) {
               <StatusCard
                 cor="#16a34a"
                 numero={dashboard.validos}
-                label="Validos"
+                label="Válidos"
                 icon="checkmark-circle"
               />
 
               <StatusCard
                 cor="#d97706"
                 numero={dashboard.atencao}
-                label="Atencao"
+                label="Atenção"
                 icon="warning"
               />
 
@@ -131,7 +131,7 @@ export default function HomeScreen({ navigation }: Props) {
           <View style={styles.emptyState}>
             <Text style={styles.emptyTitle}>Nenhuma atividade encontrada</Text>
             <Text style={styles.emptyText}>
-              Ajuste a busca para consultar as atividades de apresentacao.
+              Ajuste a busca para consultar as atividades de apresentação.
             </Text>
           </View>
         }

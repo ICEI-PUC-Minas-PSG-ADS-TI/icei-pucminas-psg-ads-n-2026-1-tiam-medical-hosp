@@ -21,8 +21,8 @@ interface BottomTabProps {
 
 export function BottomTab({ activeKey = "home", onPressPadroes }: BottomTabProps) {
   const items: BottomTabItem[] = [
-    { key: "home", label: "Inicio", icon: "home" },
-    { key: "padroes", label: "Padroes", icon: "construct", onPress: onPressPadroes },
+    { key: "home", label: "Início", icon: "home" },
+    { key: "padroes", label: "Padrões", icon: "construct", onPress: onPressPadroes },
     { key: "fornecedores", label: "Fornecedores", icon: "business" },
     { key: "perfil", label: "Perfil", icon: "person" },
   ];

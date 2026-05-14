@@ -15,21 +15,21 @@ export async function getAtividades(): Promise<ActivityItem[]> {
       nome: "Ventilador PB840",
       tag: "VNT-2341",
       status: "concluida",
-      tempo: "Ha 10 horas",
+      tempo: "Há 10 horas",
     },
     {
       id: 2,
-      nome: "Bomba de Infusao",
+      nome: "Bomba de Infusão",
       tag: "DEF-8821",
       status: "breve",
-      tempo: "Ha 21 horas",
+      tempo: "Há 21 horas",
     },
     {
       id: 3,
       nome: "Desfibrilador Zoll X",
       tag: "VSM-0012",
       status: "vencida",
-      tempo: "Ha 1 dia",
+      tempo: "Há 1 dia",
     },
   ];
 }

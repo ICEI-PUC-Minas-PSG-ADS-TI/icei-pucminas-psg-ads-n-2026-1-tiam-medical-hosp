@@ -8,9 +8,9 @@ interface ActivityCardProps {
 }
 
 const statusTextByStatus: Record<ActivityStatus, string> = {
-  concluida: "Calibracao concluida",
-  breve: "Calibracao vence em breve",
-  vencida: "Calibracao vencida",
+  concluida: "Calibração concluída",
+  breve: "Calibração vence em breve",
+  vencida: "Calibração vencida",
 };
 
 export function ActivityCard({ item }: ActivityCardProps) {

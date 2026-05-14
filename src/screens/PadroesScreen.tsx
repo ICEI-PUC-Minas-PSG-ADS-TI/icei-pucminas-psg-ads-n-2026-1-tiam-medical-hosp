@@ -21,7 +21,7 @@ const formFields: { key: keyof PadraoDTO; placeholder: string }[] = [
   { key: "fabricante", placeholder: "Fabricante" },
   { key: "modelo", placeholder: "Modelo" },
   { key: "tag", placeholder: "TAG" },
-  { key: "numSerie", placeholder: "Numero de série" },
+  { key: "numSerie", placeholder: "Número de série" },
   { key: "patrimonio", placeholder: "Patrimônio" },
   { key: "setor", placeholder: "Setor" },
 ];
@@ -109,7 +109,7 @@ export default function PadroesScreen() {
     const trimmedForm = trimPadraoForm(form);
 
     if (!isPadraoFormValid(trimmedForm)) {
-      Alert.alert("Erro", "Preencha todos os campos obrigatorios.");
+      Alert.alert("Erro", "Preencha todos os campos obrigatórios.");
       return;
     }
 
@@ -191,9 +191,9 @@ function PadroesHeader({
   return (
     <View style={styles.header}>
       <View style={styles.heading}>
-        <Text style={styles.title}>Padroes</Text>
+        <Text style={styles.title}>Padrões</Text>
         <Text style={styles.subtitle}>
-          Consulte, cadastre e mantenha os instrumentos de calibracao organizados.
+          Consulte, cadastre e mantenha os instrumentos de calibração organizados.
         </Text>
       </View>
 
@@ -261,7 +261,7 @@ function PadraoForm({
 
       {showCancel && (
         <MedicalButton
-          title="Cancelar edicao"
+          title="Cancelar edição"
           variant="secondary"
           onPress={onCancel}
           disabled={loading}
@@ -280,8 +280,8 @@ function PadraoCard({ item, onEdit, onDelete }: PadraoCardProps) {
       </View>
 
       <View style={styles.metaGrid}>
-        <InfoBlock label="Patrimonio" value={item.patrimonio} />
-        <InfoBlock label="Serie" value={item.numSerie} />
+        <InfoBlock label="Patrimônio" value={item.patrimonio} />
+        <InfoBlock label="Série" value={item.numSerie} />
         <InfoBlock label="Fabricante" value={item.fabricante} />
         <InfoBlock label="Modelo" value={item.modelo} />
       </View>
@@ -317,7 +317,7 @@ function EmptyState() {
     <View style={styles.emptyState}>
       <Text style={styles.emptyTitle}>Nenhum padrão cadastrado</Text>
       <Text style={styles.emptyText}>
-        Abra o formulario acima para adicionar o primeiro padrão ao estoque.
+        Abra o formulário acima para adicionar o primeiro padrão ao estoque.
       </Text>
     </View>
   );

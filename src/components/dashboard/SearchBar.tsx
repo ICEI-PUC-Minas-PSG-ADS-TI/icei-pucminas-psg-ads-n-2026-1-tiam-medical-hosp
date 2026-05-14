@@ -11,7 +11,7 @@ export function SearchBar({ value, onChangeText }: SearchBarProps) {
   return (
     <View style={styles.container}>
       <TextInput
-        placeholder="Buscar por TAG, nome ou ID patrimonio"
+        placeholder="Buscar por TAG, nome ou ID patrimônio"
         placeholderTextColor={MedicalColors.muted}
         value={value}
         onChangeText={onChangeText}
