@@ -1,17 +1,18 @@
 import { useState } from "react";
 import {
-  View,
-  Text,
   TextInput,
-  Pressable,
   Alert,
   StyleSheet,
+  View,
 } from "react-native";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { auth } from "@/config/firebase";
 import { RootStackParamList } from "@/routes/AppRoutes";
+import { MedicalAssets, MedicalColors, MedicalSpacing } from "@/constants/medical-ui";
+import { AuthLayout } from "@/components/medical/AuthLayout";
+import { MedicalButton } from "@/components/medical/MedicalButton";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
@@ -24,83 +25,59 @@ export default function LoginScreen({ navigation }: Props) {
       await signInWithEmailAndPassword(auth, email, password);
       navigation.replace("Home");
     } catch {
-      Alert.alert("Erro", "E-mail ou senha inválidos.");
+      Alert.alert("Erro", "E-mail ou senha invalidos.");
     }
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+    <AuthLayout
+      title="Acesse sua conta"
+      subtitle="Entre para acompanhar os padroes de calibracao e manter o inventario em dia."
+      assetTitle="Imagem futura da tela de login"
+      assetPath={MedicalAssets.login}
+    >
+      <View style={styles.fields}>
+        <TextInput
+          placeholder="E-mail"
+          placeholderTextColor={MedicalColors.muted}
+          value={email}
+          onChangeText={setEmail}
+          autoCapitalize="none"
+          keyboardType="email-address"
+          style={styles.input}
+        />
 
-      <TextInput
-        placeholder="E-mail"
-        placeholderTextColor="#9ca3af"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        keyboardType="email-address"
-        style={styles.input}
-      />
-
-      <TextInput
-        placeholder="Senha"
-        placeholderTextColor="#9ca3af"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={styles.input}
-      />
-
-      <Pressable style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Entrar</Text>
-      </Pressable>
-
-      <View style={styles.secondaryButtonWrapper}>
-        <Pressable
-          style={styles.button}
-          onPress={() => navigation.navigate("Register")}
-        >
-          <Text style={styles.buttonText}>Criar conta</Text>
-        </Pressable>
+        <TextInput
+          placeholder="Senha"
+          placeholderTextColor={MedicalColors.muted}
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+          style={styles.input}
+        />
       </View>
-    </View>
+
+      <MedicalButton title="Entrar" onPress={handleLogin} />
+      <MedicalButton
+        title="Criar conta"
+        variant="secondary"
+        onPress={() => navigation.navigate("Register")}
+      />
+    </AuthLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 24,
-    backgroundColor: "#ffffff",
-  },
-  title: {
-    fontSize: 28,
-    marginBottom: 24,
-    color: "#111827",
+  fields: {
+    gap: MedicalSpacing.md,
   },
   input: {
+    minHeight: 48,
     borderWidth: 1,
-    borderColor: "#d1d5db",
+    borderColor: MedicalColors.borderStrong,
     borderRadius: 8,
-    padding: 12,
-    marginBottom: 12,
-    backgroundColor: "#ffffff",
-    color: "#111827",
-  },
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 8,
-    padding: 14,
-    backgroundColor: "#dc2626",
-  },
-  buttonText: {
-    color: "#ffffff",
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  secondaryButtonWrapper: {
-    marginTop: 12,
+    padding: MedicalSpacing.md,
+    backgroundColor: MedicalColors.surface,
+    color: MedicalColors.text,
   },
 });

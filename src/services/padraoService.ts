@@ -1,11 +1,15 @@
+import { FirebaseError } from "firebase/app";
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, getDoc } from "firebase/firestore";
-import { db } from "@/config/firebase";
+import { auth, db } from "@/config/firebase";
 import { Padrao, PadraoDTO } from "@/types/padrao";
 
-const collection_name: string = "padroes";
-const padroesRef = collection(db, collection_name);
+const AUTH_REQUIRED_ERROR = "auth-required";
+const collectionName = "padroes";
+const padroesRef = collection(db, collectionName);
 
 export async function getPadroes(): Promise<Padrao[]> {
+    ensureAuthenticated();
+
     const snapshot = await getDocs(padroesRef);
 
     const padroes: Padrao[] = snapshot.docs.map((document) => ({
@@ -17,8 +21,14 @@ export async function getPadroes(): Promise<Padrao[]> {
 }
 
 export async function getPadraoById(id: string) {
-    const padraoRef = doc(db, collection_name, id);
+    ensureAuthenticated();
+
+    const padraoRef = doc(db, collectionName, id);
     const snapshot = await getDoc(padraoRef);
+
+    if (!snapshot.exists()) {
+        return null;
+    }
 
     const padrao: Padrao = {
         id: snapshot.id,
@@ -29,6 +39,8 @@ export async function getPadraoById(id: string) {
 }
 
 export async function createPadrao(novoPadrao: PadraoDTO): Promise<PadraoDTO> {
+    ensureAuthenticated();
+
     await addDoc(padroesRef, {
         nome: novoPadrao.nome,
         fabricante: novoPadrao.fabricante,
@@ -43,7 +55,9 @@ export async function createPadrao(novoPadrao: PadraoDTO): Promise<PadraoDTO> {
 }
 
 export async function updatePadrao(id: string, padraoAtualizado: PadraoDTO): Promise<PadraoDTO> {
-    const padraoRef = doc(db, collection_name, id);
+    ensureAuthenticated();
+
+    const padraoRef = doc(db, collectionName, id);
     const padraoData = toPadraoData(padraoAtualizado);
 
     await updateDoc(padraoRef, padraoData);
@@ -52,9 +66,27 @@ export async function updatePadrao(id: string, padraoAtualizado: PadraoDTO): Pro
 }
 
 export async function deletePadrao(id: string) {
-    const padraoRef = doc(db, collection_name, id);
+    ensureAuthenticated();
+
+    const padraoRef = doc(db, collectionName, id);
 
     await deleteDoc(padraoRef);
+}
+
+export function getPadraoErrorMessage(error: unknown) {
+    if (isAuthRequiredError(error)) {
+        return "Entre novamente para acessar os padroes.";
+    }
+
+    if (isPadraoPermissionError(error)) {
+        return "Nao foi possivel acessar os padroes. Verifique se sua conta esta autorizada e se as regras do Firebase foram publicadas.";
+    }
+
+    return "Nao foi possivel concluir a operacao. Tente novamente em instantes.";
+}
+
+export function isPadraoPermissionError(error: unknown) {
+    return error instanceof FirebaseError && error.code === "permission-denied";
 }
 
 function toPadraoData(padrao: PadraoDTO) {
@@ -67,4 +99,14 @@ function toPadraoData(padrao: PadraoDTO) {
         patrimonio: padrao.patrimonio,
         setor: padrao.setor
     }
+}
+
+function ensureAuthenticated() {
+    if (!auth.currentUser) {
+        throw new Error(AUTH_REQUIRED_ERROR);
+    }
+}
+
+function isAuthRequiredError(error: unknown) {
+    return error instanceof Error && error.message === AUTH_REQUIRED_ERROR;
 }

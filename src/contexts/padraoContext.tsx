@@ -2,7 +2,6 @@ import React, {
     createContext,
     ReactNode,
     useContext,
-    useEffect,
     useState,
 } from "react";
 
@@ -13,21 +12,23 @@ import {
     getPadraoById,
     createPadrao,
     updatePadrao,
-    deletePadrao
-} from "@/services/padraoService"
+    deletePadrao,
+    getPadraoErrorMessage,
+} from "@/services/padraoService";
 
 interface PadroesContextData {
     padroes: Padrao[];
     selectedPadrao: Padrao | null;
     loading: boolean;
-    error: string | null;
+    errorMessage: string | null;
 
     loadPadroes: () => Promise<void>;
     loadPadraoById: (id: string) => Promise<Padrao | null>;
-    addPadrao: (novoPadrao: PadraoDTO) => Promise<void>;
-    editPadrao: (id: string, padraoAtualizado: PadraoDTO) => Promise<void>;
-    removePadrao: (id: string) => Promise<void>;
+    addPadrao: (novoPadrao: PadraoDTO) => Promise<boolean>;
+    editPadrao: (id: string, padraoAtualizado: PadraoDTO) => Promise<boolean>;
+    removePadrao: (id: string) => Promise<boolean>;
     clearSelectedPadrao: () => void;
+    clearError: () => void;
 }
 
 interface PadroesProviderProps {
@@ -41,19 +42,18 @@ const PadroesContext = createContext<PadroesContextData | undefined>(
 export function PadroesProvider({ children }: PadroesProviderProps) {
     const [padroes, setPadroes] = useState<Padrao[]>([]);
     const [selectedPadrao, setSelectedPadrao] = useState<Padrao | null>(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    async function loadPadroes() {
+    async function loadPadroes(): Promise<void> {
         try {
             setLoading(true);
-
             const data = await getPadroes();
 
             setPadroes(data);
+            setErrorMessage(null);
         } catch (error) {
-            console.error(error);
-            setError("Erro ao carregar padrões.");
+            setErrorMessage(getPadraoErrorMessage(error));
         } finally {
             setLoading(false);
         }
@@ -64,65 +64,64 @@ export function PadroesProvider({ children }: PadroesProviderProps) {
             setLoading(true);
 
             const padrao = await getPadraoById(id);
-
             setSelectedPadrao(padrao);
+            setErrorMessage(null);
 
             return padrao;
         } catch (error) {
-            console.error(error);
-
-            if (error instanceof Error) {
-                setError(error.message);
-            } else {
-                setError("Erro ao carregar padrão.");
-            }
-
+            setErrorMessage(getPadraoErrorMessage(error));
             return null;
         } finally {
             setLoading(false);
         }
     }
 
-    async function addPadrao(novoPadrao: PadraoDTO) {
+    async function addPadrao(novoPadrao: PadraoDTO): Promise<boolean> {
         try {
             setLoading(true);
 
             await createPadrao(novoPadrao);
-
             await loadPadroes();
+            setErrorMessage(null);
+
+            return true;
         } catch (error) {
-            console.error(error);
-            setError("Erro ao cadastrar padrão.");
+            setErrorMessage(getPadraoErrorMessage(error));
+            return false;
         } finally {
             setLoading(false);
         }
     }
 
-    async function editPadrao(id: string, padraoAtualizado: PadraoDTO) {
+    async function editPadrao(id: string, padraoAtualizado: PadraoDTO): Promise<boolean> {
         try {
             setLoading(true);
 
             await updatePadrao(id, padraoAtualizado);
-
             await loadPadroes();
+            setErrorMessage(null);
+
+            return true;
         } catch (error) {
-            console.error(error);
-            setError("Erro ao atualizar padrão.");
+            setErrorMessage(getPadraoErrorMessage(error));
+            return false;
         } finally {
             setLoading(false);
         }
     }
 
-    async function removePadrao(id: string) {
+    async function removePadrao(id: string): Promise<boolean> {
         try {
             setLoading(true);
 
             await deletePadrao(id);
-
             await loadPadroes();
+            setErrorMessage(null);
+
+            return true;
         } catch (error) {
-            console.error(error);
-            setError("Erro ao excluir padrão.");
+            setErrorMessage(getPadraoErrorMessage(error));
+            return false;
         } finally {
             setLoading(false);
         }
@@ -132,9 +131,9 @@ export function PadroesProvider({ children }: PadroesProviderProps) {
         setSelectedPadrao(null);
     }
 
-    useEffect(() => {
-        loadPadroes();
-    }, []);
+    function clearError() {
+        setErrorMessage(null);
+    }
 
     return (
         <PadroesContext.Provider
@@ -142,13 +141,14 @@ export function PadroesProvider({ children }: PadroesProviderProps) {
                 padroes,
                 selectedPadrao,
                 loading,
-                error,
+                errorMessage,
                 loadPadroes,
                 loadPadraoById,
                 addPadrao,
                 editPadrao,
                 removePadrao,
                 clearSelectedPadrao,
+                clearError,
             }}
         >
             {children}

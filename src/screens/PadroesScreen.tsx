@@ -1,19 +1,125 @@
-import { View, Text, Button, FlatList, StyleSheet, Alert } from "react-native";
+import { useEffect, useState } from "react";
+import { View, Text, FlatList, StyleSheet, Alert, TextInput, Keyboard } from "react-native";
+
+import { MedicalButton } from "@/components/medical/MedicalButton";
 import { usePadroes } from "@/contexts/padraoContext";
+import { MedicalColors, MedicalSpacing } from "@/constants/medical-ui";
+import { Padrao, PadraoDTO } from "@/types/padrao";
+
+const initialPadraoForm: PadraoDTO = {
+  nome: "",
+  fabricante: "",
+  modelo: "",
+  tag: "",
+  numSerie: "",
+  patrimonio: "",
+  setor: "",
+};
+
+const formFields: { key: keyof PadraoDTO; placeholder: string }[] = [
+  { key: "nome", placeholder: "Nome" },
+  { key: "fabricante", placeholder: "Fabricante" },
+  { key: "modelo", placeholder: "Modelo" },
+  { key: "tag", placeholder: "TAG" },
+  { key: "numSerie", placeholder: "Numero de série" },
+  { key: "patrimonio", placeholder: "Patrimônio" },
+  { key: "setor", placeholder: "Setor" },
+];
+
+interface PadroesHeaderProps {
+  form: PadraoDTO;
+  isFormOpen: boolean;
+  isEditing: boolean;
+  loading: boolean;
+  onChange: (field: keyof PadraoDTO, value: string) => void;
+  onSubmit: () => void;
+  onCancelEdit: () => void;
+  onToggleForm: () => void;
+}
+
+interface PadraoFormProps {
+  form: PadraoDTO;
+  loading: boolean;
+  submitTitle: string;
+  showCancel: boolean;
+  onChange: (field: keyof PadraoDTO, value: string) => void;
+  onSubmit: () => void;
+  onCancel: () => void;
+}
+
+interface PadraoCardProps {
+  item: Padrao;
+  onEdit: (padrao: Padrao) => void;
+  onDelete: (id: string) => void;
+}
 
 export default function PadroesScreen() {
-  const { padroes, loading, error, addPadrao, removePadrao } = usePadroes();
+  const { padroes, loading, loadPadroes: loadPadroes, addPadrao, editPadrao, removePadrao } = usePadroes();
+  const [form, setForm] = useState<PadraoDTO>(initialPadraoForm);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [editingPadraoId, setEditingPadraoId] = useState<string | null>(null);
+  const isEditing = editingPadraoId !== null;
 
-  async function handleCreatePadrao() {
-    await addPadrao({
-      nome: "Termômetro",
-      fabricante: "Fabricante Teste",
-      modelo: "Modelo Teste",
-      tag: "TAG-001",
-      numSerie: "NS-001",
-      patrimonio: "PAT-001",
-      setor: "Laboratório",
-    });
+  useEffect(() => {
+    loadPadroes();
+  }, []);
+
+  function handleChange(field: keyof PadraoDTO, value: string) {
+    setForm((currentForm: PadraoDTO) => ({
+      ...currentForm,
+      [field]: value,
+    }));
+  }
+
+  function resetFormState() {
+    setForm(initialPadraoForm);
+    setEditingPadraoId(null);
+    setIsFormOpen(false);
+  }
+
+  function handleStartEdit(padrao: Padrao) {
+    setForm(getPadraoFormFromItem(padrao));
+    setEditingPadraoId(padrao.id);
+    setIsFormOpen(true);
+  }
+
+  function handleCancelEdit() {
+    resetFormState();
+  }
+
+  function handleToggleForm() {
+    if (isFormOpen) {
+      if (isEditing) {
+        handleCancelEdit();
+        return;
+      }
+
+      setIsFormOpen(false);
+      return;
+    }
+
+    setIsFormOpen(true);
+  }
+
+  async function handleSubmitForm() {
+    if (loading) {
+      return;
+    }
+
+    const trimmedForm = trimPadraoForm(form);
+
+    if (!isPadraoFormValid(trimmedForm)) {
+      Alert.alert("Erro", "Preencha todos os campos obrigatorios.");
+      return;
+    }
+
+    const saved = editingPadraoId
+      ? await editPadrao(editingPadraoId, trimmedForm)
+      : await addPadrao(trimmedForm);
+
+    if (saved) {
+      resetFormState();
+    }
   }
 
   async function handleDeletePadrao(id: string) {
@@ -32,76 +138,366 @@ export default function PadroesScreen() {
     ]);
   }
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Padrões</Text>
-
-      {loading && <Text>Carregando...</Text>}
-
-      {error && <Text style={styles.error}>{error}</Text>}
-
-      <Button title="Cadastrar padrão de teste" onPress={handleCreatePadrao} />
-
-      <FlatList
-        data={padroes}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.list}
-        renderItem={({ item }) => (
-          <View style={styles.card}>
-            <Text style={styles.name}>{item.nome}</Text>
-            <Text>Fabricante: {item.fabricante}</Text>
-            <Text>Modelo: {item.modelo}</Text>
-            <Text>Tag: {item.tag}</Text>
-            <Text>Nº série: {item.numSerie}</Text>
-            <Text>Patrimônio: {item.patrimonio}</Text>
-            <Text>Setor: {item.setor}</Text>
-
-            <View style={styles.buttonWrapper}>
-              <Button
-                title="Excluir"
-                color="#dc2626"
-                onPress={() => handleDeletePadrao(item.id)}
-              />
-            </View>
-          </View>
-        )}
+  function renderPadraoCard({ item }: { item: Padrao }) {
+    return (
+      <PadraoCard
+        item={item}
+        onEdit={handleStartEdit}
+        onDelete={handleDeletePadrao}
       />
+    );
+  }
+
+  return (
+    <FlatList
+      style={styles.container}
+      data={padroes}
+      keyExtractor={(item) => item.id}
+      ListHeaderComponent={
+        <PadroesHeader
+          form={form}
+          isFormOpen={isFormOpen}
+          isEditing={isEditing}
+          loading={loading}
+          onChange={handleChange}
+          onSubmit={handleSubmitForm}
+          onCancelEdit={handleCancelEdit}
+          onToggleForm={handleToggleForm}
+        />
+      }
+      ListEmptyComponent={!loading ? <EmptyState /> : null}
+      contentContainerStyle={styles.content}
+      renderItem={renderPadraoCard}
+    />
+  );
+}
+
+function PadroesHeader({
+  form,
+  isFormOpen,
+  isEditing,
+  loading,
+  onChange,
+  onSubmit,
+  onCancelEdit,
+  onToggleForm,
+}: PadroesHeaderProps) {
+  const formTitle = isEditing ? "Editar padrão" : "Cadastrar padrão";
+  const formSubtitle = isEditing
+    ? "Atualize os dados do padrão selecionado."
+    : "Informe os dados do padrão para adicionar ao estoque.";
+  const submitTitle = isEditing ? "Salvar alterações" : "Cadastrar padrão";
+
+  return (
+    <View style={styles.header}>
+      <View style={styles.heading}>
+        <Text style={styles.title}>Padroes</Text>
+        <Text style={styles.subtitle}>
+          Consulte, cadastre e mantenha os instrumentos de calibracao organizados.
+        </Text>
+      </View>
+
+      {loading && <Text style={styles.status}>Carregando...</Text>}
+
+      <View style={styles.formCard}>
+        <View style={styles.formHeader}>
+          <View style={styles.formHeaderText}>
+            <Text style={styles.formTitle}>{formTitle}</Text>
+            <Text style={styles.formSubtitle}>{formSubtitle}</Text>
+          </View>
+          <MedicalButton
+            title={isFormOpen ? "Fechar" : "Abrir"}
+            variant="secondary"
+            onPress={onToggleForm}
+          />
+        </View>
+
+        {isFormOpen && (
+          <PadraoForm
+            form={form}
+            loading={loading}
+            submitTitle={submitTitle}
+            showCancel={isEditing}
+            onChange={onChange}
+            onSubmit={onSubmit}
+            onCancel={onCancelEdit}
+          />
+        )}
+      </View>
     </View>
   );
+}
+
+function PadraoForm({
+  form,
+  loading,
+  submitTitle,
+  showCancel,
+  onChange,
+  onSubmit,
+  onCancel,
+}: PadraoFormProps) {
+  return (
+    <View style={styles.form}>
+      {formFields.map((field) => (
+        <TextInput
+          key={field.key}
+          placeholder={field.placeholder}
+          placeholderTextColor={MedicalColors.muted}
+          value={form[field.key]}
+          onChangeText={(value) => onChange(field.key, value)}
+          onSubmitEditing={Keyboard.dismiss}
+          returnKeyType="done"
+          submitBehavior="blurAndSubmit"
+          style={styles.input}
+        />
+      ))}
+
+      <MedicalButton
+        title={loading ? "Salvando..." : submitTitle}
+        onPress={onSubmit}
+        disabled={loading}
+      />
+
+      {showCancel && (
+        <MedicalButton
+          title="Cancelar edicao"
+          variant="secondary"
+          onPress={onCancel}
+          disabled={loading}
+        />
+      )}
+    </View>
+  );
+}
+
+function PadraoCard({ item, onEdit, onDelete }: PadraoCardProps) {
+  return (
+    <View style={styles.card}>
+      <View style={styles.cardHeader}>
+        <Text style={styles.name}>{item.nome}</Text>
+        <Text style={styles.tag}>{item.tag}</Text>
+      </View>
+
+      <View style={styles.metaGrid}>
+        <InfoBlock label="Patrimonio" value={item.patrimonio} />
+        <InfoBlock label="Serie" value={item.numSerie} />
+        <InfoBlock label="Fabricante" value={item.fabricante} />
+        <InfoBlock label="Modelo" value={item.modelo} />
+      </View>
+
+      <View style={styles.cardFooter}>
+        <Text style={styles.setor}>Setor: {item.setor}</Text>
+        <MedicalButton
+          title="Editar"
+          variant="secondary"
+          onPress={() => onEdit(item)}
+        />
+        <MedicalButton
+          title="Excluir"
+          variant="danger"
+          onPress={() => onDelete(item.id)}
+        />
+      </View>
+    </View>
+  );
+}
+
+function InfoBlock({ label, value }: { label: string; value: string }) {
+  return (
+    <View style={styles.infoBlock}>
+      <Text style={styles.infoLabel}>{label}</Text>
+      <Text style={styles.infoValue}>{value}</Text>
+    </View>
+  );
+}
+
+function EmptyState() {
+  return (
+    <View style={styles.emptyState}>
+      <Text style={styles.emptyTitle}>Nenhum padrão cadastrado</Text>
+      <Text style={styles.emptyText}>
+        Abra o formulario acima para adicionar o primeiro padrão ao estoque.
+      </Text>
+    </View>
+  );
+}
+
+function getPadraoFormFromItem(padrao: Padrao): PadraoDTO {
+  return {
+    nome: padrao.nome,
+    fabricante: padrao.fabricante,
+    modelo: padrao.modelo,
+    tag: padrao.tag,
+    numSerie: padrao.numSerie,
+    patrimonio: padrao.patrimonio,
+    setor: padrao.setor,
+  };
+}
+
+function trimPadraoForm(form: PadraoDTO): PadraoDTO {
+  return {
+    nome: form.nome.trim(),
+    fabricante: form.fabricante.trim(),
+    modelo: form.modelo.trim(),
+    tag: form.tag.trim(),
+    numSerie: form.numSerie.trim(),
+    patrimonio: form.patrimonio.trim(),
+    setor: form.setor.trim(),
+  };
+}
+
+function isPadraoFormValid(form: PadraoDTO) {
+  return Object.values(form).every((value) => value.length > 0);
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
-    backgroundColor: "#ffffff",
+    backgroundColor: MedicalColors.background,
+  },
+  content: {
+    gap: MedicalSpacing.md,
+    padding: MedicalSpacing.xl,
+  },
+  header: {
+    gap: MedicalSpacing.lg,
+  },
+  heading: {
+    gap: MedicalSpacing.xs,
+  },
+  eyebrow: {
+    color: MedicalColors.primaryDark,
+    fontSize: 12,
+    fontWeight: "800",
+    textTransform: "uppercase",
   },
   title: {
-    fontSize: 28,
-    marginBottom: 16,
-    color: "#111827",
+    color: MedicalColors.text,
+    fontSize: 30,
+    fontWeight: "800",
+  },
+  subtitle: {
+    color: MedicalColors.muted,
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  status: {
+    color: MedicalColors.muted,
   },
   error: {
-    color: "#dc2626",
-    marginBottom: 12,
+    color: MedicalColors.danger,
   },
-  list: {
-    paddingTop: 16,
-    gap: 12,
+  formCard: {
+    gap: MedicalSpacing.md,
+    borderWidth: 1,
+    borderColor: MedicalColors.border,
+    borderRadius: 8,
+    padding: MedicalSpacing.lg,
+    backgroundColor: MedicalColors.surface,
+  },
+  formHeader: {
+    gap: MedicalSpacing.md,
+  },
+  formHeaderText: {
+    gap: MedicalSpacing.xs,
+  },
+  formTitle: {
+    color: MedicalColors.text,
+    fontSize: 18,
+    fontWeight: "800",
+  },
+  formSubtitle: {
+    color: MedicalColors.muted,
+    fontSize: 13,
+    lineHeight: 18,
+  },
+  form: {
+    gap: MedicalSpacing.md,
+  },
+  input: {
+    minHeight: 48,
+    borderWidth: 1,
+    borderColor: MedicalColors.borderStrong,
+    borderRadius: 8,
+    padding: MedicalSpacing.md,
+    backgroundColor: MedicalColors.surface,
+    color: MedicalColors.text,
   },
   card: {
+    gap: MedicalSpacing.md,
     borderWidth: 1,
-    borderColor: "#d1d5db",
+    borderColor: MedicalColors.border,
     borderRadius: 8,
-    padding: 12,
-    backgroundColor: "#ffffff",
+    padding: MedicalSpacing.lg,
+    backgroundColor: MedicalColors.surface,
+  },
+  cardHeader: {
+    gap: MedicalSpacing.sm,
   },
   name: {
+    color: MedicalColors.text,
     fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 8,
+    fontWeight: "800",
   },
-  buttonWrapper: {
-    marginTop: 12,
+  tag: {
+    alignSelf: "flex-start",
+    borderRadius: 8,
+    paddingHorizontal: MedicalSpacing.md,
+    paddingVertical: MedicalSpacing.xs,
+    backgroundColor: MedicalColors.primarySoft,
+    color: MedicalColors.primaryDark,
+    fontSize: 12,
+    fontWeight: "800",
+  },
+  metaGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: MedicalSpacing.sm,
+  },
+  infoBlock: {
+    minWidth: "46%",
+    flexGrow: 1,
+    borderWidth: 1,
+    borderColor: MedicalColors.border,
+    borderRadius: 8,
+    padding: MedicalSpacing.md,
+    backgroundColor: MedicalColors.background,
+  },
+  infoLabel: {
+    color: MedicalColors.muted,
+    fontSize: 12,
+    fontWeight: "700",
+  },
+  infoValue: {
+    marginTop: MedicalSpacing.xs,
+    color: MedicalColors.text,
+    fontSize: 14,
+    fontWeight: "700",
+  },
+  cardFooter: {
+    gap: MedicalSpacing.md,
+  },
+  setor: {
+    color: MedicalColors.muted,
+    fontSize: 14,
+  },
+  emptyState: {
+    gap: MedicalSpacing.sm,
+    borderWidth: 1,
+    borderColor: MedicalColors.border,
+    borderRadius: 8,
+    padding: MedicalSpacing.lg,
+    backgroundColor: MedicalColors.surface,
+  },
+  emptyTitle: {
+    color: MedicalColors.text,
+    fontSize: 16,
+    fontWeight: "800",
+  },
+  emptyText: {
+    color: MedicalColors.muted,
+    fontSize: 14,
+    lineHeight: 20,
   },
 });
