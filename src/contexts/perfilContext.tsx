@@ -1,83 +1,92 @@
-import { FirebaseError } from "firebase/app";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { updateProfile } from "firebase/auth";
-import { auth, db } from "@/config/firebase";
+import React, {
+    createContext,
+    ReactNode,
+    useContext,
+    useState,
+} from "react";
+
 import { Perfil, PerfilDTO } from "@/types/perfil";
+import {
+    getPerfil,
+    savePerfil,
+    getPerfilErrorMessage,
+} from "@/services/perfilService";
 
-const AUTH_REQUIRED_ERROR = "auth-required";
-const collectionName = "perfis";
+interface PerfilContextData {
+    perfil: Perfil | null;
+    loading: boolean;
+    errorMessage: string | null;
 
-export async function getPerfil(): Promise<Perfil | null> {
-    ensureAuthenticated();
-
-    const user = auth.currentUser!;
-    const perfilRef = doc(db, collectionName, user.uid);
-    const snapshot = await getDoc(perfilRef);
-
-    if (!snapshot.exists()) {
-        return {
-            uid: user.uid,
-            nome: user.displayName ?? "",
-            email: user.email ?? "",
-            empresa: "",
-            cargo: "",
-            telefone: "",
-            photoURL: user.photoURL ?? undefined,
-        };
-    }
-
-    return {
-        uid: user.uid,
-        email: user.email ?? "",
-        photoURL: user.photoURL ?? undefined,
-        ...(snapshot.data() as Omit<Perfil, "uid" | "email" | "photoURL">),
-    };
+    loadPerfil: () => Promise<void>;
+    updatePerfil: (dto: PerfilDTO) => Promise<boolean>;
+    clearError: () => void;
 }
 
-export async function savePerfil(dto: PerfilDTO): Promise<PerfilDTO> {
-    ensureAuthenticated();
+interface PerfilProviderProps {
+    children: ReactNode;
+}
 
-    const user = auth.currentUser!;
-    const perfilRef = doc(db, collectionName, user.uid);
+const PerfilContext = createContext<PerfilContextData | undefined>(undefined);
 
-    await updateProfile(user, { displayName: dto.nome });
+export function PerfilProvider({ children }: PerfilProviderProps) {
+    const [perfil, setPerfil] = useState<Perfil | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    await setDoc(
-        perfilRef,
-        {
-            nome: dto.nome,
-            empresa: dto.empresa,
-            cargo: dto.cargo,
-            telefone: dto.telefone,
-        },
-        { merge: true }
+    async function loadPerfil(): Promise<void> {
+        try {
+            setLoading(true);
+            const data = await getPerfil();
+            setPerfil(data);
+            setErrorMessage(null);
+        } catch (error) {
+            setErrorMessage(getPerfilErrorMessage(error));
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    async function updatePerfil(dto: PerfilDTO): Promise<boolean> {
+        try {
+            setLoading(true);
+            await savePerfil(dto);
+            await loadPerfil();
+            setErrorMessage(null);
+            return true;
+        } catch (error) {
+            setErrorMessage(getPerfilErrorMessage(error));
+            return false;
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    function clearError(): void {
+        setErrorMessage(null);
+    }
+
+    return (
+        <PerfilContext.Provider
+            value={{
+                perfil,
+                loading,
+                errorMessage,
+                loadPerfil,
+                updatePerfil,
+                clearError,
+            }}
+        >
+            {children}
+        </PerfilContext.Provider>
     );
-
-    return dto;
 }
 
-export function getPerfilErrorMessage(error: unknown): string {
-    if (isAuthRequiredError(error)) {
-        return "Entre novamente para acessar o perfil.";
+export function usePerfil(): PerfilContextData {
+    const context = useContext(PerfilContext);
+
+    if (!context) {
+        throw new Error("usePerfil deve ser usado dentro de PerfilProvider");
     }
 
-    if (isPerfilPermissionError(error)) {
-        return "Não foi possível acessar o perfil. Verifique se sua conta está autorizada e se as regras do Firebase foram publicadas.";
-    }
-
-    return "Não foi possível concluir a operação. Tente novamente em instantes.";
-}
-
-export function isPerfilPermissionError(error: unknown): boolean {
-    return error instanceof FirebaseError && error.code === "permission-denied";
-}
-
-function ensureAuthenticated(): void {
-    if (!auth.currentUser) {
-        throw new Error(AUTH_REQUIRED_ERROR);
-    }
-}
-
-function isAuthRequiredError(error: unknown): boolean {
-    return error instanceof Error && error.message === AUTH_REQUIRED_ERROR;
+    return context;
 }
