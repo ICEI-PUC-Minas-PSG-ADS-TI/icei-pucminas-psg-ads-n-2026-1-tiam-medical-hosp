@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\MedicalHosp\\src\\MedicalHospAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3AC68C92-5D84-4681-9456-BBB974016BCD}|MedicalHospAPI.csproj|f:\\medicalhosp\\src\\medicalhospapi\\models\\calibracao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3AC68C92-5D84-4681-9456-BBB974016BCD}|MedicalHospAPI.csproj|solutionrelative:models\\calibracao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Calibracao.cs",
+              "DocumentMoniker": "F:\\MedicalHosp\\src\\MedicalHospAPI\\Models\\Calibracao.cs",
+              "RelativeDocumentMoniker": "Models\\Calibracao.cs",
+              "ToolTip": "F:\\MedicalHosp\\src\\MedicalHospAPI\\Models\\Calibracao.cs",
+              "RelativeToolTip": "Models\\Calibracao.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-03T21:43:38.679Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
