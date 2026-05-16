@@ -385,9 +385,6 @@ const styles = StyleSheet.create({
   status: {
     color: MedicalColors.muted,
   },
-  error: {
-    color: MedicalColors.danger,
-  },
   formCard: {
     gap: MedicalSpacing.md,
     borderWidth: 1,

@@ -13,14 +13,12 @@ import {
     createPadrao,
     updatePadrao,
     deletePadrao,
-    getPadraoErrorMessage,
 } from "@/services/padraoService";
 
 interface PadroesContextData {
     padroes: Padrao[];
     selectedPadrao: Padrao | null;
     loading: boolean;
-    errorMessage: string | null;
 
     loadPadroes: () => Promise<void>;
     loadPadraoById: (id: string) => Promise<Padrao | null>;
@@ -28,7 +26,6 @@ interface PadroesContextData {
     editPadrao: (id: string, padraoAtualizado: PadraoDTO) => Promise<boolean>;
     removePadrao: (id: string) => Promise<boolean>;
     clearSelectedPadrao: () => void;
-    clearError: () => void;
 }
 
 interface PadroesProviderProps {
@@ -43,7 +40,6 @@ export function PadroesProvider({ children }: PadroesProviderProps) {
     const [padroes, setPadroes] = useState<Padrao[]>([]);
     const [selectedPadrao, setSelectedPadrao] = useState<Padrao | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     async function loadPadroes(): Promise<void> {
         try {
@@ -51,9 +47,8 @@ export function PadroesProvider({ children }: PadroesProviderProps) {
             const data = await getPadroes();
 
             setPadroes(data);
-            setErrorMessage(null);
         } catch (error) {
-            setErrorMessage(getPadraoErrorMessage(error));
+            console.log(error);
         } finally {
             setLoading(false);
         }
@@ -65,11 +60,10 @@ export function PadroesProvider({ children }: PadroesProviderProps) {
 
             const padrao = await getPadraoById(id);
             setSelectedPadrao(padrao);
-            setErrorMessage(null);
 
             return padrao;
         } catch (error) {
-            setErrorMessage(getPadraoErrorMessage(error));
+            console.log(error);
             return null;
         } finally {
             setLoading(false);
@@ -82,11 +76,9 @@ export function PadroesProvider({ children }: PadroesProviderProps) {
 
             await createPadrao(novoPadrao);
             await loadPadroes();
-            setErrorMessage(null);
 
             return true;
         } catch (error) {
-            setErrorMessage(getPadraoErrorMessage(error));
             return false;
         } finally {
             setLoading(false);
@@ -99,11 +91,9 @@ export function PadroesProvider({ children }: PadroesProviderProps) {
 
             await updatePadrao(id, padraoAtualizado);
             await loadPadroes();
-            setErrorMessage(null);
 
             return true;
         } catch (error) {
-            setErrorMessage(getPadraoErrorMessage(error));
             return false;
         } finally {
             setLoading(false);
@@ -116,11 +106,9 @@ export function PadroesProvider({ children }: PadroesProviderProps) {
 
             await deletePadrao(id);
             await loadPadroes();
-            setErrorMessage(null);
 
             return true;
         } catch (error) {
-            setErrorMessage(getPadraoErrorMessage(error));
             return false;
         } finally {
             setLoading(false);
@@ -131,24 +119,18 @@ export function PadroesProvider({ children }: PadroesProviderProps) {
         setSelectedPadrao(null);
     }
 
-    function clearError() {
-        setErrorMessage(null);
-    }
-
     return (
         <PadroesContext.Provider
             value={{
                 padroes,
                 selectedPadrao,
                 loading,
-                errorMessage,
                 loadPadroes,
                 loadPadraoById,
                 addPadrao,
                 editPadrao,
                 removePadrao,
                 clearSelectedPadrao,
-                clearError,
             }}
         >
             {children}
