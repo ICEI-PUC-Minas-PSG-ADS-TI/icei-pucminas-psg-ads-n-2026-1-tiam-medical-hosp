@@ -1,6 +1,7 @@
 import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { Fornecedor, FornecedorDTO } from "@/types/fornecedor";
 import { getFornecedores, getFornecedorByID, createFornecedor, updateFornecedor, deleteFornecedor } from "@/services/fornecedorService";
+import { auth } from "@/config/firebase";
 
 interface FornecedoresContextData {
     fornecedores: Fornecedor[];
@@ -109,6 +110,10 @@ export function FornecedoresProvider({ children }: FornecedoresProviderProps) {
     }
 
     useEffect(() => {
+        if(!auth.currentUser) {
+            setError("Usuário não autenticado.");
+            return;
+        }
         loadFornecedores();
     }, []);
 
