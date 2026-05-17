@@ -10,8 +10,6 @@ import { useFornecedores } from "@/contexts/fornecedorContext";
 import { MedicalColors, MedicalSpacing } from "@/constants/medical-ui";
 import { Fornecedor, FornecedorDTO } from "@/types/fornecedor";
 
-// ─── Formulário inicial ───────────────────────────────────────────────────────
-
 const initialFornecedorForm: FornecedorDTO = {
     nome: "",
     razaoSocial: "",
@@ -35,8 +33,6 @@ const formFields: { key: keyof FornecedorDTO; placeholder: string }[] = [
     { key: "usuarioPortal", placeholder: "Usuário do Portal (opcional)" },
     { key: "senhaPortal", placeholder: "Senha do Portal (opcional)" },
 ];
-
-// ─── Interfaces ───────────────────────────────────────────────────────────────
 
 interface FornecedorCardProps {
     item: Fornecedor;
@@ -67,8 +63,6 @@ interface FornecedoresHeaderProps {
     onCancelEdit: () => void;
     onToggleForm: () => void;
 }
-
-// ─── Tela principal ───────────────────────────────────────────────────────────
 
 export default function FornecedoresScreen() {
     const {
@@ -207,7 +201,6 @@ export default function FornecedoresScreen() {
                 )}
             />
 
-            {/* Modal de detalhes */}
             <Modal
                 visible={isDetailModalOpen}
                 transparent
@@ -230,8 +223,6 @@ export default function FornecedoresScreen() {
         </View>
     );
 }
-
-// ─── Header ───────────────────────────────────────────────────────────────────
 
 function FornecedoresHeader({
     form, isFormOpen, isEditing, loading, busca,
@@ -289,8 +280,6 @@ function FornecedoresHeader({
     );
 }
 
-// ─── Formulário ───────────────────────────────────────────────────────────────
-
 function FornecedorForm({
     form, loading, submitTitle, showCancel, onChange, onSubmit, onCancel,
 }: FornecedorFormProps) {
@@ -329,8 +318,6 @@ function FornecedorForm({
     );
 }
 
-// ─── Card do fornecedor ───────────────────────────────────────────────────────
-
 function FornecedorCard({ item, onEdit, onDelete, onPress }: FornecedorCardProps) {
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -349,14 +336,12 @@ function FornecedorCard({ item, onEdit, onDelete, onPress }: FornecedorCardProps
             onPress={() => onPress(item)}
             activeOpacity={0.85}
         >
-            {/* Cabeçalho do card com 3 pontinhos */}
             <View style={styles.cardHeader}>
                 <View style={styles.cardHeaderText}>
                     <Text style={styles.cardNome}>{item.nome}</Text>
                     <Text style={styles.cardResponsavel}>{item.responsavel}</Text>
                 </View>
 
-                {/* Botão 3 pontinhos */}
                 <TouchableOpacity
                     onPress={(e) => {
                         e.stopPropagation();
@@ -369,7 +354,6 @@ function FornecedorCard({ item, onEdit, onDelete, onPress }: FornecedorCardProps
                 </TouchableOpacity>
             </View>
 
-            {/* Menu dropdown */}
             {menuOpen && (
                 <View style={styles.dropdown}>
                     <TouchableOpacity
@@ -402,13 +386,11 @@ function FornecedorCard({ item, onEdit, onDelete, onPress }: FornecedorCardProps
 
             <View style={styles.divider} />
 
-            {/* Telefone e email */}
             <View style={styles.cardInfo}>
                 <Text style={styles.cardInfoText}>📞  {item.telefone}</Text>
                 <Text style={styles.cardInfoText}>✉️  {item.email}</Text>
             </View>
 
-            {/* Botões de ação */}
             <View style={styles.cardFooter}>
                 <MedicalButton
                     title="Contatar"
@@ -425,8 +407,6 @@ function FornecedorCard({ item, onEdit, onDelete, onPress }: FornecedorCardProps
         </TouchableOpacity>
     );
 }
-
-// ─── Modal de detalhes ────────────────────────────────────────────────────────
 
 interface FornecedorDetailModalProps {
     fornecedor: Fornecedor;
@@ -449,7 +429,6 @@ function FornecedorDetailModal({
 
     return (
         <View>
-            {/* Cabeçalho do modal */}
             <View style={styles.modalHeader}>
                 <Text style={styles.modalTitle}>{fornecedor.nome}</Text>
                 <TouchableOpacity onPress={onClose} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
@@ -459,7 +438,6 @@ function FornecedorDetailModal({
 
             <View style={styles.divider} />
 
-            {/* Informações */}
             <View style={styles.modalInfo}>
                 <DetailRow label="Razão Social" value={fornecedor.razaoSocial} />
                 <DetailRow label="CNPJ" value={fornecedor.cnpj} />
@@ -473,7 +451,6 @@ function FornecedorDetailModal({
 
             <View style={styles.divider} />
 
-            {/* Botões */}
             <View style={styles.modalFooter}>
                 <MedicalButton title="Contatar" variant="secondary" onPress={handleContatar} />
                 {fornecedor.linkPortal && (
@@ -493,8 +470,6 @@ function DetailRow({ label, value }: { label: string; value: string }) {
     );
 }
 
-// ─── Empty state ──────────────────────────────────────────────────────────────
-
 function EmptyState() {
     return (
         <View style={styles.emptyState}>
@@ -505,8 +480,6 @@ function EmptyState() {
         </View>
     );
 }
-
-// ─── Estilos ──────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
     container: {
