@@ -13,7 +13,7 @@ import { MedicalButton } from "@/components/medical/MedicalButton";
 type Props = NativeStackScreenProps<RootStackParamList, "Register">;
 
 export default function RegisterScreen({ navigation }: Props) {
-  const [name, setName] = useState("");
+  const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -28,14 +28,15 @@ export default function RegisterScreen({ navigation }: Props) {
       const user = userCredential.user;
 
       await setDoc(doc(db, "users", user.uid), {
-        name,
+        nome,
         email,
         createdAt: new Date(),
       });
 
       navigation.replace("Home");
-    } catch {
+    } catch (error: any) {
       Alert.alert("Erro", "Não foi possivel criar a conta.");
+      console.error("Erro ao criar conta:", error);
     }
   }
 
@@ -50,8 +51,8 @@ export default function RegisterScreen({ navigation }: Props) {
         <TextInput
           placeholder="Nome"
           placeholderTextColor={MedicalColors.muted}
-          value={name}
-          onChangeText={setName}
+          value={nome}
+          onChangeText={setNome}
           style={styles.input}
         />
 
