@@ -38,13 +38,13 @@ export function AppRoutes() {
                 <Stack.Screen
                     name="Home"
                     component={HomeScreen}
-                    options={{ title: "InÃ­cio" }}
+                    options={{ title: "Iní­cio" }}
                 />
 
                 <Stack.Screen
                     name="Padroes"
                     component={PadroesScreen}
-                    options={{ title: "PadrÃĩes" }}
+                    options={{ title: "Padrões" }}
                 />
 
                 <Stack.Screen

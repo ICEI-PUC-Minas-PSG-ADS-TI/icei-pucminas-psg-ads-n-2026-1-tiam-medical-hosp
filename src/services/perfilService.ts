@@ -5,7 +5,7 @@ import { auth, db } from "@/config/firebase";
 import { Perfil, PerfilDTO } from "@/types/perfil";
 
 const AUTH_REQUIRED_ERROR = "auth-required";
-const collectionName = "perfis";
+const collectionName = "users";
 
 export async function getPerfil(): Promise<Perfil | null> {
     ensureAuthenticated();
