@@ -67,6 +67,10 @@ export default function HomeScreen({ navigation }: Props) {
     navigation.navigate("Padroes");
   }
 
+  function handleNavigateFornecedores() {
+    navigation.navigate("Fornecedores");
+  }
+
   function renderActivity({ item }: { item: ActivityItem }) {
     return <ActivityCard item={item} />;
   }
@@ -138,7 +142,11 @@ export default function HomeScreen({ navigation }: Props) {
         renderItem={renderActivity}
       />
 
-      <BottomTab activeKey="home" onPressPadroes={handleNavigatePadroes} />
+      <BottomTab
+        activeKey="home"
+        onPressPadroes={handleNavigatePadroes}
+        onPressFornecedores={handleNavigateFornecedores}
+      />
     </View>
   );
 }

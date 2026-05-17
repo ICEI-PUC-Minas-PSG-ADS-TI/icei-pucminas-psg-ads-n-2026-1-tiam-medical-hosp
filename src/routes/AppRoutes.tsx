@@ -6,6 +6,7 @@ import RegisterScreen from "@/screens/RegisterScreen";
 import HomeScreen from "@/screens/HomeScreen";
 import PadroesScreen from "@/screens/PadroesScreen";
 import PerfilScreen from "@/screens/PerfilScreen";
+import FornecedoresScreen from "@/screens/FornecedoresScreen";
 
 export type RootStackParamList = {
     Login: undefined;
@@ -13,6 +14,7 @@ export type RootStackParamList = {
     Home: undefined;
     Padroes: undefined;
     Perfil: undefined;
+    Fornecedores: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -43,6 +45,12 @@ export function AppRoutes() {
                     name="Padroes"
                     component={PadroesScreen}
                     options={{ title: "PadrÃĩes" }}
+                />
+
+                <Stack.Screen
+                    name="Fornecedores"
+                    component={FornecedoresScreen}
+                    options={{ title: "Fornecedores" }}
                 />
 
                 <Stack.Screen
