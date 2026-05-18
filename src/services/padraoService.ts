@@ -3,7 +3,6 @@ import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, getDoc } from "
 import { auth, db } from "@/config/firebase";
 import { Padrao, PadraoDTO } from "@/types/padrao";
 
-const AUTH_REQUIRED_ERROR = "auth-required";
 const collectionName = "padroes";
 const padroesRef = collection(db, collectionName);
 
@@ -73,22 +72,6 @@ export async function deletePadrao(id: string) {
     await deleteDoc(padraoRef);
 }
 
-export function getPadraoErrorMessage(error: unknown) {
-    if (isAuthRequiredError(error)) {
-        return "Entre novamente para acessar os padroes.";
-    }
-
-    if (isPadraoPermissionError(error)) {
-        return "Nao foi possivel acessar os padroes. Verifique se sua conta esta autorizada e se as regras do Firebase foram publicadas.";
-    }
-
-    return "Nao foi possivel concluir a operacao. Tente novamente em instantes.";
-}
-
-export function isPadraoPermissionError(error: unknown) {
-    return error instanceof FirebaseError && error.code === "permission-denied";
-}
-
 function toPadraoData(padrao: PadraoDTO) {
     return {
         nome: padrao.nome,
@@ -103,10 +86,6 @@ function toPadraoData(padrao: PadraoDTO) {
 
 function ensureAuthenticated() {
     if (!auth.currentUser) {
-        throw new Error(AUTH_REQUIRED_ERROR);
+        throw new Error("auth-required")
     }
-}
-
-function isAuthRequiredError(error: unknown) {
-    return error instanceof Error && error.message === AUTH_REQUIRED_ERROR;
 }
