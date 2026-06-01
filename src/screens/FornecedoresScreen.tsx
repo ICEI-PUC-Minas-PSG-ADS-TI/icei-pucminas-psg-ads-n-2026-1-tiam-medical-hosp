@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
     View, Text, FlatList, StyleSheet,
     Alert, TextInput, Linking, Keyboard,
@@ -46,6 +46,7 @@ interface FornecedorFormProps {
     loading: boolean;
     submitTitle: string;
     showCancel: boolean;
+    formError: string | null;
     onChange: (field: keyof FornecedorDTO, value: string) => void;
     onSubmit: () => void;
     onCancel: () => void;
@@ -57,6 +58,7 @@ interface FornecedoresHeaderProps {
     isEditing: boolean;
     loading: boolean;
     busca: string;
+    formError: string | null;
     onBuscaChange: (value: string) => void;
     onChange: (field: keyof FornecedorDTO, value: string) => void;
     onSubmit: () => void;
@@ -80,6 +82,8 @@ export default function FornecedoresScreen() {
     const [busca, setBusca] = useState("");
     const [selectedFornecedor, setSelectedFornecedor] = useState<Fornecedor | null>(null);
     const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+    const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
+    const [formError, setFormError] = useState<string | null>(null);
 
     const isEditing = editingId !== null;
 
@@ -145,7 +149,7 @@ export default function FornecedoresScreen() {
         const valido = obrigatorios.every((k) => (form[k] ?? "").trim().length > 0);
 
         if (!valido) {
-            Alert.alert("Erro", "Preencha todos os campos obrigatórios.");
+            setFormError("Preencha todos os campos obrigatórios.");
             return;
         }
 
@@ -158,15 +162,18 @@ export default function FornecedoresScreen() {
         resetForm();
     }
 
-    async function handleDelete(id: string) {
-        Alert.alert("Excluir", "Deseja excluir este fornecedor?", [
-            { text: "Cancelar", style: "cancel" },
-            {
-                text: "Excluir",
-                style: "destructive",
-                onPress: async () => await removeFornecedor(id),
-            },
-        ]);
+    function handleDelete(id: string) {
+        setDeleteTargetId(id);
+    }
+
+    async function handleConfirmDelete() {
+        if (!deleteTargetId) return;
+        await removeFornecedor(deleteTargetId);
+        setDeleteTargetId(null);
+    }
+
+    function handleCancelDelete() {
+        setDeleteTargetId(null);
     }
 
     return (
@@ -187,6 +194,7 @@ export default function FornecedoresScreen() {
                         onSubmit={handleSubmit}
                         onCancelEdit={resetForm}
                         onToggleForm={handleToggleForm}
+                        formError={formError}
                     />
                 }
                 ListEmptyComponent={!loading ? <EmptyState /> : null}
@@ -220,12 +228,43 @@ export default function FornecedoresScreen() {
                     </Pressable>
                 </Pressable>
             </Modal>
+
+            <Modal
+                visible={deleteTargetId !== null}
+                transparent
+                animationType="fade"
+                onRequestClose={handleCancelDelete}
+            >
+                <Pressable style={styles.modalOverlay} onPress={handleCancelDelete}>
+                    <Pressable style={styles.modalBox} onPress={() => { }}>
+                        <View style={styles.confirmModal}>
+                            <Text style={styles.confirmTitle}>Excluir fornecedor</Text>
+                            <Text style={styles.confirmText}>
+                                Tem certeza que deseja excluir este fornecedor? Esta ação não pode ser desfeita.
+                            </Text>
+                            <View style={styles.confirmButtons}>
+                                <MedicalButton
+                                    title="Cancelar"
+                                    variant="secondary"
+                                    onPress={handleCancelDelete}
+                                />
+                                <MedicalButton
+                                    title={loading ? "Excluindo..." : "Excluir"}
+                                    variant="danger"
+                                    onPress={handleConfirmDelete}
+                                    disabled={loading}
+                                />
+                            </View>
+                        </View>
+                    </Pressable>
+                </Pressable>
+            </Modal>
         </View>
     );
 }
 
 function FornecedoresHeader({
-    form, isFormOpen, isEditing, loading, busca,
+    form, isFormOpen, isEditing, loading, busca, formError,
     onBuscaChange, onChange, onSubmit, onCancelEdit, onToggleForm,
 }: FornecedoresHeaderProps) {
     const formTitle = isEditing ? "Editar fornecedor" : "Cadastrar fornecedor";
@@ -273,6 +312,7 @@ function FornecedoresHeader({
                         onChange={onChange}
                         onSubmit={onSubmit}
                         onCancel={onCancelEdit}
+                        formError={formError}
                     />
                 )}
             </View>
@@ -280,39 +320,70 @@ function FornecedoresHeader({
     );
 }
 
-function FornecedorForm({
-    form, loading, submitTitle, showCancel, onChange, onSubmit, onCancel,
-}: FornecedorFormProps) {
+const camposObrigatorios: (keyof FornecedorDTO)[] = [
+    "nome", "razaoSocial", "cnpj", "responsavel", "telefone", "email",
+];
+
+function FornecedorForm({ form, loading, submitTitle, showCancel, onChange, onSubmit, onCancel, formError }: FornecedorFormProps) {
+    const [senhaVisivel, setSenhaVisivel] = useState(false);
+
     return (
         <View style={styles.form}>
-            {formFields.map((field) => (
-                <TextInput
-                    key={field.key}
-                    placeholder={field.placeholder}
-                    placeholderTextColor={MedicalColors.muted}
-                    value={form[field.key] ?? ""}
-                    onChangeText={(value) => onChange(field.key, value)}
-                    secureTextEntry={field.key === "senhaPortal"}
-                    onSubmitEditing={Keyboard.dismiss}
-                    returnKeyType="done"
-                    submitBehavior="blurAndSubmit"
-                    style={styles.input}
-                />
-            ))}
+            {formFields.map((field) => {
+                const isSenha = field.key === "senhaPortal";
+                const isObrigatorio = camposObrigatorios.includes(field.key);
+                const placeholder = isObrigatorio
+                    ? `${field.placeholder} *`
+                    : field.placeholder;
 
-            <MedicalButton
-                title={loading ? "Salvando..." : submitTitle}
-                onPress={onSubmit}
-                disabled={loading}
-            />
+                return (
+                    <View key={field.key}>
+                        {isSenha ? (
+                            <View style={{ position: "relative" }}>
+                                <TextInput
+                                    placeholder={placeholder}
+                                    placeholderTextColor={MedicalColors.muted}
+                                    value={form[field.key] ?? ""}
+                                    onChangeText={(value) => onChange(field.key, value)}
+                                    secureTextEntry={!senhaVisivel}
+                                    onSubmitEditing={Keyboard.dismiss}
+                                    returnKeyType="done"
+                                    submitBehavior="blurAndSubmit"
+                                    style={[styles.input, { paddingRight: 60 }]}
+                                />
+                                <TouchableOpacity
+                                    onPress={() => setSenhaVisivel(prev => !prev)}
+                                    style={styles.senhaToggle}
+                                >
+                                    <Text style={styles.senhaToggleText}>
+                                        {senhaVisivel ? "Ocultar" : "Ver"}
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                        ) : (
+                            <TextInput
+                                placeholder={placeholder}
+                                placeholderTextColor={MedicalColors.muted}
+                                value={form[field.key] ?? ""}
+                                onChangeText={(value) => onChange(field.key, value)}
+                                onSubmitEditing={Keyboard.dismiss}
+                                returnKeyType="done"
+                                submitBehavior="blurAndSubmit"
+                                style={styles.input}
+                            />
+                        )}
+                    </View>
+                );
+            })}
 
+            {/* Mensagem de erro */}
+            {formError && (
+                <Text style={styles.formError}>{formError}</Text>
+            )}
+
+            <MedicalButton title={loading ? "Salvando..." : submitTitle} onPress={onSubmit} disabled={loading} />
             {showCancel && (
-                <MedicalButton
-                    title="Cancelar edição"
-                    variant="secondary"
-                    onPress={onCancel}
-                    disabled={loading}
-                />
+                <MedicalButton title="Cancelar edição" variant="secondary" onPress={onCancel} disabled={loading} />
             )}
         </View>
     );
@@ -343,8 +414,7 @@ function FornecedorCard({ item, onEdit, onDelete, onPress }: FornecedorCardProps
                 </View>
 
                 <TouchableOpacity
-                    onPress={(e) => {
-                        e.stopPropagation();
+                    onPress={() => {
                         setMenuOpen((prev) => !prev);
                     }}
                     style={styles.menuButton}
@@ -359,7 +429,6 @@ function FornecedorCard({ item, onEdit, onDelete, onPress }: FornecedorCardProps
                     <TouchableOpacity
                         style={styles.dropdownItem}
                         onPress={(e) => {
-                            e.stopPropagation();
                             setMenuOpen(false);
                             onEdit(item);
                         }}
@@ -372,7 +441,6 @@ function FornecedorCard({ item, onEdit, onDelete, onPress }: FornecedorCardProps
                     <TouchableOpacity
                         style={styles.dropdownItem}
                         onPress={(e) => {
-                            e.stopPropagation();
                             setMenuOpen(false);
                             onDelete(item.id);
                         }}
@@ -415,9 +483,9 @@ interface FornecedorDetailModalProps {
     onDelete: (id: string) => void;
 }
 
-function FornecedorDetailModal({
-    fornecedor, onClose, onEdit, onDelete,
-}: FornecedorDetailModalProps) {
+function FornecedorDetailModal({ fornecedor, onClose, onEdit, onDelete }: FornecedorDetailModalProps) {
+    const [senhaVisivel, setSenhaVisivel] = useState(false);
+
     async function handleContatar() {
         await Linking.openURL(`mailto:${fornecedor.email}`);
     }
@@ -446,7 +514,21 @@ function FornecedorDetailModal({
                 <DetailRow label="E-mail" value={fornecedor.email} />
                 {fornecedor.linkPortal && <DetailRow label="Portal" value={fornecedor.linkPortal} />}
                 {fornecedor.usuarioPortal && <DetailRow label="Usuário" value={fornecedor.usuarioPortal} />}
-                {fornecedor.senhaPortal && <DetailRow label="Senha" value={"••••••••"} />}
+                {fornecedor.senhaPortal && (
+                    <View style={styles.detailRow}>
+                        <Text style={styles.detailLabel}>Senha</Text>
+                        <View style={{ flexDirection: "row", alignItems: "center", gap: MedicalSpacing.sm }}>
+                            <Text style={styles.detailValue}>
+                                {senhaVisivel ? fornecedor.senhaPortal : "••••••••"}
+                            </Text>
+                            <TouchableOpacity onPress={() => setSenhaVisivel(prev => !prev)}>
+                                <Text style={styles.senhaToggleText}>
+                                    {senhaVisivel ? "Ocultar" : "Ver"}
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                )}
             </View>
 
             <View style={styles.divider} />
@@ -549,6 +631,11 @@ const styles = StyleSheet.create({
     form: {
         gap: MedicalSpacing.md,
     },
+    formError: {
+        color: MedicalColors.primary,
+        fontSize: 13,
+        fontWeight: "600",
+    },
     input: {
         minHeight: 48,
         borderWidth: 1,
@@ -557,6 +644,18 @@ const styles = StyleSheet.create({
         padding: MedicalSpacing.md,
         backgroundColor: MedicalColors.surface,
         color: MedicalColors.text,
+    },
+    senhaToggle: {
+        position: "absolute",
+        right: MedicalSpacing.md,
+        top: 0,
+        bottom: 0,
+        justifyContent: "center",
+    },
+    senhaToggleText: {
+        color: MedicalColors.primary,
+        fontSize: 13,
+        fontWeight: "700",
     },
 
     // Card
@@ -691,7 +790,23 @@ const styles = StyleSheet.create({
         color: MedicalColors.text,
         fontSize: 14,
     },
-
+    confirmModal: {
+        gap: MedicalSpacing.lg,
+    },
+    confirmTitle: {
+        color: MedicalColors.text,
+        fontSize: 18,
+        fontWeight: "800",
+    },
+    confirmText: {
+        color: MedicalColors.muted,
+        fontSize: 14,
+        lineHeight: 20,
+    },
+    confirmButtons: {
+        flexDirection: "row",
+        gap: MedicalSpacing.md,
+    },
     // Empty state
     emptyState: {
         gap: MedicalSpacing.sm,
