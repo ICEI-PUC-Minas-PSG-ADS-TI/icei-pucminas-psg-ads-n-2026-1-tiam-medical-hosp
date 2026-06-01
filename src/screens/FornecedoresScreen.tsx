@@ -376,7 +376,6 @@ function FornecedorForm({ form, loading, submitTitle, showCancel, onChange, onSu
                 );
             })}
 
-            {/* Mensagem de erro */}
             {formError && (
                 <Text style={styles.formError}>{formError}</Text>
             )}
@@ -658,7 +657,7 @@ const styles = StyleSheet.create({
         fontWeight: "700",
     },
 
-    // Card
+    // card
     card: {
         gap: MedicalSpacing.md,
         borderWidth: 1,
@@ -741,7 +740,7 @@ const styles = StyleSheet.create({
         gap: MedicalSpacing.md,
     },
 
-    // Modal
+    // modal
     modalOverlay: {
         flex: 1,
         backgroundColor: "rgba(0,0,0,0.5)",
@@ -807,7 +806,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         gap: MedicalSpacing.md,
     },
-    // Empty state
+    // empty state
     emptyState: {
         gap: MedicalSpacing.sm,
         borderWidth: 1,
