@@ -50,7 +50,7 @@ export function AppRoutes() {
                 <Stack.Screen
                     name="Fornecedores"
                     component={FornecedoresScreen}
-                    options={{ title: "Fornecedores" }}
+                    options={{ headerShown: false }}
                 />
 
                 <Stack.Screen
