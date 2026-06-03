@@ -20,23 +20,16 @@ interface BottomTabItem {
 
 interface BottomTabProps {
     activeKey?: BottomTabKey;
-    onPressPadroes: () => void;
-    onPressFornecedores?: () => void;
 }
 
-export function BottomTab({ activeKey = "home", onPressPadroes, onPressFornecedores }: BottomTabProps) {
+export function BottomTab({ activeKey = "home" }: BottomTabProps) {
     const navigation = useNavigation<NavigationProp>();
 
     const items: BottomTabItem[] = [
-        { key: "home", label: "Inicio", icon: "home" },
-        { key: "padroes", label: "Padroes", icon: "construct", onPress: onPressPadroes },
-        { key: "fornecedores", label: "Fornecedores", icon: "business", onPress: onPressFornecedores },
-        {
-            key: "perfil",
-            label: "Perfil",
-            icon: "person",
-            onPress: () => navigation.navigate("Perfil"),
-        },
+        { key: "home", label: "Inicio", icon: "home", onPress: () => navigation.navigate("Home") },
+        { key: "padroes", label: "Padroes", icon: "construct", onPress: () => navigation.navigate("Padroes") },
+        { key: "fornecedores", label: "Fornecedores", icon: "business", onPress: () => navigation.navigate("Fornecedores") },
+        { key: "perfil", label: "Perfil", icon: "person", onPress: () => navigation.navigate("Perfil") },
     ];
 
     return (

@@ -9,6 +9,7 @@ import { MedicalButton } from "@/components/medical/MedicalButton";
 import { useFornecedores } from "@/contexts/fornecedorContext";
 import { MedicalColors, MedicalSpacing } from "@/constants/medical-ui";
 import { Fornecedor, FornecedorDTO } from "@/types/fornecedor";
+import { BottomTab } from "@/components/dashboard/BottomTab";
 
 const initialFornecedorForm: FornecedorDTO = {
     nome: "",
@@ -259,6 +260,7 @@ export default function FornecedoresScreen() {
                     </Pressable>
                 </Pressable>
             </Modal>
+            <BottomTab activeKey="fornecedores" />
         </View>
     );
 }
