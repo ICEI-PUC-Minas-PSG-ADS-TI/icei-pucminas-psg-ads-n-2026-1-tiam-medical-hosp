@@ -5,6 +5,7 @@ import { MedicalButton } from "@/components/medical/MedicalButton";
 import { usePadroes } from "@/contexts/padraoContext";
 import { MedicalColors, MedicalSpacing } from "@/constants/medical-ui";
 import { Padrao, PadraoDTO } from "@/types/padrao";
+import { BottomTab } from "@/components/dashboard/BottomTab";
 
 const initialPadraoForm: PadraoDTO = {
   nome: "",
@@ -149,26 +150,29 @@ export default function PadroesScreen() {
   }
 
   return (
-    <FlatList
-      style={styles.container}
-      data={padroes}
-      keyExtractor={(item) => item.id}
-      ListHeaderComponent={
-        <PadroesHeader
-          form={form}
-          isFormOpen={isFormOpen}
-          isEditing={isEditing}
-          loading={loading}
-          onChange={handleChange}
-          onSubmit={handleSubmitForm}
-          onCancelEdit={handleCancelEdit}
-          onToggleForm={handleToggleForm}
-        />
-      }
-      ListEmptyComponent={!loading ? <EmptyState /> : null}
-      contentContainerStyle={styles.content}
-      renderItem={renderPadraoCard}
-    />
+    <>
+      <FlatList
+        style={styles.container}
+        data={padroes}
+        keyExtractor={(item) => item.id}
+        ListHeaderComponent={
+          <PadroesHeader
+            form={form}
+            isFormOpen={isFormOpen}
+            isEditing={isEditing}
+            loading={loading}
+            onChange={handleChange}
+            onSubmit={handleSubmitForm}
+            onCancelEdit={handleCancelEdit}
+            onToggleForm={handleToggleForm}
+          />
+        }
+        ListEmptyComponent={!loading ? <EmptyState /> : null}
+        contentContainerStyle={styles.content}
+        renderItem={renderPadraoCard}
+      />
+      <BottomTab activeKey="padroes" />
+    </>
   );
 }
 
