@@ -10,6 +10,7 @@ import { useFornecedores } from "@/contexts/fornecedorContext";
 import { MedicalColors, MedicalSpacing } from "@/constants/medical-ui";
 import { Fornecedor, FornecedorDTO } from "@/types/fornecedor";
 import { BottomTab } from "@/components/dashboard/BottomTab";
+import { usePerfil } from "@/contexts/perfilContext";
 
 const initialFornecedorForm: FornecedorDTO = {
     nome: "",
@@ -40,6 +41,7 @@ interface FornecedorCardProps {
     onEdit: (fornecedor: Fornecedor) => void;
     onDelete: (id: string) => void;
     onPress: (fornecedor: Fornecedor) => void;
+    isGestor: boolean;
 }
 
 interface FornecedorFormProps {
@@ -65,9 +67,13 @@ interface FornecedoresHeaderProps {
     onSubmit: () => void;
     onCancelEdit: () => void;
     onToggleForm: () => void;
+    isGestor: boolean;
 }
 
 export default function FornecedoresScreen() {
+    const { perfil } = usePerfil();
+    const isGestor = perfil?.isGestor ?? false;
+    
     const {
         fornecedores,
         loading,
@@ -196,6 +202,7 @@ export default function FornecedoresScreen() {
                         onCancelEdit={resetForm}
                         onToggleForm={handleToggleForm}
                         formError={formError}
+                        isGestor={isGestor}
                     />
                 }
                 ListEmptyComponent={!loading ? <EmptyState /> : null}
@@ -206,6 +213,7 @@ export default function FornecedoresScreen() {
                         onEdit={handleStartEdit}
                         onDelete={handleDelete}
                         onPress={handleOpenDetail}
+                        isGestor={isGestor}
                     />
                 )}
             />
@@ -266,7 +274,7 @@ export default function FornecedoresScreen() {
 }
 
 function FornecedoresHeader({
-    form, isFormOpen, isEditing, loading, busca, formError,
+    form, isFormOpen, isEditing, loading, busca, formError, isGestor,
     onBuscaChange, onChange, onSubmit, onCancelEdit, onToggleForm,
 }: FornecedoresHeaderProps) {
     const formTitle = isEditing ? "Editar fornecedor" : "Cadastrar fornecedor";
@@ -292,32 +300,34 @@ function FornecedoresHeader({
 
             {loading && <Text style={styles.status}>Carregando...</Text>}
 
-            <View style={styles.formCard}>
-                <View style={styles.formHeader}>
-                    <View style={styles.formHeaderText}>
-                        <Text style={styles.formTitle}>{formTitle}</Text>
-                        <Text style={styles.formSubtitle}>{formSubtitle}</Text>
+            {isGestor && (
+                <View style={styles.formCard}>
+                    <View style={styles.formHeader}>
+                        <View style={styles.formHeaderText}>
+                            <Text style={styles.formTitle}>{formTitle}</Text>
+                            <Text style={styles.formSubtitle}>{formSubtitle}</Text>
+                        </View>
+                        <MedicalButton
+                            title={isFormOpen ? "Fechar" : "Abrir"}
+                            variant="secondary"
+                            onPress={onToggleForm}
+                        />
                     </View>
-                    <MedicalButton
-                        title={isFormOpen ? "Fechar" : "Abrir"}
-                        variant="secondary"
-                        onPress={onToggleForm}
-                    />
-                </View>
 
-                {isFormOpen && (
-                    <FornecedorForm
-                        form={form}
-                        loading={loading}
-                        submitTitle={submitTitle}
-                        showCancel={isEditing}
-                        onChange={onChange}
-                        onSubmit={onSubmit}
-                        onCancel={onCancelEdit}
-                        formError={formError}
-                    />
-                )}
-            </View>
+                    {isFormOpen && (
+                        <FornecedorForm
+                            form={form}
+                            loading={loading}
+                            submitTitle={submitTitle}
+                            showCancel={isEditing}
+                            onChange={onChange}
+                            onSubmit={onSubmit}
+                            onCancel={onCancelEdit}
+                            formError={formError}
+                        />
+                    )}
+                </View>
+            )}
         </View>
     );
 }
@@ -390,7 +400,7 @@ function FornecedorForm({ form, loading, submitTitle, showCancel, onChange, onSu
     );
 }
 
-function FornecedorCard({ item, onEdit, onDelete, onPress }: FornecedorCardProps) {
+function FornecedorCard({ item, onEdit, onDelete, onPress, isGestor }: FornecedorCardProps) {
     const [menuOpen, setMenuOpen] = useState(false);
 
     async function handleContatar() {
@@ -414,18 +424,20 @@ function FornecedorCard({ item, onEdit, onDelete, onPress }: FornecedorCardProps
                     <Text style={styles.cardResponsavel}>{item.responsavel}</Text>
                 </View>
 
-                <TouchableOpacity
-                    onPress={() => {
-                        setMenuOpen((prev) => !prev);
-                    }}
-                    style={styles.menuButton}
-                    hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-                >
-                    <Text style={styles.menuDots}>•••</Text>
-                </TouchableOpacity>
+                {isGestor && (
+                    <TouchableOpacity
+                        onPress={() => {
+                            setMenuOpen((prev) => !prev);
+                        }}
+                        style={styles.menuButton}
+                        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                    >
+                        <Text style={styles.menuDots}>•••</Text>
+                    </TouchableOpacity>
+                )}
             </View>
 
-            {menuOpen && (
+            {isGestor && menuOpen && (
                 <View style={styles.dropdown}>
                     <TouchableOpacity
                         style={styles.dropdownItem}

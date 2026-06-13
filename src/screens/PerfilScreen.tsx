@@ -15,11 +15,12 @@ import { MedicalButton } from "@/components/medical/MedicalButton";
 import { usePerfil } from "@/contexts/perfilContext";
 import { MedicalColors, MedicalSpacing } from "@/constants/medical-ui";
 import { PerfilDTO } from "@/types/perfil";
+import { BottomTab } from "@/components/dashboard/BottomTab";
 
 type IoniconName = ComponentProps<typeof Ionicons>["name"];
 
 interface FormField {
-    key: keyof PerfilDTO;
+    key: Exclude<keyof PerfilDTO, "isGestor">;
     placeholder: string;
     icon: IoniconName;
     keyboardType?: "default" | "phone-pad" | "email-address";
@@ -36,6 +37,7 @@ const initialPerfilForm: PerfilDTO = {
     empresa: "",
     cargo: "",
     telefone: "",
+    isGestor: false,
 };
 
 const formFields: FormField[] = [
@@ -61,6 +63,7 @@ export default function PerfilScreen() {
                 empresa: perfil.empresa,
                 cargo: perfil.cargo,
                 telefone: perfil.telefone,
+                isGestor: perfil.isGestor,
             });
         }
     }, [perfil]);
@@ -80,6 +83,7 @@ export default function PerfilScreen() {
                 empresa: perfil.empresa,
                 cargo: perfil.cargo,
                 telefone: perfil.telefone,
+                isGestor: perfil.isGestor,
             });
         }
         setIsEditing(false);
@@ -93,6 +97,7 @@ export default function PerfilScreen() {
             empresa: form.empresa.trim(),
             cargo: form.cargo.trim(),
             telefone: form.telefone.trim(),
+            isGestor: form.isGestor,
         };
 
         if (!trimmed.nome) {

@@ -5,6 +5,7 @@ export interface Perfil {
     empresa: string;
     cargo: string;
     telefone: string;
+    isGestor: boolean;
     photoURL?: string;
 }
 
@@ -13,4 +14,5 @@ export interface PerfilDTO {
     empresa: string;
     cargo: string;
     telefone: string;
+    isGestor: boolean;
 }

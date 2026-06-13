@@ -3,6 +3,7 @@ import { View, Text, FlatList, StyleSheet, Alert, TextInput, Keyboard } from "re
 
 import { MedicalButton } from "@/components/medical/MedicalButton";
 import { usePadroes } from "@/contexts/padraoContext";
+import { usePerfil } from "@/contexts/perfilContext";
 import { MedicalColors, MedicalSpacing } from "@/constants/medical-ui";
 import { Padrao, PadraoDTO } from "@/types/padrao";
 import { BottomTab } from "@/components/dashboard/BottomTab";
@@ -32,6 +33,9 @@ interface PadroesHeaderProps {
   isFormOpen: boolean;
   isEditing: boolean;
   loading: boolean;
+  isGestor: boolean;
+  busca: string;
+  onBuscaChange: (value: string) => void;
   onChange: (field: keyof PadraoDTO, value: string) => void;
   onSubmit: () => void;
   onCancelEdit: () => void;
@@ -52,14 +56,25 @@ interface PadraoCardProps {
   item: Padrao;
   onEdit: (padrao: Padrao) => void;
   onDelete: (id: string) => void;
+  isGestor: boolean;
 }
 
 export default function PadroesScreen() {
+  const { perfil } = usePerfil();
+  const isGestor = perfil?.isGestor ?? false;
+
   const { padroes, loading, loadPadroes: loadPadroes, addPadrao, editPadrao, removePadrao } = usePadroes();
   const [form, setForm] = useState<PadraoDTO>(initialPadraoForm);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingPadraoId, setEditingPadraoId] = useState<string | null>(null);
+  const [busca, setBusca] = useState("");
   const isEditing = editingPadraoId !== null;
+
+  const padroesFiltrados = padroes.filter((p) =>
+    p.nome.toLowerCase().includes(busca.toLowerCase()) ||
+    p.tag.toLowerCase().includes(busca.toLowerCase()) ||
+    p.patrimonio.toLowerCase().includes(busca.toLowerCase())
+  );
 
   useEffect(() => {
     loadPadroes();
@@ -145,6 +160,7 @@ export default function PadroesScreen() {
         item={item}
         onEdit={handleStartEdit}
         onDelete={handleDeletePadrao}
+        isGestor={isGestor}
       />
     );
   }
@@ -153,7 +169,7 @@ export default function PadroesScreen() {
     <>
       <FlatList
         style={styles.container}
-        data={padroes}
+        data={padroesFiltrados}
         keyExtractor={(item) => item.id}
         ListHeaderComponent={
           <PadroesHeader
@@ -161,6 +177,9 @@ export default function PadroesScreen() {
             isFormOpen={isFormOpen}
             isEditing={isEditing}
             loading={loading}
+            isGestor={isGestor}
+            busca={busca}
+            onBuscaChange={setBusca}
             onChange={handleChange}
             onSubmit={handleSubmitForm}
             onCancelEdit={handleCancelEdit}
@@ -169,7 +188,14 @@ export default function PadroesScreen() {
         }
         ListEmptyComponent={!loading ? <EmptyState /> : null}
         contentContainerStyle={styles.content}
-        renderItem={renderPadraoCard}
+        renderItem={({ item }) => (
+          <PadraoCard
+            item={item}
+            onEdit={handleStartEdit}
+            onDelete={handleDeletePadrao}
+            isGestor={isGestor}
+          />
+        )}
       />
       <BottomTab activeKey="padroes" />
     </>
@@ -181,6 +207,9 @@ function PadroesHeader({
   isFormOpen,
   isEditing,
   loading,
+  isGestor,
+  busca,
+  onBuscaChange,
   onChange,
   onSubmit,
   onCancelEdit,
@@ -201,33 +230,43 @@ function PadroesHeader({
         </Text>
       </View>
 
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Buscar por nome, TAG ou patrimônio..."
+        placeholderTextColor={MedicalColors.muted}
+        value={busca}
+        onChangeText={onBuscaChange}
+      />
+
       {loading && <Text style={styles.status}>Carregando...</Text>}
 
-      <View style={styles.formCard}>
-        <View style={styles.formHeader}>
-          <View style={styles.formHeaderText}>
-            <Text style={styles.formTitle}>{formTitle}</Text>
-            <Text style={styles.formSubtitle}>{formSubtitle}</Text>
+      {isGestor && (
+        <View style={styles.formCard}>
+          <View style={styles.formHeader}>
+            <View style={styles.formHeaderText}>
+              <Text style={styles.formTitle}>{formTitle}</Text>
+              <Text style={styles.formSubtitle}>{formSubtitle}</Text>
+            </View>
+            <MedicalButton
+              title={isFormOpen ? "Fechar" : "Abrir"}
+              variant="secondary"
+              onPress={onToggleForm}
+            />
           </View>
-          <MedicalButton
-            title={isFormOpen ? "Fechar" : "Abrir"}
-            variant="secondary"
-            onPress={onToggleForm}
-          />
-        </View>
 
-        {isFormOpen && (
-          <PadraoForm
-            form={form}
-            loading={loading}
-            submitTitle={submitTitle}
-            showCancel={isEditing}
-            onChange={onChange}
-            onSubmit={onSubmit}
-            onCancel={onCancelEdit}
-          />
-        )}
-      </View>
+          {isFormOpen && (
+            <PadraoForm
+              form={form}
+              loading={loading}
+              submitTitle={submitTitle}
+              showCancel={isEditing}
+              onChange={onChange}
+              onSubmit={onSubmit}
+              onCancel={onCancelEdit}
+            />
+          )}
+        </View>
+      )}
     </View>
   );
 }
@@ -275,7 +314,7 @@ function PadraoForm({
   );
 }
 
-function PadraoCard({ item, onEdit, onDelete }: PadraoCardProps) {
+function PadraoCard({ item, onEdit, onDelete, isGestor }: PadraoCardProps) {
   return (
     <View style={styles.card}>
       <View style={styles.cardHeader}>
@@ -292,16 +331,20 @@ function PadraoCard({ item, onEdit, onDelete }: PadraoCardProps) {
 
       <View style={styles.cardFooter}>
         <Text style={styles.setor}>Setor: {item.setor}</Text>
-        <MedicalButton
-          title="Editar"
-          variant="secondary"
-          onPress={() => onEdit(item)}
-        />
-        <MedicalButton
-          title="Excluir"
-          variant="danger"
-          onPress={() => onDelete(item.id)}
-        />
+        {isGestor && (
+          <>
+            <MedicalButton
+              title="Editar"
+              variant="secondary"
+              onPress={() => onEdit(item)}
+            />
+            <MedicalButton
+              title="Excluir"
+              variant="danger"
+              onPress={() => onDelete(item.id)}
+            />
+          </>
+        )}
       </View>
     </View>
   );
@@ -500,5 +543,14 @@ const styles = StyleSheet.create({
     color: MedicalColors.muted,
     fontSize: 14,
     lineHeight: 20,
+  },
+  searchInput: {
+    minHeight: 48,
+    borderWidth: 1,
+    borderColor: MedicalColors.border,
+    borderRadius: 8,
+    paddingHorizontal: MedicalSpacing.md,
+    backgroundColor: MedicalColors.surface,
+    color: MedicalColors.text,
   },
 });
