@@ -154,17 +154,6 @@ export default function PadroesScreen() {
     ]);
   }
 
-  function renderPadraoCard({ item }: { item: Padrao }) {
-    return (
-      <PadraoCard
-        item={item}
-        onEdit={handleStartEdit}
-        onDelete={handleDeletePadrao}
-        isGestor={isGestor}
-      />
-    );
-  }
-
   return (
     <>
       <FlatList
