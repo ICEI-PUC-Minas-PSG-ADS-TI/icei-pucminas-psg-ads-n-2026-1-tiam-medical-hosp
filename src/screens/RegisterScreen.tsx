@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, TextInput, Alert, StyleSheet } from "react-native";
+import { View, TextInput, Alert, StyleSheet, Switch, Text } from "react-native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -16,6 +16,7 @@ export default function RegisterScreen({ navigation }: Props) {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isGestor, setIsGestor] = useState(false);
 
   async function handleRegister() {
     try {
@@ -31,12 +32,21 @@ export default function RegisterScreen({ navigation }: Props) {
         nome,
         email,
         createdAt: new Date(),
+        isGestor,
       });
 
       navigation.replace("Home");
     } catch (error: any) {
-      Alert.alert("Erro", "Não foi possivel criar a conta.");
-      console.error("Erro ao criar conta:", error);
+      if (error.code === "") {
+        Alert.alert("Erro", "Não foi possivel criar a conta, email já em uso!");
+        console.error("Erro ao criar conta:", error);
+      } else if (error.code === "") {
+        Alert.alert("Erro", "Não foi possível criar a conta, a senha deve possuir no mínimo 6 caracteres")
+        console.error("Erro ao criar conta:", error);
+      } else {
+        Alert.alert("Erro", "Não foi possivel criar a conta");
+        console.error("Erro ao criar conta:", error);
+      }
     }
   }
 
@@ -67,13 +77,22 @@ export default function RegisterScreen({ navigation }: Props) {
         />
 
         <TextInput
-          placeholder="Senha"
+          placeholder="Senha, deve conter no mínimo 6 caracteres"
           placeholderTextColor={MedicalColors.muted}
           value={password}
           onChangeText={setPassword}
           secureTextEntry
           style={styles.input}
         />
+
+        <Text style={styles.fields}>Cadastrar como Gestor</Text>
+        <Switch
+          trackColor={{ false: MedicalColors.primaryDark, true: MedicalColors.primaryDark }}
+          thumbColor={isGestor ? MedicalColors.primary : MedicalColors.muted}
+          onValueChange={setIsGestor}
+          value={isGestor}
+        />
+
       </View>
 
       <MedicalButton title="Cadastrar" onPress={handleRegister} />
