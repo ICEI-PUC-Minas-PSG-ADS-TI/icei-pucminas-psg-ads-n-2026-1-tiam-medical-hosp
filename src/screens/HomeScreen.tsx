@@ -12,6 +12,7 @@ import { auth } from "@/config/firebase";
 import { RootStackParamList } from "@/routes/AppRoutes";
 import { getAtividades, getDashboard } from "@/services/api";
 import { ActivityItem, DashboardSummary } from "@/types/dashboard";
+import { usePerfil } from "@/contexts/perfilContext";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -25,12 +26,14 @@ export default function HomeScreen({ navigation }: Props) {
   const [dashboard, setDashboard] = useState<DashboardSummary>(initialDashboard);
   const [atividades, setAtividades] = useState<ActivityItem[]>([]);
   const [search, setSearch] = useState("");
-
+  const {loadPerfil} = usePerfil();
+  
   useEffect(() => {
     async function carregar() {
       const [dashboardData, atividadesData] = await Promise.all([
         getDashboard(),
         getAtividades(),
+        loadPerfil()
       ]);
 
       setDashboard(dashboardData);
