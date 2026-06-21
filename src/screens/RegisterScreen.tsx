@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, TextInput, Alert, StyleSheet, Switch, Text } from "react-native";
+import { View, TextInput, Alert, StyleSheet, Switch, Text, TouchableOpacity } from "react-native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -57,6 +57,29 @@ export default function RegisterScreen({ navigation }: Props) {
       assetTitle="Imagem futura da tela de cadastro"
       assetPath={MedicalAssets.register}
     >
+      <View style={styles.roleSelector}>
+        <Text style={styles.roleLabel}>Cadastrar como</Text>
+
+        <View style={styles.roleOptions}>
+          <TouchableOpacity
+            style={[styles.roleButton, !isGestor && styles.roleButtonActive]}
+            onPress={() => setIsGestor(false)}
+          >
+            <Text style={[styles.roleButtonText, !isGestor && styles.roleButtonTextActive]}>
+              Técnico
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.roleButton, isGestor && styles.roleButtonActive]}
+            onPress={() => setIsGestor(true)}
+          >
+            <Text style={[styles.roleButtonText, isGestor && styles.roleButtonTextActive]}>
+              Gestor
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
       <View style={styles.fields}>
         <TextInput
           placeholder="Nome"
@@ -85,14 +108,6 @@ export default function RegisterScreen({ navigation }: Props) {
           style={styles.input}
         />
 
-        <Text style={styles.fields}>Cadastrar como Gestor</Text>
-        <Switch
-          trackColor={{ false: MedicalColors.primaryDark, true: MedicalColors.primaryDark }}
-          thumbColor={isGestor ? MedicalColors.primary : MedicalColors.muted}
-          onValueChange={setIsGestor}
-          value={isGestor}
-        />
-
       </View>
 
       <MedicalButton title="Cadastrar" onPress={handleRegister} />
@@ -117,5 +132,37 @@ const styles = StyleSheet.create({
     padding: MedicalSpacing.md,
     backgroundColor: MedicalColors.surface,
     color: MedicalColors.text,
+  },
+  roleSelector: {
+    gap: MedicalSpacing.sm,
+  },
+  roleLabel: {
+    color: MedicalColors.text,
+    fontSize: 14,
+    fontWeight: "700",
+  },
+  roleOptions: {
+    flexDirection: "row",
+    borderWidth: 1,
+    borderColor: MedicalColors.borderStrong,
+    borderRadius: 8,
+    overflow: "hidden",
+  },
+  roleButton: {
+    flex: 1,
+    paddingVertical: MedicalSpacing.md,
+    alignItems: "center",
+    backgroundColor: MedicalColors.surface,
+  },
+  roleButtonActive: {
+    backgroundColor: MedicalColors.primary,
+  },
+  roleButtonText: {
+    color: MedicalColors.muted,
+    fontWeight: "700",
+    fontSize: 14,
+  },
+  roleButtonTextActive: {
+    color: "#ffffff",
   },
 });
