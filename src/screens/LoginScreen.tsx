@@ -4,8 +4,10 @@ import {
   Alert,
   StyleSheet,
   View,
+  TouchableOpacity,
+  Text
 } from "react-native";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { auth } from "@/config/firebase";
@@ -58,6 +60,10 @@ export default function LoginScreen({ navigation }: Props) {
           secureTextEntry
           style={styles.input}
         />
+
+        <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")} style={styles.forgotPasswordButton}>
+          <Text style={styles.forgotPasswordText}>Esqueci minha senha</Text>
+        </TouchableOpacity>
       </View>
 
       <MedicalButton title="Entrar" onPress={handleLogin} />
@@ -82,5 +88,13 @@ const styles = StyleSheet.create({
     padding: MedicalSpacing.md,
     backgroundColor: MedicalColors.surface,
     color: MedicalColors.text,
+  },
+  forgotPasswordButton: {
+    alignSelf: "flex-end",
+  },
+  forgotPasswordText: {
+    color: MedicalColors.primaryDark,
+    fontSize: 13,
+    fontWeight: "700",
   },
 });

@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import LoginScreen from "@/screens/LoginScreen";
 import RegisterScreen from "@/screens/RegisterScreen";
+import ForgotPasswordScreen from "@/screens/ForgotPasswordScreen";
 import HomeScreen from "@/screens/HomeScreen";
 import PadroesScreen from "@/screens/PadroesScreen";
 import PerfilScreen from "@/screens/PerfilScreen";
@@ -11,6 +12,7 @@ import FornecedoresScreen from "@/screens/FornecedoresScreen";
 export type RootStackParamList = {
     Login: undefined;
     Register: undefined;
+    ForgotPassword: undefined;
     Home: undefined;
     Padroes: undefined;
     Perfil: undefined;
@@ -33,6 +35,12 @@ export function AppRoutes() {
                     name="Register"
                     component={RegisterScreen}
                     options={{ title: "Criar conta" }}
+                />
+
+                <Stack.Screen
+                    name="ForgotPassword"
+                    component={ForgotPasswordScreen}
+                    options={{ title: "Recuperar senha" }}
                 />
 
                 <Stack.Screen

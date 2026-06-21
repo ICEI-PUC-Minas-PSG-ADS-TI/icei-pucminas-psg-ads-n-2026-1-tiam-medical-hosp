@@ -15,8 +15,8 @@ import { AssetPlaceholder } from "@/components/medical/AssetPlaceholder";
 interface AuthLayoutProps {
   title: string;
   subtitle: string;
-  assetTitle: string;
-  assetPath: string;
+  assetTitle?: string; // ALTERADO: agora opcional
+  assetPath?: string;  // ALTERADO: agora opcional
   assetSource?: ImageSourcePropType;
   assetHeight?: number;
   assetWidth?: number | string;
@@ -47,13 +47,16 @@ export function AuthLayout({
           <Text style={styles.brandCaption}>Gestao de padroes de calibracao</Text>
         </View>
 
-        <AssetPlaceholder
-          title={assetTitle}
-          assetPath={assetPath}
-          assetSource={assetSource}
-          height={assetHeight}
-          width={assetWidth}
-        />
+        {/* ALTERADO: só renderiza se assetTitle e assetPath forem passados */}
+        {assetTitle && assetPath && (
+          <AssetPlaceholder
+            title={assetTitle}
+            assetPath={assetPath}
+            assetSource={assetSource}
+            height={assetHeight}
+            width={assetWidth}
+          />
+        )}
 
         <View style={styles.formSurface}>
           <Text style={styles.title}>{title}</Text>
