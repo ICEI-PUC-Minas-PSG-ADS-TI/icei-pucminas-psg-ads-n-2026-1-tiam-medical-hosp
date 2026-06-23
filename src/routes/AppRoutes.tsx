@@ -8,6 +8,7 @@ import HomeScreen from "@/screens/HomeScreen";
 import PadroesScreen from "@/screens/PadroesScreen";
 import PerfilScreen from "@/screens/PerfilScreen";
 import FornecedoresScreen from "@/screens/FornecedoresScreen";
+import CalibracoesScreen from "@/screens/CalibracoesScreen";
 
 export type RootStackParamList = {
     Login: undefined;
@@ -17,6 +18,7 @@ export type RootStackParamList = {
     Padroes: undefined;
     Perfil: undefined;
     Fornecedores: undefined;
+    Calibracoes: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -59,6 +61,12 @@ export function AppRoutes() {
                     name="Fornecedores"
                     component={FornecedoresScreen}
                     options={{ headerShown: false }}
+                />
+
+                <Stack.Screen
+                    name="Calibracoes"
+                    component={CalibracoesScreen}
+                    options={{ title: "Calibrações" }}
                 />
 
                 <Stack.Screen

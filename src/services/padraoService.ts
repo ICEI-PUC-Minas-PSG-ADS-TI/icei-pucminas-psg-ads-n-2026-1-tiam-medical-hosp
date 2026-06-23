@@ -1,4 +1,3 @@
-import { FirebaseError } from "firebase/app";
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, getDoc } from "firebase/firestore";
 import { auth, db } from "@/config/firebase";
 import { Padrao, PadraoDTO } from "@/types/padrao";
