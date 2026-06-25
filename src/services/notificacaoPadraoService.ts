@@ -61,9 +61,7 @@ function montarMensagemPadroesVencendo(padroes: Padrao[]): string {
     const linhas = padroes.map((padrao) => criarLinha(padrao));
 
     return `
-        <h2>Padroes proximos ao vencimento</h2>
-
-        <p>Os seguintes padroes vencem em ate 30 dias:</p>
+        <p>Os seguintes padrões vencem em até 30 dias:</p>
         <ul>
             ${linhas.join("")}
         </ul>
@@ -96,12 +94,12 @@ export async function enviarEmailPadroesVencendo(destinatario: string): Promise<
     if (!mensagem) return false;
     if (destinatario.trim().length === 0) return false;
 
-    const serviceId = process.env.EXPO_PUBLIC_EMAILJS_SERVICE_ID;
-    const templateId = process.env.EXPO_PUBLIC_EMAILJS_TEMPLATE_ID;
-    const publicKey = process.env.EXPO_PUBLIC_EMAILJS_PUBLIC_KEY;
+    const serviceId = process.env.EXPO_PUBLIC_SERVICE_ID;
+    const templateId = process.env.EXPO_PUBLIC_TEMPLATE_ID;
+    const publicKey = process.env.EXPO_PUBLIC_PUBLIC_KEY;
 
     if (!serviceId || !templateId || !publicKey) {
-        console.log("Configuracao do EmailJS nao encontrada.");
+        console.log("Configuração do EmailJS não encontrada.");
         return false;
     }
 
@@ -111,7 +109,8 @@ export async function enviarEmailPadroesVencendo(destinatario: string): Promise<
             templateId,
             {
                 to_email: destinatario,
-                subject: "Padroes próximos do vencimento",
+                email: destinatario,
+                subject: "Padrões próximos do vencimento",
                 message: mensagem,
             },
             {
