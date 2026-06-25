@@ -34,7 +34,6 @@ interface InfoRowProps {
 
 const initialPerfilForm: PerfilDTO = {
     nome: "",
-    empresa: "",
     cargo: "",
     telefone: "",
     isGestor: false,
@@ -42,7 +41,6 @@ const initialPerfilForm: PerfilDTO = {
 
 const formFields: FormField[] = [
     { key: "nome", placeholder: "Nome completo", icon: "person-outline" },
-    { key: "empresa", placeholder: "Empresa / Hospital", icon: "business-outline" },
     { key: "cargo", placeholder: "Cargo / Função", icon: "briefcase-outline" },
     { key: "telefone", placeholder: "Telefone", icon: "call-outline", keyboardType: "phone-pad" },
 ];
@@ -60,7 +58,6 @@ export default function PerfilScreen() {
         if (perfil) {
             setForm({
                 nome: perfil.nome,
-                empresa: perfil.empresa,
                 cargo: perfil.cargo,
                 telefone: perfil.telefone,
                 isGestor: perfil.isGestor,
@@ -80,7 +77,6 @@ export default function PerfilScreen() {
         if (perfil) {
             setForm({
                 nome: perfil.nome,
-                empresa: perfil.empresa,
                 cargo: perfil.cargo,
                 telefone: perfil.telefone,
                 isGestor: perfil.isGestor,
@@ -94,7 +90,6 @@ export default function PerfilScreen() {
 
         const trimmed: PerfilDTO = {
             nome: form.nome.trim(),
-            empresa: form.empresa.trim(),
             cargo: form.cargo.trim(),
             telefone: form.telefone.trim(),
             isGestor: form.isGestor,
@@ -209,7 +204,6 @@ export default function PerfilScreen() {
                     <View style={styles.infoList}>
                         <InfoRow icon="person-outline" label="Nome" value={perfil?.nome || "—"} />
                         <InfoRow icon="mail-outline" label="E-mail" value={perfil?.email || "—"} />
-                        <InfoRow icon="business-outline" label="Empresa" value={perfil?.empresa || "—"} />
                         <InfoRow icon="briefcase-outline" label="Cargo" value={perfil?.cargo || "—"} />
                         <InfoRow icon="call-outline" label="Telefone" value={perfil?.telefone || "—"} />
                     </View>

@@ -2,7 +2,6 @@ export interface Perfil {
     uid: string;
     nome: string;
     email: string;
-    empresa: string;
     cargo: string;
     telefone: string;
     isGestor: boolean;
@@ -11,7 +10,6 @@ export interface Perfil {
 
 export interface PerfilDTO {
     nome: string;
-    empresa: string;
     cargo: string;
     telefone: string;
     isGestor: boolean;
