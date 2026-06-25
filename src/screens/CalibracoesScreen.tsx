@@ -183,7 +183,7 @@ export default function CalibracoesScreen({ route }: CalibracoesScreenProps) {
         }
 
         if (!hasValidPadrao) {
-            Alert.alert("Erro", "Padrao invalido para calibracao.");
+            Alert.alert("Erro", "Padrão inválido para calibração.");
             return;
         }
 
@@ -197,7 +197,7 @@ export default function CalibracoesScreen({ route }: CalibracoesScreenProps) {
         });
 
         if (!isCalibracaoFormValid(trimmedForm, dataCalibracaoInput, periodicidadeInput, custoInput)) {
-            Alert.alert("Erro", "Preencha todos os campos obrigatorios.");
+            Alert.alert("Erro", "Preencha todos os campos obrigatórios.");
             return;
         }
 
@@ -211,7 +211,7 @@ export default function CalibracoesScreen({ route }: CalibracoesScreenProps) {
     }
 
     async function handleDeleteCalibracao(id: string) {
-        Alert.alert("Excluir", "Deseja excluir esta calibracao?", [
+        Alert.alert("Excluir", "Deseja excluir esta calibração?", [
             {
                 text: "Cancelar",
                 style: "cancel",
@@ -292,17 +292,17 @@ function CalibracoesHeader({
     onCancelEdit,
     onToggleForm,
 }: CalibracoesHeaderProps) {
-    const formTitle = isEditing ? "Editar calibracao" : "Cadastrar calibracao";
+    const formTitle = isEditing ? "Editar calibração" : "Cadastrar calibração";
     const formSubtitle = isEditing
-        ? "Atualize os dados da calibracao selecionada."
-        : "Informe os dados da calibracao realizada.";
-    const submitTitle = isEditing ? "Salvar alteracoes" : "Cadastrar calibracao";
+        ? "Atualize os dados da calibração selecionada."
+        : "Informe os dados da calibração realizada.";
+    const submitTitle = isEditing ? "Salvar alterações" : "Cadastrar calibração";
     const subtitle = getHeaderSubtitle(selectedPadrao, hasPadraoContext);
 
     return (
         <View style={styles.header}>
             <View style={styles.heading}>
-                <Text style={styles.title}>Calibracoes do padrao</Text>
+                <Text style={styles.title}>Calibrações do padrão</Text>
                 <Text style={styles.subtitle}>{subtitle}</Text>
             </View>
 
@@ -386,7 +386,7 @@ function CalibracaoForm({
             />
 
             <TextInput
-                placeholder="Data da calibracao (AAAA-MM-DD)"
+                placeholder="Data da calibração (AAAA-MM-DD)"
                 placeholderTextColor={MedicalColors.muted}
                 value={dataCalibracaoInput}
                 onChangeText={onDataCalibracaoInputChange}
@@ -397,7 +397,7 @@ function CalibracaoForm({
             />
 
             <TextInput
-                placeholder="Numero do certificado"
+                placeholder="Número do certificado"
                 placeholderTextColor={MedicalColors.muted}
                 value={form.numeroCertificado}
                 onChangeText={(value) => onChange("numeroCertificado", value)}
@@ -450,7 +450,7 @@ function CalibracaoForm({
 
             {showCancel && (
                 <MedicalButton
-                    title="Cancelar edicao"
+                    title="Cancelar edição"
                     variant="secondary"
                     onPress={onCancel}
                     disabled={loading}
@@ -467,7 +467,7 @@ function EntitySelector({ label, selectedId, options, emptyText, onSelect }: Ent
         <View style={styles.selector}>
             <Text style={styles.selectorLabel}>{label}</Text>
             <Text style={styles.selectorValue}>
-                {selectedOption ? selectedOption.label : "Selecione uma opcao"}
+                {selectedOption ? selectedOption.label : "Selecione uma opção"}
             </Text>
 
             <View style={styles.selectorOptions}>
@@ -556,7 +556,7 @@ function InfoBlock({ label, value }: { label: string; value: string }) {
 function EmptyState() {
     return (
         <View style={styles.emptyState}>
-            <Text style={styles.emptyTitle}>Nenhuma calibracao cadastrada para este padrao</Text>
+            <Text style={styles.emptyTitle}>Nenhuma calibração cadastrada para este padrão</Text>
         </View>
     );
 }
@@ -629,16 +629,16 @@ function getHeaderSubtitle(selectedPadrao: Padrao | undefined, hasPadraoContext:
     }
 
     if (hasPadraoContext) {
-        return "Padrao nao encontrado.";
+        return "Padrão não encontrado.";
     }
 
-    return "Abra esta tela a partir de um card de padrao.";
+    return "Abra esta tela a partir de um card de padrão.";
 }
 
 function getFornecedorLabel(fornecedorId: string, fornecedores: Fornecedor[]) {
     const fornecedor = fornecedores.find((item) => item.id === fornecedorId);
 
-    return fornecedor?.nome ?? "Fornecedor nao encontrado";
+    return fornecedor?.nome ?? "Fornecedor não encontrado";
 }
 
 function parseDateInput(value: string) {
@@ -678,7 +678,7 @@ function formatDateInput(date: Date) {
 
 function formatDate(date: Date) {
     if (!isDateValid(date)) {
-        return "Data invalida";
+        return "Data inválida";
     }
 
     return date.toLocaleDateString("pt-BR");

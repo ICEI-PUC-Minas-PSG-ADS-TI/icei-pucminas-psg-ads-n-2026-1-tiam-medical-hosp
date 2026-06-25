@@ -334,7 +334,7 @@ function PadraoCard({ item, onEdit, onDelete, onOpenCalibracoes, isGestor }: Pad
       <View style={styles.cardFooter}>
         <Text style={styles.setor}>Setor: {item.setor}</Text>
         <MedicalButton
-          title="Calibracoes"
+          title="Calibrações"
           variant="secondary"
           onPress={() => onOpenCalibracoes(item)}
         />
