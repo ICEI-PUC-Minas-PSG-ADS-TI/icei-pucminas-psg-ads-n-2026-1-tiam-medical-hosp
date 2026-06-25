@@ -48,13 +48,13 @@ export function AppRoutes() {
                 <Stack.Screen
                     name="Home"
                     component={HomeScreen}
-                    options={{ title: "Iní­cio" }}
+                    options={{ headerShown: false }}
                 />
 
                 <Stack.Screen
                     name="Padroes"
                     component={PadroesScreen}
-                    options={{ title: "Padrões" }}
+                    options={{ headerShown: false }}
                 />
 
                 <Stack.Screen
@@ -72,7 +72,7 @@ export function AppRoutes() {
                 <Stack.Screen
                     name="Perfil"
                     component={PerfilScreen}
-                    options={{ title: "Perfil" }}
+                    options={{ headerShown: false }}
                 />
             </Stack.Navigator>
         </NavigationContainer>

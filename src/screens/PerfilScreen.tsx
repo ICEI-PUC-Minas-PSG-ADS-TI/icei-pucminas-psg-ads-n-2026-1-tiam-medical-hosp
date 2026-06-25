@@ -34,7 +34,6 @@ interface InfoRowProps {
 
 const initialPerfilForm: PerfilDTO = {
     nome: "",
-    empresa: "",
     cargo: "",
     telefone: "",
     isGestor: false,
@@ -42,7 +41,6 @@ const initialPerfilForm: PerfilDTO = {
 
 const formFields: FormField[] = [
     { key: "nome", placeholder: "Nome completo", icon: "person-outline" },
-    { key: "empresa", placeholder: "Empresa / Hospital", icon: "business-outline" },
     { key: "cargo", placeholder: "Cargo / Função", icon: "briefcase-outline" },
     { key: "telefone", placeholder: "Telefone", icon: "call-outline", keyboardType: "phone-pad" },
 ];
@@ -60,7 +58,6 @@ export default function PerfilScreen() {
         if (perfil) {
             setForm({
                 nome: perfil.nome,
-                empresa: perfil.empresa,
                 cargo: perfil.cargo,
                 telefone: perfil.telefone,
                 isGestor: perfil.isGestor,
@@ -80,7 +77,6 @@ export default function PerfilScreen() {
         if (perfil) {
             setForm({
                 nome: perfil.nome,
-                empresa: perfil.empresa,
                 cargo: perfil.cargo,
                 telefone: perfil.telefone,
                 isGestor: perfil.isGestor,
@@ -94,7 +90,6 @@ export default function PerfilScreen() {
 
         const trimmed: PerfilDTO = {
             nome: form.nome.trim(),
-            empresa: form.empresa.trim(),
             cargo: form.cargo.trim(),
             telefone: form.telefone.trim(),
             isGestor: form.isGestor,
@@ -114,108 +109,110 @@ export default function PerfilScreen() {
     }
 
     return (
-        <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+        <View style={{ flex: 1, backgroundColor: MedicalColors.background }}>
+            <ScrollView style={styles.container} contentContainerStyle={styles.content}>
 
-            <View style={styles.heading}>
-                <Text style={styles.title}>Perfil</Text>
-                <Text style={styles.subtitle}>
-                    Visualize e gerencie os seus dados cadastrais.
-                </Text>
-            </View>
-
-            {loading && <Text style={styles.status}>Carregando...</Text>}
-
-            {errorMessage && (
-                <Text style={styles.error}>{errorMessage}</Text>
-            )}
-
-            <View style={styles.avatarCard}>
-                <View style={styles.avatar}>
-                    <Ionicons name="person" size={48} color={MedicalColors.primary} />
-                </View>
-                <View style={styles.avatarInfo}>
-                    <Text style={styles.avatarName}>
-                        {perfil?.nome || "—"}
+                <View style={styles.heading}>
+                    <Text style={styles.title}>Perfil</Text>
+                    <Text style={styles.subtitle}>
+                        Visualize e gerencie os seus dados cadastrais.
                     </Text>
-                    <Text style={styles.avatarEmail}>
-                        {perfil?.email || "—"}
-                    </Text>
-                    {perfil?.cargo ? (
-                        <View style={styles.badge}>
-                            <Text style={styles.badgeText}>{perfil.cargo}</Text>
-                        </View>
-                    ) : null}
                 </View>
-            </View>
 
-            <View style={styles.card}>
-                <View style={styles.cardHeader}>
-                    <View style={styles.cardHeaderText}>
-                        <Text style={styles.cardTitle}>
-                            {isEditing ? "Editar dados" : "Dados cadastrais"}
-                        </Text>
-                        <Text style={styles.cardSubtitle}>
-                            {isEditing
-                                ? "Atualize suas informações abaixo."
-                                : "Informações associadas à sua conta."}
-                        </Text>
+                {loading && <Text style={styles.status}>Carregando...</Text>}
+
+                {errorMessage && (
+                    <Text style={styles.error}>{errorMessage}</Text>
+                )}
+
+                <View style={styles.avatarCard}>
+                    <View style={styles.avatar}>
+                        <Ionicons name="person" size={48} color={MedicalColors.primary} />
                     </View>
-                    {!isEditing && (
-                        <MedicalButton
-                            title="Editar"
-                            variant="secondary"
-                            onPress={handleStartEdit}
-                        />
+                    <View style={styles.avatarInfo}>
+                        <Text style={styles.avatarName}>
+                            {perfil?.nome || "—"}
+                        </Text>
+                        <Text style={styles.avatarEmail}>
+                            {perfil?.email || "—"}
+                        </Text>
+                        {perfil?.cargo ? (
+                            <View style={styles.badge}>
+                                <Text style={styles.badgeText}>{perfil.cargo}</Text>
+                            </View>
+                        ) : null}
+                    </View>
+                </View>
+
+                <View style={styles.card}>
+                    <View style={styles.cardHeader}>
+                        <View style={styles.cardHeaderText}>
+                            <Text style={styles.cardTitle}>
+                                {isEditing ? "Editar dados" : "Dados cadastrais"}
+                            </Text>
+                            <Text style={styles.cardSubtitle}>
+                                {isEditing
+                                    ? "Atualize suas informações abaixo."
+                                    : "Informações associadas à sua conta."}
+                            </Text>
+                        </View>
+                        {!isEditing && (
+                            <MedicalButton
+                                title="Editar"
+                                variant="secondary"
+                                onPress={handleStartEdit}
+                            />
+                        )}
+                    </View>
+
+                    {isEditing ? (
+                        <View style={styles.form}>
+                            {formFields.map((field) => (
+                                <View key={field.key} style={styles.inputWrapper}>
+                                    <Ionicons
+                                        name={field.icon}
+                                        size={18}
+                                        color={MedicalColors.muted}
+                                        style={styles.inputIcon}
+                                    />
+                                    <TextInput
+                                        placeholder={field.placeholder}
+                                        placeholderTextColor={MedicalColors.muted}
+                                        value={form[field.key]}
+                                        onChangeText={(value) => handleChange(field.key, value)}
+                                        onSubmitEditing={Keyboard.dismiss}
+                                        keyboardType={field.keyboardType ?? "default"}
+                                        returnKeyType="done"
+                                        submitBehavior="blurAndSubmit"
+                                        style={styles.input}
+                                    />
+                                </View>
+                            ))}
+
+                            <MedicalButton
+                                title={loading ? "Salvando..." : "Salvar alterações"}
+                                onPress={handleSave}
+                                disabled={loading}
+                            />
+                            <MedicalButton
+                                title="Cancelar"
+                                variant="secondary"
+                                onPress={handleCancelEdit}
+                                disabled={loading}
+                            />
+                        </View>
+                    ) : (
+                        <View style={styles.infoList}>
+                            <InfoRow icon="person-outline" label="Nome" value={perfil?.nome || "—"} />
+                            <InfoRow icon="mail-outline" label="E-mail" value={perfil?.email || "—"} />
+                            <InfoRow icon="briefcase-outline" label="Cargo" value={perfil?.cargo || "—"} />
+                            <InfoRow icon="call-outline" label="Telefone" value={perfil?.telefone || "—"} />
+                        </View>
                     )}
                 </View>
-
-                {isEditing ? (
-                    <View style={styles.form}>
-                        {formFields.map((field) => (
-                            <View key={field.key} style={styles.inputWrapper}>
-                                <Ionicons
-                                    name={field.icon}
-                                    size={18}
-                                    color={MedicalColors.muted}
-                                    style={styles.inputIcon}
-                                />
-                                <TextInput
-                                    placeholder={field.placeholder}
-                                    placeholderTextColor={MedicalColors.muted}
-                                    value={form[field.key]}
-                                    onChangeText={(value) => handleChange(field.key, value)}
-                                    onSubmitEditing={Keyboard.dismiss}
-                                    keyboardType={field.keyboardType ?? "default"}
-                                    returnKeyType="done"
-                                    submitBehavior="blurAndSubmit"
-                                    style={styles.input}
-                                />
-                            </View>
-                        ))}
-
-                        <MedicalButton
-                            title={loading ? "Salvando..." : "Salvar alterações"}
-                            onPress={handleSave}
-                            disabled={loading}
-                        />
-                        <MedicalButton
-                            title="Cancelar"
-                            variant="secondary"
-                            onPress={handleCancelEdit}
-                            disabled={loading}
-                        />
-                    </View>
-                ) : (
-                    <View style={styles.infoList}>
-                        <InfoRow icon="person-outline" label="Nome" value={perfil?.nome || "—"} />
-                        <InfoRow icon="mail-outline" label="E-mail" value={perfil?.email || "—"} />
-                        <InfoRow icon="business-outline" label="Empresa" value={perfil?.empresa || "—"} />
-                        <InfoRow icon="briefcase-outline" label="Cargo" value={perfil?.cargo || "—"} />
-                        <InfoRow icon="call-outline" label="Telefone" value={perfil?.telefone || "—"} />
-                    </View>
-                )}
-            </View>
-        </ScrollView>
+            </ScrollView>
+            <BottomTab activeKey="perfil" />
+        </View>
     );
 }
 

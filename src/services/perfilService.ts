@@ -46,7 +46,6 @@ export async function savePerfil(dto: PerfilDTO): Promise<PerfilDTO> {
         perfilRef,
         {
             nome: dto.nome,
-            empresa: dto.empresa,
             cargo: dto.cargo,
             telefone: dto.telefone,
         },

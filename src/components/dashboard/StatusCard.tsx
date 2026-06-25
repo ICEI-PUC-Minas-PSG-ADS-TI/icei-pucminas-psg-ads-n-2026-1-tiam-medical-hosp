@@ -1,5 +1,5 @@
 import { ComponentProps } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { MedicalSpacing } from "@/constants/medical-ui";
@@ -11,16 +11,25 @@ interface StatusCardProps {
   numero: number;
   label: string;
   icon: IoniconName;
+  ativo?: boolean;
+  onPress?: () => void;
 }
 
-export function StatusCard({ cor, numero, label, icon }: StatusCardProps) {
+export function StatusCard({ cor, numero, label, icon, ativo, onPress }: StatusCardProps) {
   return (
-    <View style={[styles.card, { backgroundColor: cor }]}>
+    <TouchableOpacity // ALTERADO: era View
+      style={[
+        styles.card,
+        { backgroundColor: cor },
+        ativo && styles.cardAtivo, // ALTERADO: adicionou
+      ]}
+      onPress={onPress} // ALTERADO: adicionou
+      activeOpacity={0.8} // ALTERADO: adicionou
+    >
       <Ionicons name={icon} size={28} color="#ffffff" />
-
       <Text style={styles.numero}>{numero}</Text>
       <Text style={styles.label}>{label}</Text>
-    </View>
+    </TouchableOpacity> // ALTERADO: era View
   );
 }
 
@@ -48,5 +57,9 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontWeight: "700",
     textAlign: "center",
+  },
+  cardAtivo: {
+    borderWidth: 3,
+    borderColor: "#ffffff",
   },
 });

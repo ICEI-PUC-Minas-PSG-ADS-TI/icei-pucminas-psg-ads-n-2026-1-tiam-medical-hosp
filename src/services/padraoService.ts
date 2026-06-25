@@ -89,15 +89,15 @@ function toPadraoData(padrao: PadraoDTO) {
 
     calibracao: padrao.calibracao
       ? {
-          dataCalibracao: padrao.calibracao.dataCalibracao,
-          proximoVencimento: padrao.calibracao.proximoVencimento,
-          numeroCertificado: padrao.calibracao.numeroCertificado,
-          frequencia: padrao.calibracao.frequencia,
-          fornecedor: padrao.calibracao.fornecedor,
-          certificadoPdfUrl: padrao.calibracao.certificadoPdfUrl ?? "",
-          status: padrao.calibracao.status ?? "",
-          atualizadoEm: padrao.calibracao.atualizadoEm ?? new Date().toISOString(),
-        }
+        padraoId: padrao.calibracao.padraoId,
+        userId: padrao.calibracao.userId,
+        fornecedorId: padrao.calibracao.fornecedorId,
+        dataCalibracao: padrao.calibracao.dataCalibracao,
+        numeroCertificado: padrao.calibracao.numeroCertificado,
+        periodicidade: padrao.calibracao.periodicidade,
+        certificadoUrl: padrao.calibracao.certificadoUrl ?? "",
+        custo: padrao.calibracao.custo,
+      }
       : null,
   };
 }
