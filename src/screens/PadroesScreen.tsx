@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { View, Text, FlatList, StyleSheet, Alert, TextInput, Keyboard } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { MedicalButton } from "@/components/medical/MedicalButton";
 import { usePadroes } from "@/contexts/padraoContext";
@@ -7,6 +9,10 @@ import { usePerfil } from "@/contexts/perfilContext";
 import { MedicalColors, MedicalSpacing } from "@/constants/medical-ui";
 import { Padrao, PadraoDTO } from "@/types/padrao";
 import { BottomTab } from "@/components/dashboard/BottomTab";
+import { RootStackParamList } from "@/routes/AppRoutes";
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
+type PadraoFormField = "nome" | "fabricante" | "modelo" | "tag" | "numSerie" | "patrimonio" | "setor";
 
 const initialPadraoForm: PadraoDTO = {
   nome: "",
@@ -18,7 +24,7 @@ const initialPadraoForm: PadraoDTO = {
   setor: "",
 };
 
-const formFields: { key: keyof PadraoDTO; placeholder: string }[] = [
+const formFields: { key: PadraoFormField; placeholder: string }[] = [
   { key: "nome", placeholder: "Nome" },
   { key: "fabricante", placeholder: "Fabricante" },
   { key: "modelo", placeholder: "Modelo" },
@@ -56,10 +62,12 @@ interface PadraoCardProps {
   item: Padrao;
   onEdit: (padrao: Padrao) => void;
   onDelete: (id: string) => void;
+  onOpenCalibracoes: (padrao: Padrao) => void;
   isGestor: boolean;
 }
 
 export default function PadroesScreen() {
+  const navigation = useNavigation<NavigationProp>();
   const { perfil } = usePerfil();
   const isGestor = perfil?.isGestor ?? false;
 
@@ -154,6 +162,10 @@ export default function PadroesScreen() {
     ]);
   }
 
+  function handleOpenCalibracoes(padrao: Padrao) {
+    navigation.navigate("Calibracoes", { padraoId: padrao.id });
+  }
+
   return (
     <>
       <FlatList
@@ -182,6 +194,7 @@ export default function PadroesScreen() {
             item={item}
             onEdit={handleStartEdit}
             onDelete={handleDeletePadrao}
+            onOpenCalibracoes={handleOpenCalibracoes}
             isGestor={isGestor}
           />
         )}
@@ -303,7 +316,7 @@ function PadraoForm({
   );
 }
 
-function PadraoCard({ item, onEdit, onDelete, isGestor }: PadraoCardProps) {
+function PadraoCard({ item, onEdit, onDelete, onOpenCalibracoes, isGestor }: PadraoCardProps) {
   return (
     <View style={styles.card}>
       <View style={styles.cardHeader}>
@@ -320,6 +333,11 @@ function PadraoCard({ item, onEdit, onDelete, isGestor }: PadraoCardProps) {
 
       <View style={styles.cardFooter}>
         <Text style={styles.setor}>Setor: {item.setor}</Text>
+        <MedicalButton
+          title="Calibracoes"
+          variant="secondary"
+          onPress={() => onOpenCalibracoes(item)}
+        />
         {isGestor && (
           <>
             <MedicalButton

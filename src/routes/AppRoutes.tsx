@@ -18,7 +18,7 @@ export type RootStackParamList = {
     Padroes: undefined;
     Perfil: undefined;
     Fornecedores: undefined;
-    Calibracoes: undefined;
+    Calibracoes: { padraoId: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

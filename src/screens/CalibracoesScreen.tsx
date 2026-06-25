@@ -1,27 +1,19 @@
 import { useEffect, useState } from "react";
 import { View, Text, FlatList, StyleSheet, Alert, TextInput, Keyboard, Pressable } from "react-native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import { BottomTab } from "@/components/dashboard/BottomTab";
 import { MedicalButton } from "@/components/medical/MedicalButton";
 import { MedicalColors, MedicalSpacing } from "@/constants/medical-ui";
 import { useCalibracoes } from "@/contexts/calibracoesContext";
 import { useFornecedores } from "@/contexts/fornecedorContext";
 import { usePadroes } from "@/contexts/padraoContext";
 import { usePerfil } from "@/contexts/perfilContext";
+import { RootStackParamList } from "@/routes/AppRoutes";
 import { Calibracao, CalibracaoDTO } from "@/types/calibracao";
 import { Fornecedor } from "@/types/fornecedor";
 import { Padrao } from "@/types/padrao";
 
-const initialCalibracaoForm: CalibracaoDTO = {
-    padraoId: "",
-    userId: "",
-    fornecedorId: "",
-    dataCalibracao: new Date(),
-    numeroCertificado: "",
-    periodicidade: 0,
-    certificadoUrl: "",
-    custo: 0,
-};
+type CalibracoesScreenProps = NativeStackScreenProps<RootStackParamList, "Calibracoes">;
 
 interface CalibracoesHeaderProps {
     form: CalibracaoDTO;
@@ -31,9 +23,10 @@ interface CalibracoesHeaderProps {
     isFormOpen: boolean;
     isEditing: boolean;
     loading: boolean;
-    isGestor: boolean;
+    canManage: boolean;
+    hasPadraoContext: boolean;
     busca: string;
-    padroes: Padrao[];
+    selectedPadrao?: Padrao;
     fornecedores: Fornecedor[];
     onBuscaChange: (value: string) => void;
     onChange: (field: keyof CalibracaoDTO, value: CalibracaoDTO[keyof CalibracaoDTO]) => void;
@@ -53,7 +46,6 @@ interface CalibracaoFormProps {
     loading: boolean;
     submitTitle: string;
     showCancel: boolean;
-    padroes: Padrao[];
     fornecedores: Fornecedor[];
     onChange: (field: keyof CalibracaoDTO, value: CalibracaoDTO[keyof CalibracaoDTO]) => void;
     onDataCalibracaoInputChange: (value: string) => void;
@@ -73,14 +65,16 @@ interface EntitySelectorProps {
 
 interface CalibracaoCardProps {
     item: Calibracao;
-    padroes: Padrao[];
     fornecedores: Fornecedor[];
     onEdit: (calibracao: Calibracao) => void;
     onDelete: (id: string) => void;
     isGestor: boolean;
 }
 
-export default function CalibracoesScreen() {
+export default function CalibracoesScreen({ route }: CalibracoesScreenProps) {
+    const padraoId = route.params?.padraoId ?? "";
+    const hasPadraoContext = padraoId.trim().length > 0;
+
     const { perfil } = usePerfil();
     const isGestor = perfil?.isGestor ?? false;
 
@@ -88,23 +82,36 @@ export default function CalibracoesScreen() {
     const { padroes, loadPadroes } = usePadroes();
     const { fornecedores, loadFornecedores } = useFornecedores();
 
-    const [form, setForm] = useState<CalibracaoDTO>(initialCalibracaoForm);
-    const [dataCalibracaoInput, setDataCalibracaoInput] = useState(formatDateInput(initialCalibracaoForm.dataCalibracao));
+    const selectedPadrao = padroes.find((padrao) => padrao.id === padraoId);
+    const hasValidPadrao = hasPadraoContext && Boolean(selectedPadrao);
+    const canManage = isGestor && hasValidPadrao;
+
+    const [form, setForm] = useState<CalibracaoDTO>(() => createInitialCalibracaoForm(padraoId));
+    const [dataCalibracaoInput, setDataCalibracaoInput] = useState(() =>
+        formatDateInput(createInitialCalibracaoForm(padraoId).dataCalibracao)
+    );
     const [periodicidadeInput, setPeriodicidadeInput] = useState("");
     const [custoInput, setCustoInput] = useState("");
     const [isFormOpen, setIsFormOpen] = useState(false);
+    const [hasOpenedFormAutomatically, setHasOpenedFormAutomatically] = useState(false);
     const [editingCalibracaoId, setEditingCalibracaoId] = useState<string | null>(null);
     const [busca, setBusca] = useState("");
     const isEditing = editingCalibracaoId !== null;
 
-    const buscaNormalizada = busca.toLowerCase();
-    const calibracoesFiltradas = calibracoes.filter((calibracao) => {
-        const padraoLabel = getPadraoLabel(calibracao.padraoId, padroes).toLowerCase();
+    const buscaNormalizada = busca.trim().toLowerCase();
+    const calibracoesDoPadrao = calibracoes
+        .filter((calibracao) => calibracao.padraoId === padraoId)
+        .sort((left, right) => getDateTime(right.dataCalibracao) - getDateTime(left.dataCalibracao));
+
+    const calibracoesFiltradas = calibracoesDoPadrao.filter((calibracao) => {
+        if (buscaNormalizada.length === 0) {
+            return true;
+        }
+
         const fornecedorLabel = getFornecedorLabel(calibracao.fornecedorId, fornecedores).toLowerCase();
 
         return (
             calibracao.numeroCertificado.toLowerCase().includes(buscaNormalizada) ||
-            padraoLabel.includes(buscaNormalizada) ||
             fornecedorLabel.includes(buscaNormalizada)
         );
     });
@@ -115,6 +122,13 @@ export default function CalibracoesScreen() {
         loadFornecedores();
     }, []);
 
+    useEffect(() => {
+        if (canManage && !hasOpenedFormAutomatically) {
+            setIsFormOpen(true);
+            setHasOpenedFormAutomatically(true);
+        }
+    }, [canManage, hasOpenedFormAutomatically]);
+
     function handleChange(field: keyof CalibracaoDTO, value: CalibracaoDTO[keyof CalibracaoDTO]) {
         setForm((currentForm) => ({
             ...currentForm,
@@ -123,8 +137,10 @@ export default function CalibracoesScreen() {
     }
 
     function resetFormState() {
-        setForm(initialCalibracaoForm);
-        setDataCalibracaoInput(formatDateInput(initialCalibracaoForm.dataCalibracao));
+        const nextForm = createInitialCalibracaoForm(padraoId);
+
+        setForm(nextForm);
+        setDataCalibracaoInput(formatDateInput(nextForm.dataCalibracao));
         setPeriodicidadeInput("");
         setCustoInput("");
         setEditingCalibracaoId(null);
@@ -132,7 +148,10 @@ export default function CalibracoesScreen() {
     }
 
     function handleStartEdit(calibracao: Calibracao) {
-        setForm(getCalibracaoFormFromItem(calibracao));
+        setForm({
+            ...getCalibracaoFormFromItem(calibracao),
+            padraoId,
+        });
         setDataCalibracaoInput(formatDateInput(calibracao.dataCalibracao));
         setPeriodicidadeInput(String(calibracao.periodicidade));
         setCustoInput(String(calibracao.custo));
@@ -163,8 +182,14 @@ export default function CalibracoesScreen() {
             return;
         }
 
+        if (!hasValidPadrao) {
+            Alert.alert("Erro", "Padrao invalido para calibracao.");
+            return;
+        }
+
         const trimmedForm = trimCalibracaoForm({
             ...form,
+            padraoId,
             userId: perfil?.uid ?? form.userId,
             dataCalibracao: parseDateInput(dataCalibracaoInput),
             periodicidade: Number(periodicidadeInput),
@@ -172,7 +197,7 @@ export default function CalibracoesScreen() {
         });
 
         if (!isCalibracaoFormValid(trimmedForm, dataCalibracaoInput, periodicidadeInput, custoInput)) {
-            Alert.alert("Erro", "Preencha todos os campos obrigatórios.");
+            Alert.alert("Erro", "Preencha todos os campos obrigatorios.");
             return;
         }
 
@@ -186,7 +211,7 @@ export default function CalibracoesScreen() {
     }
 
     async function handleDeleteCalibracao(id: string) {
-        Alert.alert("Excluir", "Deseja excluir esta calibração?", [
+        Alert.alert("Excluir", "Deseja excluir esta calibracao?", [
             {
                 text: "Cancelar",
                 style: "cancel",
@@ -202,49 +227,46 @@ export default function CalibracoesScreen() {
     }
 
     return (
-        <>
-            <FlatList
-                style={styles.container}
-                data={calibracoesFiltradas}
-                keyExtractor={(item) => item.id}
-                ListHeaderComponent={
-                    <CalibracoesHeader
-                        form={form}
-                        dataCalibracaoInput={dataCalibracaoInput}
-                        periodicidadeInput={periodicidadeInput}
-                        custoInput={custoInput}
-                        isFormOpen={isFormOpen}
-                        isEditing={isEditing}
-                        loading={loading}
-                        isGestor={isGestor}
-                        busca={busca}
-                        padroes={padroes}
-                        fornecedores={fornecedores}
-                        onBuscaChange={setBusca}
-                        onChange={handleChange}
-                        onDataCalibracaoInputChange={setDataCalibracaoInput}
-                        onPeriodicidadeInputChange={setPeriodicidadeInput}
-                        onCustoInputChange={setCustoInput}
-                        onSubmit={handleSubmitForm}
-                        onCancelEdit={handleCancelEdit}
-                        onToggleForm={handleToggleForm}
-                    />
-                }
-                ListEmptyComponent={!loading ? <EmptyState /> : null}
-                contentContainerStyle={styles.content}
-                renderItem={({ item }) => (
-                    <CalibracaoCard
-                        item={item}
-                        padroes={padroes}
-                        fornecedores={fornecedores}
-                        onEdit={handleStartEdit}
-                        onDelete={handleDeleteCalibracao}
-                        isGestor={isGestor}
-                    />
-                )}
-            />
-            <BottomTab activeKey="calibracoes" />
-        </>
+        <FlatList
+            style={styles.container}
+            data={calibracoesFiltradas}
+            keyExtractor={(item) => item.id}
+            ListHeaderComponent={
+                <CalibracoesHeader
+                    form={form}
+                    dataCalibracaoInput={dataCalibracaoInput}
+                    periodicidadeInput={periodicidadeInput}
+                    custoInput={custoInput}
+                    isFormOpen={isFormOpen}
+                    isEditing={isEditing}
+                    loading={loading}
+                    canManage={canManage}
+                    hasPadraoContext={hasPadraoContext}
+                    busca={busca}
+                    selectedPadrao={selectedPadrao}
+                    fornecedores={fornecedores}
+                    onBuscaChange={setBusca}
+                    onChange={handleChange}
+                    onDataCalibracaoInputChange={setDataCalibracaoInput}
+                    onPeriodicidadeInputChange={setPeriodicidadeInput}
+                    onCustoInputChange={setCustoInput}
+                    onSubmit={handleSubmitForm}
+                    onCancelEdit={handleCancelEdit}
+                    onToggleForm={handleToggleForm}
+                />
+            }
+            ListEmptyComponent={!loading ? <EmptyState /> : null}
+            contentContainerStyle={styles.content}
+            renderItem={({ item }) => (
+                <CalibracaoCard
+                    item={item}
+                    fornecedores={fornecedores}
+                    onEdit={handleStartEdit}
+                    onDelete={handleDeleteCalibracao}
+                    isGestor={isGestor}
+                />
+            )}
+        />
     );
 }
 
@@ -256,9 +278,10 @@ function CalibracoesHeader({
     isFormOpen,
     isEditing,
     loading,
-    isGestor,
+    canManage,
+    hasPadraoContext,
     busca,
-    padroes,
+    selectedPadrao,
     fornecedores,
     onBuscaChange,
     onChange,
@@ -269,24 +292,23 @@ function CalibracoesHeader({
     onCancelEdit,
     onToggleForm,
 }: CalibracoesHeaderProps) {
-    const formTitle = isEditing ? "Editar calibração" : "Cadastrar calibração";
+    const formTitle = isEditing ? "Editar calibracao" : "Cadastrar calibracao";
     const formSubtitle = isEditing
-        ? "Atualize os dados da calibração selecionada."
-        : "Informe os dados da calibração realizada.";
-    const submitTitle = isEditing ? "Salvar alterações" : "Cadastrar calibração";
+        ? "Atualize os dados da calibracao selecionada."
+        : "Informe os dados da calibracao realizada.";
+    const submitTitle = isEditing ? "Salvar alteracoes" : "Cadastrar calibracao";
+    const subtitle = getHeaderSubtitle(selectedPadrao, hasPadraoContext);
 
     return (
         <View style={styles.header}>
             <View style={styles.heading}>
-                <Text style={styles.title}>Calibrações</Text>
-                <Text style={styles.subtitle}>
-                    Consulte e mantenha o histórico de calibrações dos padrões.
-                </Text>
+                <Text style={styles.title}>Calibracoes do padrao</Text>
+                <Text style={styles.subtitle}>{subtitle}</Text>
             </View>
 
             <TextInput
                 style={styles.searchInput}
-                placeholder="Buscar por certificado, padrão ou fornecedor..."
+                placeholder="Buscar por certificado ou fornecedor..."
                 placeholderTextColor={MedicalColors.muted}
                 value={busca}
                 onChangeText={onBuscaChange}
@@ -294,7 +316,7 @@ function CalibracoesHeader({
 
             {loading && <Text style={styles.status}>Carregando...</Text>}
 
-            {isGestor && (
+            {canManage && (
                 <View style={styles.formCard}>
                     <View style={styles.formHeader}>
                         <View style={styles.formHeaderText}>
@@ -317,7 +339,6 @@ function CalibracoesHeader({
                             loading={loading}
                             submitTitle={submitTitle}
                             showCancel={isEditing}
-                            padroes={padroes}
                             fornecedores={fornecedores}
                             onChange={onChange}
                             onDataCalibracaoInputChange={onDataCalibracaoInputChange}
@@ -341,7 +362,6 @@ function CalibracaoForm({
     loading,
     submitTitle,
     showCancel,
-    padroes,
     fornecedores,
     onChange,
     onDataCalibracaoInputChange,
@@ -350,10 +370,6 @@ function CalibracaoForm({
     onSubmit,
     onCancel,
 }: CalibracaoFormProps) {
-    const padraoOptions = padroes.map((padrao) => ({
-        id: padrao.id,
-        label: `${padrao.nome} - ${padrao.tag}`,
-    }));
     const fornecedorOptions = fornecedores.map((fornecedor) => ({
         id: fornecedor.id,
         label: fornecedor.nome,
@@ -361,14 +377,6 @@ function CalibracaoForm({
 
     return (
         <View style={styles.form}>
-            <EntitySelector
-                label="Padrão"
-                selectedId={form.padraoId}
-                options={padraoOptions}
-                emptyText="Nenhum padrão cadastrado"
-                onSelect={(id) => onChange("padraoId", id)}
-            />
-
             <EntitySelector
                 label="Fornecedor"
                 selectedId={form.fornecedorId}
@@ -378,7 +386,7 @@ function CalibracaoForm({
             />
 
             <TextInput
-                placeholder="Data da calibração (AAAA-MM-DD)"
+                placeholder="Data da calibracao (AAAA-MM-DD)"
                 placeholderTextColor={MedicalColors.muted}
                 value={dataCalibracaoInput}
                 onChangeText={onDataCalibracaoInputChange}
@@ -389,7 +397,7 @@ function CalibracaoForm({
             />
 
             <TextInput
-                placeholder="Número do certificado"
+                placeholder="Numero do certificado"
                 placeholderTextColor={MedicalColors.muted}
                 value={form.numeroCertificado}
                 onChangeText={(value) => onChange("numeroCertificado", value)}
@@ -442,7 +450,7 @@ function CalibracaoForm({
 
             {showCancel && (
                 <MedicalButton
-                    title="Cancelar edição"
+                    title="Cancelar edicao"
                     variant="secondary"
                     onPress={onCancel}
                     disabled={loading}
@@ -459,7 +467,7 @@ function EntitySelector({ label, selectedId, options, emptyText, onSelect }: Ent
         <View style={styles.selector}>
             <Text style={styles.selectorLabel}>{label}</Text>
             <Text style={styles.selectorValue}>
-                {selectedOption ? selectedOption.label : "Selecione uma opção"}
+                {selectedOption ? selectedOption.label : "Selecione uma opcao"}
             </Text>
 
             <View style={styles.selectorOptions}>
@@ -496,14 +504,14 @@ function EntitySelector({ label, selectedId, options, emptyText, onSelect }: Ent
     );
 }
 
-function CalibracaoCard({ item, padroes, fornecedores, onEdit, onDelete, isGestor }: CalibracaoCardProps) {
+function CalibracaoCard({ item, fornecedores, onEdit, onDelete, isGestor }: CalibracaoCardProps) {
     const certificadoUrl = item.certificadoUrl?.trim();
 
     return (
         <View style={styles.card}>
             <View style={styles.cardHeader}>
-                <Text style={styles.name}>{getPadraoLabel(item.padraoId, padroes)}</Text>
-                <Text style={styles.tag}>{item.numeroCertificado}</Text>
+                <Text style={styles.name}>Certificado {item.numeroCertificado}</Text>
+                <Text style={styles.tag}>{formatDate(item.dataCalibracao)}</Text>
             </View>
 
             <View style={styles.metaGrid}>
@@ -548,12 +556,22 @@ function InfoBlock({ label, value }: { label: string; value: string }) {
 function EmptyState() {
     return (
         <View style={styles.emptyState}>
-            <Text style={styles.emptyTitle}>Nenhuma calibração cadastrada</Text>
-            <Text style={styles.emptyText}>
-                Abra o formulário acima para adicionar a primeira calibração.
-            </Text>
+            <Text style={styles.emptyTitle}>Nenhuma calibracao cadastrada para este padrao</Text>
         </View>
     );
+}
+
+function createInitialCalibracaoForm(padraoId: string): CalibracaoDTO {
+    return {
+        padraoId,
+        userId: "",
+        fornecedorId: "",
+        dataCalibracao: new Date(),
+        numeroCertificado: "",
+        periodicidade: 0,
+        certificadoUrl: "",
+        custo: 0,
+    };
 }
 
 function getCalibracaoFormFromItem(calibracao: Calibracao): CalibracaoDTO {
@@ -605,20 +623,22 @@ function isCalibracaoFormValid(
     );
 }
 
-function getPadraoLabel(padraoId: string, padroes: Padrao[]) {
-    const padrao = padroes.find((item) => item.id === padraoId);
-
-    if (!padrao) {
-        return "Padrão não encontrado";
+function getHeaderSubtitle(selectedPadrao: Padrao | undefined, hasPadraoContext: boolean) {
+    if (selectedPadrao) {
+        return `${selectedPadrao.nome} - ${selectedPadrao.tag}`;
     }
 
-    return `${padrao.nome} - ${padrao.tag}`;
+    if (hasPadraoContext) {
+        return "Padrao nao encontrado.";
+    }
+
+    return "Abra esta tela a partir de um card de padrao.";
 }
 
 function getFornecedorLabel(fornecedorId: string, fornecedores: Fornecedor[]) {
     const fornecedor = fornecedores.find((item) => item.id === fornecedorId);
 
-    return fornecedor?.nome ?? "Fornecedor não encontrado";
+    return fornecedor?.nome ?? "Fornecedor nao encontrado";
 }
 
 function parseDateInput(value: string) {
@@ -658,7 +678,7 @@ function formatDateInput(date: Date) {
 
 function formatDate(date: Date) {
     if (!isDateValid(date)) {
-        return "Data inválida";
+        return "Data invalida";
     }
 
     return date.toLocaleDateString("pt-BR");
@@ -669,6 +689,10 @@ function formatCurrency(value: number) {
         style: "currency",
         currency: "BRL",
     });
+}
+
+function getDateTime(date: Date) {
+    return isDateValid(date) ? date.getTime() : 0;
 }
 
 function isDateValid(date: Date) {
@@ -872,10 +896,5 @@ const styles = StyleSheet.create({
         color: MedicalColors.text,
         fontSize: 16,
         fontWeight: "800",
-    },
-    emptyText: {
-        color: MedicalColors.muted,
-        fontSize: 14,
-        lineHeight: 20,
     },
 });

@@ -1,15 +1,19 @@
+import { Calibracao } from "./calibracao";
+
 export type StatusCalibracao = "valido" | "atencao" | "vencido";
 
-export interface CalibracaoPadrao {
-    dataCalibracao: string;
-    proximoVencimento: string;
-    numeroCertificado: string;
-    frequencia: string;
-    fornecedor: string;
-    certificadoPdfUrl?: string;
-    status?: StatusCalibracao;
-    atualizadoEm?: string;
-}
+// export interface CalibracaoPadrao {
+//     dataCalibracao: string;
+//     proximoVencimento: string;
+//     numeroCertificado: string;
+//     frequencia: string;
+//     fornecedor: string;
+//     certificadoPdfUrl?: string;
+//     status?: StatusCalibracao;
+//     atualizadoEm?: string;
+// }
+
+
 
 export interface Padrao {
     id: string;
@@ -21,7 +25,7 @@ export interface Padrao {
     patrimonio: string;
     setor: string;
     imagemUrl?: string;
-    calibracao?: CalibracaoPadrao;
+    calibracao?: Calibracao;
 }
 
 export interface PadraoDTO {
@@ -33,5 +37,5 @@ export interface PadraoDTO {
     patrimonio: string;
     setor: string;
     imagemUrl?: string;
-    calibracao?: CalibracaoPadrao;
+    calibracao?: Calibracao;
 }
