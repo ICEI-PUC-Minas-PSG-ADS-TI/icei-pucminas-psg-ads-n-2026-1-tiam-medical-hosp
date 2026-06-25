@@ -1,4 +1,13 @@
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, getDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  getDoc,
+} from "firebase/firestore";
+
 import { auth, db } from "@/config/firebase";
 import { Padrao, PadraoDTO } from "@/types/padrao";
 
@@ -6,85 +15,95 @@ const collectionName = "padroes";
 const padroesRef = collection(db, collectionName);
 
 export async function getPadroes(): Promise<Padrao[]> {
-    ensureAuthenticated();
+  ensureAuthenticated();
 
-    const snapshot = await getDocs(padroesRef);
+  const snapshot = await getDocs(padroesRef);
 
-    const padroes: Padrao[] = snapshot.docs.map((document) => ({
-        id: document.id,
-        ...(document.data() as Omit<Padrao, "id">)
-    }));
+  const padroes: Padrao[] = snapshot.docs.map((document) => ({
+    id: document.id,
+    ...(document.data() as Omit<Padrao, "id">),
+  }));
 
-    return padroes;
+  return padroes;
 }
 
-export async function getPadraoById(id: string) {
-    ensureAuthenticated();
+export async function getPadraoById(id: string): Promise<Padrao | null> {
+  ensureAuthenticated();
 
-    const padraoRef = doc(db, collectionName, id);
-    const snapshot = await getDoc(padraoRef);
+  const padraoRef = doc(db, collectionName, id);
+  const snapshot = await getDoc(padraoRef);
 
-    if (!snapshot.exists()) {
-        return null;
-    }
+  if (!snapshot.exists()) {
+    return null;
+  }
 
-    const padrao: Padrao = {
-        id: snapshot.id,
-        ...(snapshot.data() as Omit<Padrao, "id">)
-    }
+  const padrao: Padrao = {
+    id: snapshot.id,
+    ...(snapshot.data() as Omit<Padrao, "id">),
+  };
 
-    return padrao;
+  return padrao;
 }
 
 export async function createPadrao(novoPadrao: PadraoDTO): Promise<PadraoDTO> {
-    ensureAuthenticated();
+  ensureAuthenticated();
 
-    await addDoc(padroesRef, {
-        nome: novoPadrao.nome,
-        fabricante: novoPadrao.fabricante,
-        modelo: novoPadrao.modelo,
-        tag: novoPadrao.tag,
-        numSerie: novoPadrao.numSerie,
-        patrimonio: novoPadrao.patrimonio,
-        setor: novoPadrao.setor
-    });
+  await addDoc(padroesRef, toPadraoData(novoPadrao));
 
-    return novoPadrao;
+  return novoPadrao;
 }
 
-export async function updatePadrao(id: string, padraoAtualizado: PadraoDTO): Promise<PadraoDTO> {
-    ensureAuthenticated();
+export async function updatePadrao(
+  id: string,
+  padraoAtualizado: PadraoDTO
+): Promise<PadraoDTO> {
+  ensureAuthenticated();
 
-    const padraoRef = doc(db, collectionName, id);
-    const padraoData = toPadraoData(padraoAtualizado);
+  const padraoRef = doc(db, collectionName, id);
+  const padraoData = toPadraoData(padraoAtualizado);
 
-    await updateDoc(padraoRef, padraoData);
+  await updateDoc(padraoRef, padraoData);
 
-    return padraoAtualizado;
+  return padraoAtualizado;
 }
 
 export async function deletePadrao(id: string) {
-    ensureAuthenticated();
+  ensureAuthenticated();
 
-    const padraoRef = doc(db, collectionName, id);
+  const padraoRef = doc(db, collectionName, id);
 
-    await deleteDoc(padraoRef);
+  await deleteDoc(padraoRef);
 }
 
 function toPadraoData(padrao: PadraoDTO) {
-    return {
-        nome: padrao.nome,
-        fabricante: padrao.fabricante,
-        modelo: padrao.modelo,
-        tag: padrao.tag,
-        numSerie: padrao.numSerie,
-        patrimonio: padrao.patrimonio,
-        setor: padrao.setor
-    }
+  return {
+    nome: padrao.nome,
+    fabricante: padrao.fabricante,
+    modelo: padrao.modelo,
+    tag: padrao.tag,
+    numSerie: padrao.numSerie,
+    patrimonio: padrao.patrimonio,
+    setor: padrao.setor,
+
+    imagemUrl: padrao.imagemUrl ?? "",
+
+    calibracao: padrao.calibracao
+      ? {
+          dataCalibracao: padrao.calibracao.dataCalibracao,
+          proximoVencimento: padrao.calibracao.proximoVencimento,
+          numeroCertificado: padrao.calibracao.numeroCertificado,
+          frequencia: padrao.calibracao.frequencia,
+          fornecedor: padrao.calibracao.fornecedor,
+          certificadoPdfUrl: padrao.calibracao.certificadoPdfUrl ?? "",
+          status: padrao.calibracao.status ?? "",
+          atualizadoEm: padrao.calibracao.atualizadoEm ?? new Date().toISOString(),
+        }
+      : null,
+  };
 }
 
 function ensureAuthenticated() {
-    if (!auth.currentUser) {
-        throw new Error("auth-required")
-    }
+  if (!auth.currentUser) {
+    throw new Error("auth-required");
+  }
 }
