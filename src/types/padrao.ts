@@ -2,17 +2,6 @@ import { Calibracao } from "./calibracao";
 
 export type StatusCalibracao = "valido" | "atencao" | "vencido";
 
-// export interface CalibracaoPadrao {
-//     dataCalibracao: string;
-//     proximoVencimento: string;
-//     numeroCertificado: string;
-//     frequencia: string;
-//     fornecedor: string;
-//     certificadoPdfUrl?: string;
-//     status?: StatusCalibracao;
-//     atualizadoEm?: string;
-// }
-
 export interface Padrao {
     id: string;
     nome: string;
@@ -23,6 +12,7 @@ export interface Padrao {
     patrimonio: string;
     setor: string;
     imagemUrl?: string;
+    ultimaCalibracaoId?: string;
     calibracao?: Calibracao;
 }
 
@@ -35,5 +25,6 @@ export interface PadraoDTO {
     patrimonio: string;
     setor: string;
     imagemUrl?: string;
+    ultimaCalibracaoId?: string;
     calibracao?: Calibracao;
 }

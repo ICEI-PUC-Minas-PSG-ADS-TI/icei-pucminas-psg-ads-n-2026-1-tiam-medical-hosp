@@ -13,6 +13,7 @@ import { RootStackParamList } from "@/routes/AppRoutes";
 import { getAtividades, getDashboard } from "@/services/api";
 import { ActivityItem, ActivityStatus, DashboardSummary } from "@/types/dashboard";
 import { usePerfil } from "@/contexts/perfilContext";
+import { enviarEmailPadroesVencendo } from "@/services/notificacaoPadraoService";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -36,9 +37,12 @@ export default function HomeScreen({ navigation }: Props) {
         getAtividades(),
         loadPerfil()
       ]);
-
       setDashboard(dashboardData);
       setAtividades(atividadesData);
+      
+      const email = auth.currentUser?.email;
+      if (!email) return;
+      await enviarEmailPadroesVencendo(email);
     }
 
     carregar();
