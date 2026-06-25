@@ -19,6 +19,10 @@ export async function getFornecedorByID(id: string) {
     const fornecedorRef = doc(db, collection_name, id);
     const snapshot = await getDoc(fornecedorRef);
 
+     if (!snapshot.exists()) {
+        return null;
+    }
+
     const fornecedor: Fornecedor = {
         id: snapshot.id,
         ...(snapshot.data() as Omit<Fornecedor, "id">)

@@ -13,8 +13,6 @@ export type StatusCalibracao = "valido" | "atencao" | "vencido";
 //     atualizadoEm?: string;
 // }
 
-
-
 export interface Padrao {
     id: string;
     nome: string;
