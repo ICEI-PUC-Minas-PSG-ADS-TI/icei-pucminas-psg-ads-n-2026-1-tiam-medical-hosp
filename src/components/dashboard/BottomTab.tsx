@@ -8,7 +8,7 @@ import { MedicalColors, MedicalSpacing } from "@/constants/medical-ui";
 import { RootStackParamList } from "@/routes/AppRoutes";
 
 type IoniconName = ComponentProps<typeof Ionicons>["name"];
-type BottomTabKey = "home" | "padroes" | "fornecedores" | "calibracoes" | "perfil";
+type BottomTabKey = "home" | "padroes" | "fornecedores" | "perfil";
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 interface BottomTabItem {
@@ -29,7 +29,6 @@ export function BottomTab({ activeKey = "home" }: BottomTabProps) {
         { key: "home", label: "Inicio", icon: "home", onPress: () => navigation.navigate("Home") },
         { key: "padroes", label: "Padroes", icon: "construct", onPress: () => navigation.navigate("Padroes") },
         { key: "fornecedores", label: "Fornecedores", icon: "business", onPress: () => navigation.navigate("Fornecedores") },
-        { key: "calibracoes", label: "Calibrações", icon: "calendar", onPress: () => navigation.navigate("Calibracoes") },
         { key: "perfil", label: "Perfil", icon: "person", onPress: () => navigation.navigate("Perfil") },
     ];
 
