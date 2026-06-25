@@ -15,6 +15,7 @@ As referências abaixo irão auxiliá-lo na geração do artefato “Registro de
 | Leandro Dantas | 25 anos | Estudante de engenharia mecanica |
 | Ronia Pereira | 55 anos | Recepcionista |
 | Sarah Edim | 17 anos | Estudante |
+| Victoria Oliveira | 27 anos | Psicóloga |
  
 ---
  
@@ -28,11 +29,12 @@ A SUS é eficaz por ser uma ferramenta rápida, confiável e capaz de fornecer u
 ## Pontuação SUS (System Usability Scale)
 
 | Participante | SUS Score |
-|---|---|
-| Leandro Dantas | 82,5 | 
+|---|---:|
+| Leandro Dantas | 82,5 |
 | Ronia Pereira | 90,0 |
 | Sarah Edim | 100,0 |
-| Média Final | 90,83 |
+| Victoria Oliveira | 90,0 |
+| Média Final | 90,63 |
 
 ---
  
