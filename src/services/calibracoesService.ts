@@ -48,8 +48,12 @@ export async function createCalibracao(novaCalibracao: CalibracaoDTO): Promise<C
     ensureAuthenticated();
 
     const calibracaoData = toCalibracaoData(novaCalibracao);
+    const calibracaoRef = await addDoc(calibracoesRef, calibracaoData);
+    const padraoRef = doc(db, "padroes", novaCalibracao.padraoId);
 
-    await addDoc(calibracoesRef, calibracaoData);
+    await updateDoc(padraoRef, {
+        ultimaCalibracaoId: calibracaoRef.id,
+    });
 
     return novaCalibracao;
 }

@@ -13,6 +13,7 @@ import { RootStackParamList } from "@/routes/AppRoutes";
 import { getAtividades, getDashboard } from "@/services/api";
 import { ActivityItem, DashboardSummary } from "@/types/dashboard";
 import { usePerfil } from "@/contexts/perfilContext";
+import { enviarEmailPadroesVencendo } from "@/services/notificacaoPadraoService";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -26,8 +27,8 @@ export default function HomeScreen({ navigation }: Props) {
   const [dashboard, setDashboard] = useState<DashboardSummary>(initialDashboard);
   const [atividades, setAtividades] = useState<ActivityItem[]>([]);
   const [search, setSearch] = useState("");
-  const {loadPerfil} = usePerfil();
-  
+  const { loadPerfil } = usePerfil();
+
   useEffect(() => {
     async function carregar() {
       const [dashboardData, atividadesData] = await Promise.all([
@@ -35,9 +36,12 @@ export default function HomeScreen({ navigation }: Props) {
         getAtividades(),
         loadPerfil()
       ]);
-
       setDashboard(dashboardData);
       setAtividades(atividadesData);
+      
+      const email = auth.currentUser?.email;
+      if (!email) return;
+      await enviarEmailPadroesVencendo(email);
     }
 
     carregar();
