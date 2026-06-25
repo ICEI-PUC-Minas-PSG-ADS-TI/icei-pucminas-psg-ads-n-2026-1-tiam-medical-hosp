@@ -11,7 +11,7 @@ import { MedicalColors, MedicalSpacing } from "@/constants/medical-ui";
 import { auth } from "@/config/firebase";
 import { RootStackParamList } from "@/routes/AppRoutes";
 import { getAtividades, getDashboard } from "@/services/api";
-import { ActivityItem, DashboardSummary } from "@/types/dashboard";
+import { ActivityItem, ActivityStatus, DashboardSummary } from "@/types/dashboard";
 import { usePerfil } from "@/contexts/perfilContext";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
@@ -26,8 +26,9 @@ export default function HomeScreen({ navigation }: Props) {
   const [dashboard, setDashboard] = useState<DashboardSummary>(initialDashboard);
   const [atividades, setAtividades] = useState<ActivityItem[]>([]);
   const [search, setSearch] = useState("");
-  const {loadPerfil} = usePerfil();
-  
+  const [filtroStatus, setFiltroStatus] = useState<ActivityStatus | null>(null);
+  const { loadPerfil } = usePerfil();
+
   useEffect(() => {
     async function carregar() {
       const [dashboardData, atividadesData] = await Promise.all([
@@ -43,27 +44,42 @@ export default function HomeScreen({ navigation }: Props) {
     carregar();
   }, []);
 
-  const filteredAtividades = useMemo(() => {
-    const normalizedSearch = search.trim().toLowerCase();
+  function handleFiltroStatus(status: ActivityStatus) {
+    setFiltroStatus((prev) => (prev === status ? null : status));
+  }
 
-    if (!normalizedSearch) {
-      return atividades;
+  const filteredAtividades = useMemo(() => {
+    let resultado = atividades;
+
+    if (filtroStatus) {
+      resultado = resultado.filter((a) => a.status === filtroStatus);
     }
 
-    return atividades.filter((atividade) => {
-      const searchableText = [
-        atividade.nome,
-        atividade.tag,
-        atividade.status,
-      ].join(" ").toLowerCase();
+    const normalizedSearch = search.trim().toLowerCase();
+    if (normalizedSearch) {
+      resultado = resultado.filter((atividade) => {
+        const searchableText = [
+          atividade.nome,
+          atividade.tag,
+          atividade.status,
+        ].join(" ").toLowerCase();
+        return searchableText.includes(normalizedSearch);
+      });
+    }
 
-      return searchableText.includes(normalizedSearch);
-    });
-  }, [atividades, search]);
+    return resultado;
+  }, [atividades, search, filtroStatus]);
 
   async function handleLogout() {
     await signOut(auth);
     navigation.replace("Login");
+  }
+
+  function getTituloSecao() {
+    if (filtroStatus === "concluida") return "Padrões Válidos";
+    if (filtroStatus === "breve") return "Padrões em Atenção";
+    if (filtroStatus === "vencida") return "Padrões Vencidos";
+    return "Atividades Recentes";
   }
 
   function renderActivity({ item }: { item: ActivityItem }) {
@@ -104,6 +120,8 @@ export default function HomeScreen({ navigation }: Props) {
                 numero={dashboard.validos}
                 label="Válidos"
                 icon="checkmark-circle"
+                ativo={filtroStatus === "concluida"}
+                onPress={() => handleFiltroStatus("concluida")}
               />
 
               <StatusCard
@@ -111,6 +129,8 @@ export default function HomeScreen({ navigation }: Props) {
                 numero={dashboard.atencao}
                 label="Atenção"
                 icon="warning"
+                ativo={filtroStatus === "breve"}
+                onPress={() => handleFiltroStatus("breve")}
               />
 
               <StatusCard
@@ -118,12 +138,14 @@ export default function HomeScreen({ navigation }: Props) {
                 numero={dashboard.vencidos}
                 label="Vencidos"
                 icon="close-circle"
+                ativo={filtroStatus === "vencida"}
+                onPress={() => handleFiltroStatus("vencida")}
               />
             </View>
 
             <SearchBar value={search} onChangeText={setSearch} />
 
-            <Text style={styles.section}>Atividades Recentes</Text>
+            <Text style={styles.section}>{getTituloSecao()}</Text>
           </View>
         }
         ListEmptyComponent={
