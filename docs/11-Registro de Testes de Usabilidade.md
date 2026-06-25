@@ -14,47 +14,44 @@ As referências abaixo irão auxiliá-lo na geração do artefato “Registro de
 |---|---|---|
 | Leandro Dantas | 25 anos | Estudante de engenharia mecanica |
 | Ronia Pereira | 55 anos | Recepcionista |
+| Sarah Edim | 17 anos | Estudante |
  
 ---
  
 ## Metodologia
  
-Os participantes foram convidados a navegar livremente pelo protótipo no Figma, sem instruções prévias sobre onde cada informação estava. Em seguida, receberam tarefas objetivas e foram observados enquanto tentavam completá-las apenas clicando pelas telas disponíveis. O avaliador registrou se a pessoa conseguiu chegar ao destino correto, quantos cliques foram necessários e se houve hesitação ou confusão no caminho. As funcionalidades simuladas (busca, cadastro, edição) não foram testadas por não estarem implementadas — o foco foi inteiramente na navegação e na leitura visual da interface.
+Nesta etapa, utilizamos a System Usability Scale (SUS) como metodologia de avaliação. A SUS é um questionário validado e amplamente utilizado na área de UX para mensurar a percepção subjetiva de usabilidade de um sistema. Ela consiste em um questionário de 10 perguntas com respostas em uma escala de Likert (de 1 a 5), onde as pontuações são ajustadas para gerar um valor final de 0 a 100.
+A SUS é eficaz por ser uma ferramenta rápida, confiável e capaz de fornecer uma métrica comparável sobre a facilidade de uso, a complexidade percebida e a necessidade de suporte técnico para operar o sistema.
  
 ---
- 
-## Tarefas Avaliadas
- 
-| Nº | Tarefa | Tela envolvida | Persona | Resultado | Observação |
-|---|---|---|---|---|---|
-| T01 | Identificar, na tela Início, quais padrões aparecem com alerta de vencimento | Início | Leandro e Ronia | ✅ Sucesso | Os ícones de alerta e as cores de status foram reconhecidos imediatamente |
-| T02 | Navegar até a aba Padrões pela barra inferior | Início → Padrões | Leandro e Ronia | ✅ Sucesso | Os dois clicaram diretamente no ícone correto sem hesitação |
-| T03 | Na tela Padrões, distinguir visualmente quais estão Válidos, em Atenção e Vencidos | Padrões | Leandro e Ronia | ✅ Sucesso | As cores e os badges foram suficientes para a leitura |
-| T04 | Clicar em um padrão da lista e chegar à tela de Detalhes | Padrões → Detalhes | Leandro e Ronia | ✅ Sucesso | Navegação direta sem dificuldade |
-| T05 | Voltar da tela de Detalhes para a lista de Padrões | Detalhes → Padrões | Leandro | ⚠️ Parcial | Leandro hesitou por alguns segundos antes de encontrar o botão de voltar |
-| T06 | Navegar até a aba Fornecedores e localizar um fornecedor na lista | Fornecedores | Ronia | ✅ Sucesso | Lista clara e de fácil leitura |
-| T07 | Clicar em um fornecedor e visualizar seus dados de contato | Fornecedores → Detalhes | Ronia | ✅ Sucesso | Tela de detalhes considerada objetiva |
-| T08 | Navegar até a aba Perfil e localizar os avisos e alertas de calibração | Perfil | Leandro e Ronia | ✅ Sucesso | Seção de notificações foi encontrada sem dificuldade |
-| T09 | Identificar o campo de busca na tela Início e na tela Padrões | Início / Padrões | Leandro | ✅ Sucesso | Campo de busca bem posicionado e reconhecível |
-| T10 | A partir da tela Início, clicar em um padrão listado e chegar aos seus detalhes | Início → Detalhes | Ronia | ✅ Sucesso | Fluxo de acesso rápido pela tela inicial funcionou bem |
- 
+
+## Pontuação SUS (System Usability Scale)
+
+| Participante | SUS Score |
+|---|---|
+| Leandro Dantas | 82,5 | 
+| Ronia Pereira | 90,0 |
+| Sarah Edim | 100,0 |
+| Média Final | 90,83 |
+
 ---
  
-## Relatos dos Participantes
+## Relatos e Insights
  
-### Leandro Dantas — Estudante
+- Intuitividade: A codificação por cores foi apontada como o ponto mais forte para a
+rapidez na tomada de decisão.
+- Navegação: A estrutura da barra inferior atendeu perfeitamente às expectativas dos dois
+perfis de usuário.
+- Pontos de Atenção: A necessidade de uma indicação mais clara sobre a interatividade
+dos elementos (quais botões são apenas visuais vs. funcionais) e o posicionamento do
+botão "Voltar".
  
-- "Consegui entender de cara quais padrões estavam com problema só pela cor."
-- "A barra de navegação no rodapé é intuitiva, achei tudo onde esperava."
-- "Na tela de detalhes, demorei um pouco para perceber como voltar para a lista."
-- "O campo de busca está bem visível, mesmo sem funcionar já dá para imaginar como usaria no dia a dia."
+### Relatos
  
-### Ronia Pereira — Recepcionista
- 
-- "A tela de Início já mostra o que precisa de atenção, sem precisar entrar em outra tela."
+- "As cores casam bem."
 - "Os dados do fornecedor na tela de detalhes estão bem organizados."
-- "Senti falta de uma indicação mais clara de que os botões de cadastro e edição ainda não funcionam — fiquei tentando clicar."
-- "A aba de Perfil com os alertas faz sentido, é o primeiro lugar que eu olharia para ver o que está vencendo."
+- "Os botões de voltar estão um pouco confusos."
+- "O dashboard está bem estruturado."
  
 ---
  
@@ -62,11 +59,10 @@ Os participantes foram convidados a navegar livremente pelo protótipo no Figma,
  
 | ID | Problema | Severidade | Melhoria sugerida |
 |---|---|---|---|
-| P01 | Botão de voltar da tela de Detalhes não foi encontrado rapidamente | Média | Tornar o botão de voltar mais destacado ou usar o padrão de seta no canto superior esquerdo |
-| P02 | Participante tentou interagir com botões de cadastro/edição que não funcionam no protótipo | Baixa | Adicionar indicação visual no Figma (ex: tela de "em breve") para elementos ainda não implementados |
+| P01 | Botão de voltar das telas estão confusos | Média | Tornar o botão de voltar mais intuitivo |
  
 ---
  
 ## Conclusão
- 
-De forma geral, a navegação entre as telas do protótipo mostrou-se intuitiva para os dois perfis testados. A barra de navegação inferior com as quatro abas (Início, Padrões, Fornecedores e Perfil) foi compreendida sem necessidade de instrução prévia. A codificação visual por cores para os status dos padrões (Válido, Atenção, Vencido) foi reconhecida imediatamente pelos participantes. O único ponto de melhoria relevante identificado foi a visibilidade do botão de voltar na tela de Detalhes, que deverá ser ajustada antes da implementação definitiva.
+
+Com uma pontuação média de 90,83, o sistema obteve uma classificação de usabilidade excelente. A interface demonstrou ser amigável tanto para perfis mais jovens quanto para perfis com menos familiaridade técnica. As melhorias prioritárias concentram-se no refinamento de elementos de navegação (botão voltar) e na sinalização de funcionalidades ainda em desenvolvimento.
