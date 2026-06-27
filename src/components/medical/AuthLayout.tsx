@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import {
+  DimensionValue,
   ImageSourcePropType,
   KeyboardAvoidingView,
   Platform,
@@ -15,11 +16,11 @@ import { AssetPlaceholder } from "@/components/medical/AssetPlaceholder";
 interface AuthLayoutProps {
   title: string;
   subtitle: string;
-  assetTitle?: string; // ALTERADO: agora opcional
-  assetPath?: string;  // ALTERADO: agora opcional
+  assetTitle?: string;
+  assetPath?: string;
   assetSource?: ImageSourcePropType;
   assetHeight?: number;
-  assetWidth?: number | string;
+  assetWidth?: DimensionValue;
   children: ReactNode;
 }
 
@@ -44,10 +45,9 @@ export function AuthLayout({
       >
         <View style={styles.brand}>
           <Text style={styles.brandName}>Medical Hosp</Text>
-          <Text style={styles.brandCaption}>Gestao de padroes de calibracao</Text>
+          <Text style={styles.brandCaption}>Gestão de padrões de calibração</Text>
         </View>
 
-        {/* ALTERADO: só renderiza se assetTitle e assetPath forem passados */}
         {assetTitle && assetPath && (
           <AssetPlaceholder
             title={assetTitle}

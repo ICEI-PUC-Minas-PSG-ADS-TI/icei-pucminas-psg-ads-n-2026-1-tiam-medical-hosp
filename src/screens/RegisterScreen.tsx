@@ -54,7 +54,6 @@ export default function RegisterScreen({ navigation }: Props) {
     <AuthLayout
       title="Crie sua conta"
       subtitle="Cadastre-se para acessar os recursos de controle dos padrões da Medical Hosp."
-      assetTitle="Imagem futura da tela de cadastro"
       assetPath={MedicalAssets.register}
     >
       <View style={styles.roleSelector}>
