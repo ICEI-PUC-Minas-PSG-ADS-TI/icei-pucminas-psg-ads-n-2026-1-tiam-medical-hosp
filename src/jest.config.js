@@ -7,4 +7,5 @@ module.exports = {
     "^@/(.*)$": "<rootDir>/$1",
   },
   testEnvironment: "node",
+  collectCoverageFrom: ["services/**/*.ts", "contexts/**/*.tsx"],
 };
