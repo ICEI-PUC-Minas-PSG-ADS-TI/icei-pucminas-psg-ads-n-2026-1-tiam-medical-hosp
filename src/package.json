@@ -13,6 +13,7 @@
     "test:whatch": "jest --watch"
   },
   "dependencies": {
+    "@emailjs/react-native": "^5.1.0",
     "@expo/vector-icons": "^15.0.3",
     "@react-navigation/bottom-tabs": "^7.4.0",
     "@react-navigation/elements": "^2.6.3",
