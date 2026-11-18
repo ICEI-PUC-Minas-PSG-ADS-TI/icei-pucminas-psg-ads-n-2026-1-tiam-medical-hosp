@@ -32,7 +32,7 @@ jobs:
         
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm start
+    - run: npx expo export --platform android
     - run: npm test
     - run: npm run lint
     - run: npx tsc --noEmit
