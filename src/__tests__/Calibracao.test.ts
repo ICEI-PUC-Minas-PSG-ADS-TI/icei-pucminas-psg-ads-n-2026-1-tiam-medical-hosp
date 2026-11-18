@@ -60,8 +60,14 @@ const mockCalibracao: CalibracaoDTO = {
 
 describe("createCalibracao", () => {
     test("Deve criar uma calibração com sucesso", async () => {
+        (addDoc as jest.Mock).mockResolvedValue({ id: "calibracao-nova" });
+
         const result = await createCalibracao(mockCalibracao);
+
         expect(addDoc).toHaveBeenCalled();
+        expect(updateDoc).toHaveBeenCalledWith(undefined, {
+            ultimaCalibracaoId: "calibracao-nova",
+        });
         expect(result).toEqual(mockCalibracao);
     });
 });
