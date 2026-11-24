@@ -1,4 +1,4 @@
-import { Image, ImageSourcePropType, StyleSheet, Text, View, ViewStyle } from "react-native";
+import { DimensionValue, Image, ImageSourcePropType, StyleSheet, Text, View } from "react-native";
 
 import { MedicalColors, MedicalSpacing } from "@/constants/medical-ui";
 
@@ -7,7 +7,7 @@ interface AssetPlaceholderProps {
   assetPath: string;
   assetSource?: ImageSourcePropType;
   height?: number;
-  width?: ViewStyle["width"];
+  width?: DimensionValue;
   compact?: boolean;
 }
 
@@ -16,7 +16,7 @@ export function AssetPlaceholder({
   assetPath,
   assetSource,
   height = 148,
-  width = "100%",
+  width = "100%" as DimensionValue,
   compact = false,
 }: AssetPlaceholderProps) {
   const resolvedHeight = compact ? Math.min(height, 96) : height;
@@ -25,8 +25,8 @@ export function AssetPlaceholder({
     <View
       style={[
         styles.container,
-        compact ? styles.compact : undefined,
-        assetSource ? styles.imageContainer : undefined,
+        compact && styles.compact,
+        assetSource && styles.imageContainer,
         { minHeight: resolvedHeight, width },
       ]}
     >

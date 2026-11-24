@@ -19,9 +19,9 @@ export async function getPerfil(): Promise<Perfil | null> {
             uid: user.uid,
             nome: user.displayName ?? "",
             email: user.email ?? "",
-            empresa: "",
             cargo: "",
             telefone: "",
+            isGestor: false,
             photoURL: user.photoURL ?? undefined,
         };
     }
