@@ -26,7 +26,7 @@ export function AssetPlaceholder({
       style={[
         styles.container,
         compact && styles.compact,
-        assetSource && styles.imageContainer,
+        assetSource ? styles.imageContainer : undefined,
         { minHeight: resolvedHeight, width },
       ]}
     >
